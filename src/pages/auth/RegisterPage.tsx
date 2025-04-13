@@ -158,7 +158,7 @@ const RegisterPage = () => {
     {/* Phone */}  
       <Text mb={-10}>Phone Number</Text>
     <PhoneInput
-      country={'us'}
+      country={'jo'}
       value={form.values.phone}
       onChange={(phone) => form.setFieldValue('phone', phone)}
       inputStyle={{
@@ -176,6 +176,8 @@ const RegisterPage = () => {
         backgroundColor: '#fff',
       }}
       inputProps={{ name: 'phone', required: true }}
+      excludeCountries={['il']}
+      
     />
 
     {/* Password */}

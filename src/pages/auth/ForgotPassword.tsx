@@ -19,7 +19,7 @@ import whiteLogo from '../../assets/libroflow_white_with_text.png';
 import blackLogo from '../../assets/libroflow_black_without_text.png'; 
 import { motion } from "framer-motion";
 import { getPageVariants, pageTransition } from '../../animations/authPageTransitions';
-
+import { poppyVariant } from '../../animations/snappySlide';
 
 
 import 'react-phone-input-2/lib/style.css';
@@ -74,18 +74,19 @@ const ForgotPassword = () => {
     navigate('/login'); // Redirect to login after password reset
   };
 
-  const variants = getPageVariants("left");
+const variants = getPageVariants("left");
   return (
-    <motion.div
+    
+            <motion.div
       initial="initial"
       animate="animate"
       exit="exit"
-      variants={variants}
+      variants={poppyVariant}
       transition={pageTransition}
-
     >
     <Flex direction={{ base: 'column', md: 'row' }} style={{ height: '100vh', width: '100vw' }}>
       {/* Left Side - Dark */}
+      
       <Box
         w={{ base: '100%', md: '60%' }}
         h="100%"
@@ -96,11 +97,15 @@ const ForgotPassword = () => {
           borderBottomRightRadius: '3rem',
         }}
       >
+        
         <Flex direction="column" align="center" justify="center" style={{ height: '98%', padding: '1rem' }}>
           <Image src={whiteLogo} alt="LibroFlow Logo" w="500px" />
 
           <Text size="46px" mb="50px" ta="center">
             "Streamline Your Bookstore <br /> & Library Operations with Ease."
+          </Text>
+          <Text size="lg" mb="sm" ta="center">
+            Remember your password?
           </Text>
 
           <Button
@@ -114,7 +119,9 @@ const ForgotPassword = () => {
             Log In
           </Button>
         </Flex>
+        
       </Box>
+
 
       {/* Right Side - White */}
       <Box
@@ -135,7 +142,13 @@ const ForgotPassword = () => {
           <Center>
             <Image src={blackLogo} alt="LibroFlow Logo" w={170} mb={10} mt={-20} />
           </Center>
-
+                  <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={poppyVariant}
+      transition={pageTransition}
+    >
           {step === 1 && (
             <form onSubmit={formEmail.onSubmit(handleEmailSubmit)}>
               <Flex direction="column" align="center" mt="md">
@@ -236,7 +249,8 @@ const ForgotPassword = () => {
   >
     ← Back
   </Button>
-)}
+  
+)}</motion.div>
 
         </Box>
       </Box>
