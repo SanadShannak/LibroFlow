@@ -4,6 +4,8 @@ import theme from '../../utils/theme';
 import blackLogo from '../../assets/libroflow_black_without_text.png'; 
 import whiteLogo from '../../assets/libroflow_white_with_text.png'; 
 import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { getPageVariants, pageTransition } from '../../animations/authPageTransitions';
 
 
 
@@ -18,7 +20,16 @@ const LoginPage = () => {
     console.log('Login submitted:', { email, password });
   };
 
+  const variants = getPageVariants("right");
   return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={variants}
+      transition={pageTransition}
+
+    >
     <Flex
       direction={{ base: 'column', md: 'row' }}
       style={{
@@ -152,6 +163,7 @@ const LoginPage = () => {
 </Box>
 
     </Flex>
+    </motion.div>
   );
 };
 

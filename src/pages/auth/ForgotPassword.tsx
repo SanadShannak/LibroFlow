@@ -17,6 +17,10 @@ import { useNavigate } from 'react-router-dom';
 import theme from '../../utils/theme';
 import whiteLogo from '../../assets/libroflow_white_with_text.png';
 import blackLogo from '../../assets/libroflow_black_without_text.png'; 
+import { motion } from "framer-motion";
+import { getPageVariants, pageTransition } from '../../animations/authPageTransitions';
+
+
 
 import 'react-phone-input-2/lib/style.css';
 import { useState as useReactState } from 'react';
@@ -70,7 +74,16 @@ const ForgotPassword = () => {
     navigate('/login'); // Redirect to login after password reset
   };
 
+  const variants = getPageVariants("left");
   return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={variants}
+      transition={pageTransition}
+
+    >
     <Flex direction={{ base: 'column', md: 'row' }} style={{ height: '100vh', width: '100vw' }}>
       {/* Left Side - Dark */}
       <Box
@@ -228,6 +241,7 @@ const ForgotPassword = () => {
         </Box>
       </Box>
     </Flex>
+    </motion.div>
   );
 };
 

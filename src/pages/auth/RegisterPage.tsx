@@ -18,6 +18,12 @@ import theme from '../../utils/theme';
 import whiteLogo from '../../assets/libroflow_white_with_text.png';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import { motion } from "framer-motion";
+import { getPageVariants, pageTransition } from '../../animations/authPageTransitions';
+
+
+
+
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -44,8 +50,16 @@ const RegisterPage = () => {
   const handleSubmit = (values: typeof form.values) => {
     console.log('Register submitted:', values);
   };
-
+  const variants = getPageVariants("left");
   return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={variants}
+      transition={pageTransition}
+
+    >
     <Flex direction={{ base: 'column', md: 'row' }} style={{ height: '100vh', width: '100vw' }}>
       {/* Left Side - Dark */}
       <Box
@@ -205,6 +219,7 @@ const RegisterPage = () => {
         </Flex>
       </Box>
     </Flex>
+    </motion.div>
   );
 };
 
