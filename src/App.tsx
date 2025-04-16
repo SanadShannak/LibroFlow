@@ -4,7 +4,6 @@ import RegisterPage from './pages/auth/RegisterPage';
 import ForgotPassword from './pages/auth/ForgotPassword';
 
 
-
 function App() {
   return (
     <Routes>
@@ -12,6 +11,9 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      
+
+      
       {/* Fallback Route */}
       <Route path="*" element={<LoginPage />} />
     </Routes>

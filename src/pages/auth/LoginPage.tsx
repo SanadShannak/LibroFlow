@@ -104,16 +104,16 @@ const LoginPage = () => {
           </Flex>
 
           <Button
-            type="submit"
-            fullWidth
-            color={theme.colors.darkBlueLighter}
-            radius="md"
-            size="md"
-            style={{ marginTop: '0.5rem' }}
-            onClick={() => navigate('/admin/dashboard')}
-          >
-            Login
-          </Button>
+  type="submit"
+  fullWidth
+  color={theme.colors.darkBlueLighter}
+  radius="md"
+  size="md"
+  style={{ marginTop: '0.5rem' }}
+  onClick={() => navigate('/admin/dashboard')}
+>
+  Login
+</Button>
         </Stack>
       </form>
     </Box>
