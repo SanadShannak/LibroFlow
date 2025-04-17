@@ -59,13 +59,13 @@ export function LinksGroup({
       >
         <Group justify="space-between" gap={0} style={{ width: '100%' }}>
           <Box style={{ display: 'flex', alignItems: 'center' }}>
-            <Icon size={18} style={{ color: isActive ? theme.colors.darkBlue : theme.colors.white }} />
+            <Icon size={22} style={{ color: isActive ? theme.colors.darkBlue : theme.colors.white }} />
             <Box
               ml="md"
               style={{
                 fontWeight: 500,
                 color: isActive ? theme.colors.darkBlue : theme.colors.white,
-                fontSize: isActive ? '16px' : '15px',
+                fontSize: isActive ? '17px' : '16px',
                 transition: 'font-size 150ms ease',
               }}
             >
@@ -76,7 +76,7 @@ export function LinksGroup({
             <IconChevronRight
               className={classes.chevron}
               stroke={1.5}
-              size={16}
+              size={18}
               style={{
                 transform: opened ? 'rotate(-90deg)' : 'none',
                 color: isActive ? theme.colors.darkBlue : theme.colors.white,

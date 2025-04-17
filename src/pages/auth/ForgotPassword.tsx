@@ -119,7 +119,15 @@ return (
       <Box
         w={{ base: '100%', md: '50%' }}
         h="100%"
-        className={classes.whiteBox}
+        style={{
+          backgroundColor: '#FFFFFF',
+          padding: '2rem',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
         {step > 1 && (
           <Button
@@ -128,7 +136,15 @@ return (
             color="black"
             radius="md"
             size="sm"
-            className={classes.backButton}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              left: '20px',
+              backgroundColor: 'white',
+              borderColor: '#ccc',
+              zIndex: 10,
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+            }}
           >
             ← Back
           </Button>

@@ -139,24 +139,24 @@ const normalizeKey = (str: string) =>
 
       <AppShell.Header>
         <Group justify="space-between" style={{ height: '100%', width: '100%' }}>
-          <Group style={{ gap: rem(8) }}>
-            <Avatar radius="xl" color="gray" />
+          <Group style={{ gap: rem(10) }}>
+            <Avatar radius="xl" color="gray" size="md" />
             <Stack style={{ gap: 0 }}>
-              <Text size="sm" fw={500} c={theme.colors.white}>
+              <Text size="md" fw={500} c={theme.colors.white}>
                 {user.name}
               </Text>
-              <Text size="xs" c="gray.4">
+              <Text size="sm" c="gray.4">
                 {user.role}
               </Text>
             </Stack>
           </Group>
 
-          <Group style={{ gap: rem(8) }}>
+          <Group style={{ gap: rem(15) }}>
             <Stack style={{ gap: 0 }} align="end">
-              <Text size="sm" c={theme.colors.white}>
+              <Text size="md" fw={500} c={theme.colors.white}>
                 {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </Text>
-              <Text size="xs" c="gray.4">
+              <Text size="sm" c="gray.4">
                 {time.toLocaleDateString(undefined, {
                   year: 'numeric',
                   month: 'short',
@@ -164,13 +164,20 @@ const normalizeKey = (str: string) =>
                 })}
               </Text>
             </Stack>
-            <IconSettings size={20} color={theme.colors.white} style={{ cursor: 'pointer' }} />
+            <Box 
+              style={{ 
+                width: '1px', 
+                height: '30px', 
+                backgroundColor: 'rgba(255,255,255,0.3)'
+              }} 
+            />
+            <IconSettings size={24} stroke={1.5} color={theme.colors.white} style={{ cursor: 'pointer' }} />
           </Group>
         </Group>
       </AppShell.Header>
 
       <AppShell.Main>
-        <Box p="md">{renderContent()}</Box>
+        <Box p="md" style={{ paddingTop: '1.5rem' }}>{renderContent()}</Box>
       </AppShell.Main>
     </AppShell>
   );

@@ -102,8 +102,31 @@ button:focus-visible {
     font-size: 2.2em;
   }
 
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
   button {
     padding: 0.4em 0.9em;
     font-size: 0.85em;
+  }
+  
+  .mantine-TextInput-root,
+  .mantine-PasswordInput-root,
+  .mantine-Textarea-root {
+    margin-bottom: 12px;
+  }
+  
+  .mantine-Text-root {
+    line-height: 1.4;
+  }
+  
+  /* Fix for overflowing content */
+  * {
+    max-width: 100%;
   }
 }

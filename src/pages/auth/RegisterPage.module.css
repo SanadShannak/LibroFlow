@@ -2,6 +2,7 @@
 .container {
   height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
 }
 
 .darkBlueBox {
@@ -48,4 +49,31 @@
 .phoneInputButton {
   border-right: 1px solid #ced4da;
   background-color: #fff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .darkBlueBox {
+    border-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
+  .whiteBoxContent, 
+  .darkBlueBoxContent {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .whiteBoxContent, 
+  .darkBlueBoxContent {
+    padding: 1rem 0.75rem;
+  }
+  
+  .phoneInput {
+    font-size: 13px;
+  }
 }
