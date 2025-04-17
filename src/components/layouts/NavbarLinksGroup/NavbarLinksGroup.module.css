@@ -1,0 +1,93 @@
+.control {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 var(--mantine-spacing-md);
+  padding-left: 20px;
+  font-size: 16px;
+  background-color: var(--theme-darkBlue);
+  border-radius: 0;
+  transition: all 150ms ease;
+  margin-bottom: 5px;
+  height: 55px;
+
+  &:hover {
+    background-color: var(--theme-transparentWhite);
+    color: var(--theme-white);
+  }
+}
+
+.controlGroup {
+  margin-bottom: 22px;
+}
+
+.active {
+  background-color: var(--theme-lightGrey);
+  color: var(--theme-darkBlueLighter);
+  font-weight: bold;
+  border-radius: 0;
+  font-size: 18px;
+  transition: all 150ms ease;
+
+  &:hover {
+    background-color: var(--theme-lightGrey);
+    color: var(--theme-darkBlueLighter);
+  }
+}
+
+.link {
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 var(--mantine-spacing-md);
+  padding-left: 40px;
+  margin: 0;
+  font-size: 15px;
+  color: var(
+    --theme-white
+  ); /* changed from #eaeaea to solid white since it’s not in theme */
+  transition: all 150ms ease;
+  border-radius: 0;
+  background-color: var(--theme-darkBlueLighter);
+  height: 40px;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 6px;
+    height: 28px;
+    width: 2px;
+    background-color: var(--theme-transparentWhiteDarker);
+  }
+
+  &:hover {
+    background-color: var(--theme-transparentWhite);
+    color: var(--theme-white);
+  }
+}
+
+.activeBranch {
+  background-color: var(--theme-lightBlue);
+  color: var(--theme-darkBlue);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--theme-lightBlue) !important;
+    color: var(--theme-darkBlue) !important;
+  }
+
+  &::before {
+    background-color: var(--theme-darkBlue) !important;
+    width: 2px;
+  }
+}
+
+.chevron {
+  transition: transform 200ms ease;
+  color: var(--theme-white);
+}
