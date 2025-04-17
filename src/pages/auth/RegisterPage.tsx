@@ -41,6 +41,7 @@ const RegisterPage = () => {
 
     validate: {
       email: (value: string) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      phone: (value: string) => (!value || value.length < 5 ? 'Phone number is required' : null),
       password: (value: string ) => (value.length < 6 ? 'Password must be at least 6 characters' : null),
       confirmPassword: (value: string, values: { password: any; }) =>
         value !== values.password ? 'Passwords do not match' : null,
@@ -49,6 +50,7 @@ const RegisterPage = () => {
 
   const handleSubmit = (values: typeof form.values) => {
     console.log('Register submitted:', values);
+    navigate('/login');
   };
   const variants = getPageVariants("left");
   return (
@@ -84,7 +86,6 @@ const RegisterPage = () => {
             radius="md"
             size="md"
             className={classes.logInButton}
-            onClick={() => navigate('/login')}
           >
             Log In
           </Button>
@@ -108,7 +109,7 @@ const RegisterPage = () => {
               </Text>
             </Flex>
 
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+            <form onSubmit={form.onSubmit(handleSubmit)}>
   <Stack>
     {/* Email */}
 
@@ -160,8 +161,12 @@ const RegisterPage = () => {
       containerClass={classes.phoneInputButton}
       inputProps={{ name: 'phone', required: true }}
       excludeCountries={['il']}
-      
     />
+    {form.errors.phone && (
+      <Text c="red" size="xs" mt={5}>
+        {form.errors.phone}
+      </Text>
+    )}
 
     {/* Password */}
     <Group  align="center" mb={-10}>
