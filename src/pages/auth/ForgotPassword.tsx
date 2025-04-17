@@ -20,7 +20,7 @@ import blackLogo from '../../assets/libroflow_black_without_text.png';
 import { motion } from "framer-motion";
 import { getPageVariants, pageTransition } from '../../animations/authPageTransitions';
 import { poppyVariant } from '../../animations/snappySlide';
-
+import classes from './ForgotPassword.module.css';
 
 import 'react-phone-input-2/lib/style.css';
 import { useState as useReactState } from 'react';
@@ -81,21 +81,16 @@ return (
       exit="exit"
       variants={poppyVariant}
     >
-    <Flex direction={{ base: 'column', md: 'row' }} style={{ height: '100vh', width: '100vw' }}>
+    <Flex direction={{ base: 'column', md: 'row' }} className={classes.container}>
       {/* Left Side - Dark */}
       
       <Box
         w={{ base: '100%', md: '60%' }}
         h="100%"
-        style={{
-          backgroundColor: theme.colors.darkBlueLighter,
-          color: 'white',
-          borderTopRightRadius: '3rem',
-          borderBottomRightRadius: '3rem',
-        }}
+        className={classes.darkBlueBox}
       >
         
-        <Flex direction="column" align="center" justify="center" style={{ height: '98%', padding: '1rem' }}>
+        <Flex direction="column" align="center" justify="center" className={classes.darkBlueBoxContent}>
           <Image src={whiteLogo} alt="LibroFlow Logo" w="500px" />
 
           <Text size="46px" mb="50px" ta="center">
@@ -110,7 +105,7 @@ return (
             color={theme.colors.blueishGrey}
             radius="md"
             size="md"
-            style={{ marginTop: '0.5rem' }}
+            className={classes.logInButton}
             onClick={() => navigate('/login')}
           >
             Log In
@@ -124,16 +119,20 @@ return (
       <Box
         w={{ base: '100%', md: '50%' }}
         h="100%"
-        style={{
-          backgroundColor: theme.colors.white,
-          padding: '2rem',
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        className={classes.whiteBox}
       >
+        {step > 1 && (
+          <Button
+            onClick={() => setStep(step - 1)}
+            variant="outline"
+            color="black"
+            radius="md"
+            size="sm"
+            className={classes.backButton}
+          >
+            ← Back
+          </Button>
+        )}
         <Box w="100%" maw={400}>
           {/* Logo Above Title */}
           <Center>
@@ -156,7 +155,7 @@ return (
                   placeholder="you@example.com"
                   {...formEmail.getInputProps('email')}
                   required
-                  style={{ marginBottom: '16px' }}
+                  className={classes.formInput}
                 />
                 <Button type="submit" fullWidth color={theme.colors.darkBlueLighter} radius="md" size="md">
                   Submit
@@ -181,7 +180,7 @@ return (
                   placeholder="Enter OTP"
                   {...formOTP.getInputProps('otp')}
                   required
-                  style={{ marginBottom: '16px' }}
+                  className={classes.formInput}
                 />
                 <Button type="submit" fullWidth color={theme.colors.darkBlueLighter} radius="md" size="md">
                   Verify OTP
@@ -206,14 +205,14 @@ return (
                   placeholder="Your new password"
                   {...formPassword.getInputProps('password')}
                   required
-                  style={{ marginBottom: '16px' }}
+                  className={classes.formInput}
                 />
                 <Text size="sm" mb={4} fw={500}>Confirm Password</Text>
                 <PasswordInput
                   placeholder="Confirm your new password"
                   {...formPassword.getInputProps('confirmPassword')}
                   required
-                  style={{ marginBottom: '16px' }}
+                  className={classes.formInput}
                 />
                 <Button type="submit" fullWidth color={theme.colors.darkBlueLighter} radius="md" size="md">
                   Submit New Password
@@ -222,26 +221,7 @@ return (
             </form>
           )}
 
-          {step > 1 && (
-  <Button
-    onClick={() => setStep(step - 1)}
-    variant="outline"
-    color="black"
-    radius="md"
-    size="sm"
-    style={{
-      position: 'absolute',
-      top: '20px',
-      left: '20px',
-      backgroundColor: 'white',
-      borderColor: 'black',
-      zIndex: 10,
-    }}
-  >
-    ← Back
-  </Button>
-  
-)}</Box>
+</Box>
 
         </Box>
       </Box>

@@ -1,0 +1,65 @@
+/* LoginPage styles */
+.container {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.whiteBox {
+  background-color: white;
+}
+
+.whiteBoxContent {
+  height: 100%;
+  padding: 2rem;
+}
+
+.darkBlueBox {
+  background-color: #37474F; /* theme.colors.darkBlueLighter */
+  color: white;
+  border-top-left-radius: 3rem;
+  border-bottom-left-radius: 3rem;
+}
+
+.darkBlueBoxContent {
+  height: 98%;
+  padding: 1rem;
+}
+
+.forgotPasswordButton {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #263238; /* theme.colors.darkBlue */
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.loginButton {
+  margin-top: 0.5rem;
+}
+
+.signUpButton {
+  margin-top: 0.5rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .darkBlueBox {
+    border-radius: 0;
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+
+  .whiteBoxContent, 
+  .darkBlueBoxContent {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .whiteBoxContent, 
+  .darkBlueBoxContent {
+    padding: 1rem 0.75rem;
+  }
+}

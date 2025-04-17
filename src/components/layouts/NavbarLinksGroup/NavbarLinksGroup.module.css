@@ -4,21 +4,31 @@
   cursor: pointer;
   padding: 0 var(--mantine-spacing-md);
   padding-left: 20px;
-  font-size: 16px;
+  font-size: 15px;
   background-color: var(--theme-darkBlue);
   border-radius: 0;
   transition: all 150ms ease;
   margin-bottom: 5px;
-  height: 55px;
+  height: 50px;
 
   &:hover {
     background-color: var(--theme-transparentWhite);
     color: var(--theme-white);
   }
+
+  @media (max-width: 768px) {
+    height: 45px;
+    padding-left: 15px;
+    font-size: 14px;
+  }
 }
 
 .controlGroup {
-  margin-bottom: 22px;
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
 }
 
 .active {
@@ -26,12 +36,16 @@
   color: var(--theme-darkBlueLighter);
   font-weight: bold;
   border-radius: 0;
-  font-size: 18px;
+  font-size: 16px;
   transition: all 150ms ease;
 
   &:hover {
     background-color: var(--theme-lightGrey);
     color: var(--theme-darkBlueLighter);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 15px;
   }
 }
 
@@ -44,9 +58,7 @@
   padding-left: 40px;
   margin: 0;
   font-size: 15px;
-  color: var(
-    --theme-white
-  ); /* changed from #eaeaea to solid white since it’s not in theme */
+  color: var(--theme-white);
   transition: all 150ms ease;
   border-radius: 0;
   background-color: var(--theme-darkBlueLighter);
@@ -68,6 +80,17 @@
   &:hover {
     background-color: var(--theme-transparentWhite);
     color: var(--theme-white);
+  }
+
+  @media (max-width: 768px) {
+    height: 35px;
+    font-size: 14px;
+    padding-left: 35px;
+
+    &::before {
+      left: 15px;
+      height: 25px;
+    }
   }
 }
 

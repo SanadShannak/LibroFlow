@@ -20,7 +20,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { motion } from "framer-motion";
 import { getPageVariants, pageTransition } from '../../animations/authPageTransitions';
-
+import classes from './RegisterPage.module.css';
 
 
 
@@ -60,19 +60,14 @@ const RegisterPage = () => {
       transition={pageTransition}
       style={{ backgroundColor: '#ffffff' }}
     >
-    <Flex direction={{ base: 'column', md: 'row' }} style={{ height: '100vh', width: '100vw' }}>
+    <Flex direction={{ base: 'column', md: 'row' }} className={classes.container}>
       {/* Left Side - Dark */}
       <Box
         w={{ base: '100%', md: '60%' }}
         h="100%"
-        style={{
-          backgroundColor: theme.colors.darkBlueLighter,
-          color: 'white',
-          borderTopRightRadius: '3rem',
-          borderBottomRightRadius: '3rem',
-        }}
+        className={classes.darkBlueBox}
       >
-        <Flex direction="column" align="center" justify="center" style={{ height: '98%', padding: '1rem' }}>
+        <Flex direction="column" align="center" justify="center" className={classes.darkBlueBoxContent}>
           <Image src={whiteLogo} alt="LibroFlow Logo" w="500px" />
 
           <Text size="46px" mb="50px" ta="center">
@@ -88,7 +83,7 @@ const RegisterPage = () => {
             color={theme.colors.blueishGrey}
             radius="md"
             size="md"
-            style={{ marginTop: '0.5rem' }}
+            className={classes.logInButton}
             onClick={() => navigate('/login')}
           >
             Log In
@@ -100,9 +95,9 @@ const RegisterPage = () => {
       <Box
         w={{ base: '100%', md: '50%' }}
         h="100%"
-        style={{ backgroundColor: '#ffffff' }}
+        className={classes.whiteBox}
       >
-        <Flex direction="column" align="center" justify="center" style={{ height: '100%', padding: '2rem' }}>
+        <Flex direction="column" align="center" justify="center" className={classes.whiteBoxContent}>
           <Box w="100%" maw={400}>
             <Flex direction="column" align="center">
               <Title order={1} mb="md" c={theme.colors.darkBlue}>
@@ -161,20 +156,8 @@ const RegisterPage = () => {
       country={'jo'}
       value={form.values.phone}
       onChange={(phone) => form.setFieldValue('phone', phone)}
-      inputStyle={{
-        width: '100%',
-        height: '40px',
-        border: '1px solid #ced4da',
-        borderRadius: '8px',
-        fontSize: '14px',
-        paddingLeft: '48px',
-        color: '#000',
-        backgroundColor: '#fff',
-      }}
-      buttonStyle={{
-        borderRight: '1px solid #ced4da',
-        backgroundColor: '#fff',
-      }}
+      inputStyle={{ width: '100%', borderColor: '#ccc', borderRadius: '4px' }}
+      containerClass={classes.phoneInputButton}
       inputProps={{ name: 'phone', required: true }}
       excludeCountries={['il']}
       
@@ -209,6 +192,7 @@ const RegisterPage = () => {
         color={theme.colors.darkBlueLighter}
         radius="md"
         size="md"
+        className={classes.signUpButton}
       >
         Sign Up
       </Button>

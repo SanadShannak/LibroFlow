@@ -1,0 +1,51 @@
+/* RegisterPage styles */
+.container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.darkBlueBox {
+  background-color: #37474F; /* theme.colors.darkBlueLighter */
+  color: white;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+}
+
+.darkBlueBoxContent {
+  height: 98%;
+  padding: 1rem;
+}
+
+.whiteBox {
+  background-color: #ffffff;
+}
+
+.whiteBoxContent {
+  height: 100%;
+  padding: 2rem;
+}
+
+.logInButton {
+  margin-top: 0.5rem;
+}
+
+.signUpButton {
+  margin-top: 0.5rem;
+}
+
+/* Phone input styles */
+.phoneInput {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 14px;
+  padding-left: 48px;
+  color: #000;
+  background-color: #fff;
+}
+
+.phoneInputButton {
+  border-right: 1px solid #ced4da;
+  background-color: #fff;
+}

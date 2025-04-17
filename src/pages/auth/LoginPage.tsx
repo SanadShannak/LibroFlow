@@ -6,6 +6,7 @@ import whiteLogo from '../../assets/libroflow_white_with_text.png';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { getPageVariants, pageTransition } from '../../animations/authPageTransitions';
+import classes from './LoginPage.module.css';
 
 
 
@@ -32,27 +33,19 @@ const LoginPage = () => {
     >
     <Flex
       direction={{ base: 'column', md: 'row' }}
-      style={{
-        height: '100vh',
-        width: '100vw',
-      }}
+      className={classes.container}
     >
       {/* Left Side - White */}
       <Box
   w={{ base: '100%', md: '50%'  }}
   h="100%"
-  style={{
-    backgroundColor: 'white',
-  }}
+  className={classes.whiteBox}
 >
   <Flex
     direction="column"
     align="center"
     justify="center"
-    style={{
-      height: '100%',
-      padding: '2rem',
-    }}
+    className={classes.whiteBoxContent}
   >
     <Box w="100%" maw={400}>
       <Center h="20vh">
@@ -89,14 +82,7 @@ const LoginPage = () => {
             <Text
               component="button"
               type="button"
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                color: theme.colors.darkBlue,
-                cursor: 'pointer',
-                fontSize: '0.875rem',
-              }}
+              className={classes.forgotPasswordButton}
               onClick={() => navigate('/forgot-password')}
             >
               Forgot password?
@@ -109,7 +95,7 @@ const LoginPage = () => {
   color={theme.colors.darkBlueLighter}
   radius="md"
   size="md"
-  style={{ marginTop: '0.5rem' }}
+  className={classes.loginButton}
   onClick={() => navigate('/admin/dashboard')}
 >
   Login
@@ -125,18 +111,13 @@ const LoginPage = () => {
       <Box
   w={{ base: '100%', md: '50%' }}
   h="100%"
-  style={{
-    backgroundColor: theme.colors.darkBlueLighter,
-    color: theme.colors.white,
-    borderTopLeftRadius: '3rem',
-    borderBottomLeftRadius: '3rem',
-  }}
+  className={classes.darkBlueBox}
 >
   <Flex
     direction="column"
     align="center"
     justify="center"
-    style={{ height: '98%', padding: '1rem' }}
+    className={classes.darkBlueBoxContent}
     
   >
     <Image src={whiteLogo} alt="LibroFlow Logo" w="500px"  />
@@ -154,7 +135,7 @@ const LoginPage = () => {
       color={theme.colors.blueishGrey}
       radius="md"
       size="md"
-      style={{ marginTop: '0.5rem' }}
+      className={classes.signUpButton}
       onClick={() => navigate('/register')}
     >
       Sign Up
