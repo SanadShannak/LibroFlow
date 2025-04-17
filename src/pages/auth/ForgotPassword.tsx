@@ -74,15 +74,12 @@ const ForgotPassword = () => {
     navigate('/login'); // Redirect to login after password reset
   };
 
-const variants = getPageVariants("left");
-  return (
-    
-            <motion.div
+return (
+    <motion.div
       initial="initial"
       animate="animate"
       exit="exit"
       variants={poppyVariant}
-      transition={pageTransition}
     >
     <Flex direction={{ base: 'column', md: 'row' }} style={{ height: '100vh', width: '100vw' }}>
       {/* Left Side - Dark */}
@@ -142,13 +139,7 @@ const variants = getPageVariants("left");
           <Center>
             <Image src={blackLogo} alt="LibroFlow Logo" w={170} mb={10} mt={-20} />
           </Center>
-                  <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={poppyVariant}
-      transition={pageTransition}
-    >
+          <Box>
           {step === 1 && (
             <form onSubmit={formEmail.onSubmit(handleEmailSubmit)}>
               <Flex direction="column" align="center" mt="md">
@@ -250,7 +241,7 @@ const variants = getPageVariants("left");
     ← Back
   </Button>
   
-)}</motion.div>
+)}</Box>
 
         </Box>
       </Box>

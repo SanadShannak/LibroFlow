@@ -58,7 +58,7 @@ const RegisterPage = () => {
       exit="exit"
       variants={variants}
       transition={pageTransition}
-
+      style={{ backgroundColor: '#ffffff' }}
     >
     <Flex direction={{ base: 'column', md: 'row' }} style={{ height: '100vh', width: '100vw' }}>
       {/* Left Side - Dark */}
@@ -99,8 +99,8 @@ const RegisterPage = () => {
       {/* Right Side - White */}
       <Box
         w={{ base: '100%', md: '50%' }}
-        h="90%"
-        style={{ backgroundColor: theme.colors.white }}
+        h="100%"
+        style={{ backgroundColor: '#ffffff' }}
       >
         <Flex direction="column" align="center" justify="center" style={{ height: '100%', padding: '2rem' }}>
           <Box w="100%" maw={400}>

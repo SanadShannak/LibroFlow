@@ -1,0 +1,69 @@
+:root {
+  --darkBlue: #263238;
+  --darkBlueLighter: #37474f;
+  --blueishGrey: #667887;
+  --white: #ffffff;
+  --lightBlue: #29b6f6;
+  --lightBlueDarker: #0288d1;
+  --lightGrey: #f5f5f5;
+  --hoverBlue: #364850;
+  --transparentWhite: rgba(255, 255, 255, 0.1);
+  --transparentWhiteDarker: rgba(255, 255, 255, 0.2);
+}
+
+.navbar {
+  background-color: #37474f;
+  height: 100vh;
+
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: var(--mantine-spacing-md);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #ffffff;
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.footer {
+  margin-top: auto;
+  margin-bottom: 5rem;
+  border-top: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  font-size: 16px;
+  background-color: #263238;
+  border-radius: 0;
+  transition: all 150ms ease;
+
+  height: 50px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+}
+.logoutButton {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0 var(--mantine-spacing-md);
+  cursor: pointer;
+  transition: all 150ms ease;
+  background-color: inherit;
+  color: var(--white);
+}
+
+.logoutButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}

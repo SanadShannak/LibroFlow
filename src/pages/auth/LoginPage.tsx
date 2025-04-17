@@ -28,7 +28,7 @@ const LoginPage = () => {
       exit="exit"
       variants={variants}
       transition={pageTransition}
-
+      style={{ backgroundColor: '#ffffff' }}
     >
     <Flex
       direction={{ base: 'column', md: 'row' }}
@@ -42,7 +42,7 @@ const LoginPage = () => {
   w={{ base: '100%', md: '50%'  }}
   h="100%"
   style={{
-    backgroundColor: 'theme.colors.white',
+    backgroundColor: 'white',
   }}
 >
   <Flex
@@ -123,7 +123,7 @@ const LoginPage = () => {
 
       {/* Right Side - Dark */}
       <Box
-  w={{ base: '100%', md: '60%' }}
+  w={{ base: '100%', md: '50%' }}
   h="100%"
   style={{
     backgroundColor: theme.colors.darkBlueLighter,

@@ -18,5 +18,5 @@ export const getPageVariants = (direction: Direction): Variants => {
 export const pageTransition: Transition = {
   type: "tween",
   duration: 0.4,
-  ease: "easeOut",
+  ease: [0.25, 0.1, 0.25, 1], // Custom cubic-bezier for smoother motion
 };
