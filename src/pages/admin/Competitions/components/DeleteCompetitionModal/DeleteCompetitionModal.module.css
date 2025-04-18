@@ -1,0 +1,30 @@
+.modal {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+}
+
+.modalBox {
+  padding: 24px;
+}
+
+.closeButton {
+  padding: 8px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: #e0e0e0;
+}
+
+.modalButton {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+}
+
+.modalButton:first-child {
+  border-color: #ccc;
+  color: #666;
+}
