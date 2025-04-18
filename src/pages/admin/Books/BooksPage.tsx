@@ -1,208 +1,147 @@
 import { useState } from 'react';
-import { MantineProvider, Container, Box, ScrollArea } from '@mantine/core';
+import { MantineProvider, Container, Box, ScrollArea, Text, Title, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './BooksPage.module.css';
-import { initialCompetitions, mockUserBooks } from './booksData';
-import CompetitionActions from '../Competitions/components/CompetitionActions/CompetitionActions';
-import CompetitionTable from '../Competitions/components/CompetitionTable/CompetitionTable';
-import AddCompetitionModal from '../Competitions/components/AddCompetitionModal/AddCompetitionModal';
-import UpdateCompetitionModal from '../Competitions/components/UpdateCompetitionModal/UpdateCompetitionModal';
-import DeleteCompetitionModal from '../Competitions/components/DeleteCompetitionModal/DeleteCompetitionModal';
-import UserPointsModal from '../Competitions/components/UserPointsModal/UserPointsModal';
-import { Competition, CompetitionParticipant } from './booksData';
-
+import { initialBooks, Book } from './booksData';
+import BooksActions from './components/BooksActions/BooksActions';
+import BooksTable from './components/BooksTable/BooksTable';
+import AddBooksModal from './components/AddBooksModal/AddBooksModal';
+import UpdateBooksModal from './components/UpdateBooksModal/UpdateBooksModal';
+import DeleteBooksModal from './components/DeleteBooksModal/DeleteBooksModal';
+import ViewBooksModal from './components/ViewBooksModal/ViewBooksModal';
 
 const AdminBooksPage = () => {
-    const [competitions, setCompetitions] = useState<Competition[]>(initialCompetitions);
-  const [activeCompetitionId, setActiveCompetitionId] = useState<number>(1);
+  const [books, setBooks] = useState<Book[]>(initialBooks);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedParticipant, setSelectedParticipant] = useState<CompetitionParticipant | null>(null);
-  const [newCompetition, setNewCompetition] = useState({ name: '', reward: '', dueDate: null as Date | null });
-  const [updateCompetition, setUpdateCompetition] = useState<Competition | null>(null);
-  const [addDateInput, setAddDateInput] = useState('');
-  const [updateDateInput, setUpdateDateInput] = useState('');
-  const [addDateError, setAddDateError] = useState<string | null>(null);
-  const [updateDateError, setUpdateDateError] = useState<string | null>(null);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [typeFilter, setTypeFilter] = useState<string | null>(null);
+  const [languageFilter, setLanguageFilter] = useState<string | null>(null);
+  const [availabilityFilter, setAvailabilityFilter] = useState<string | null>(null);
 
   // Modals
   const [addModalOpened, { open: openAddModal, close: closeAddModal }] = useDisclosure(false);
   const [updateModalOpened, { open: openUpdateModal, close: closeUpdateModal }] = useDisclosure(false);
   const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
-  const [userPointsModalOpened, { open: openUserPointsModal, close: closeUserPointsModal }] = useDisclosure(false);
+  const [viewModalOpened, { open: openViewModal, close: closeViewModal }] = useDisclosure(false);
 
-  const activeCompetition = competitions.find((comp) => comp.id === activeCompetitionId);
-  const competitionData = activeCompetition?.participants || [];
+  const filteredData = books.filter((book) => {
+    const matchesSearch =
+      book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      book.id.toString().includes(searchQuery);
+    const matchesType = typeFilter ? book.type === typeFilter : true;
+    const matchesLanguage = languageFilter ? book.language === languageFilter : true;
+    const matchesAvailability = availabilityFilter ? book.availability === availabilityFilter : true;
+    return matchesSearch && matchesType && matchesLanguage && matchesAvailability;
+  });
 
-  const filteredData = competitionData.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.userId.toString().includes(searchQuery)
-  );
-
-  const formatDateForInput = (date: Date | null): string => {
-    if (!date) return '';
-    return date.toISOString().split('T')[0];
-  };
-
-  const formatDateForDisplay = (date: Date | null): string => {
-    if (!date) return '';
-    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
-  };
-
-  const parseDateFromInput = (value: string): Date | null => {
-    if (!value) return null;
-    const [year, month, day] = value.split('-').map(Number);
-    const date = new Date(year, month - 1, day);
-    return isNaN(date.getTime()) ? null : date;
-  };
-
-  const validateDate = (value: string): string | null => {
-    if (!value) return 'Date is required';
-    const date = parseDateFromInput(value);
-    if (!date) return 'Invalid date';
-    if (date < new Date()) return 'Date must be in the future';
-    return null;
-  };
-
-  const handleAddDateChange = (value: string) => {
-    setAddDateInput(value);
-    const error = validateDate(value);
-    setAddDateError(error);
-    const date = parseDateFromInput(value);
-    setNewCompetition({ ...newCompetition, dueDate: date });
-  };
-
-  const handleUpdateDateChange = (value: string) => {
-    if (!updateCompetition) return;
-    setUpdateDateInput(value);
-    const error = validateDate(value);
-    setUpdateDateError(error);
-    const date = parseDateFromInput(value);
-    setUpdateCompetition({ ...updateCompetition, dueDate: date });
-  };
-
-  const handleAddCompetition = () => {
-    if (!newCompetition.name || !newCompetition.reward || !newCompetition.dueDate) return;
-    const newId = competitions.length > 0 ? Math.max(...competitions.map((c) => c.id)) + 1 : 1;
-    setCompetitions([
-      ...competitions,
-      {
-        id: newId,
-        name: newCompetition.name,
-        reward: newCompetition.reward,
-        dueDate: newCompetition.dueDate,
-        participants: [],
-      },
-    ]);
-    setActiveCompetitionId(newId);
-    setNewCompetition({ name: '', reward: '', dueDate: null });
-    setAddDateInput('');
-    setAddDateError(null);
+  const handleAddBook = (newBook: Omit<Book, 'id' | 'availability' | 'savedBy'>) => {
+    const newId = books.length > 0 ? Math.max(...books.map((b) => b.id)) + 1 : 1;
+    const availableQuantity = newBook.quantity - newBook.reservedQuantity;
+    const availability = availableQuantity > 0 ? 'Available' : newBook.reservedQuantity > 0 ? 'Borrowed' : 'Not Available';
+    setBooks([...books, { id: newId, ...newBook, availability, savedBy: 'Nisal Gunasekara (Admin)' }]);
     closeAddModal();
   };
 
-  const handleUpdateCompetition = () => {
-    if (!updateCompetition || !updateCompetition.name || !updateCompetition.reward || !updateCompetition.dueDate)
-      return;
-    setCompetitions(
-      competitions.map((comp) => (comp.id === updateCompetition.id ? { ...updateCompetition } : comp))
-    );
-    setUpdateCompetition(null);
-    setUpdateDateInput('');
-    setUpdateDateError(null);
+  const handleUpdateBook = (updatedBook: Book) => {
+    const availableQuantity = updatedBook.quantity - updatedBook.reservedQuantity;
+    const availability = availableQuantity > 0 ? 'Available' : updatedBook.reservedQuantity > 0 ? 'Borrowed' : 'Not Available';
+    setBooks(books.map((book) => (book.id === updatedBook.id ? { ...updatedBook, availability } : book)));
+    setSelectedBook(null);
     closeUpdateModal();
   };
 
-  const handleDeleteCompetition = () => {
-    setCompetitions(competitions.filter((comp) => comp.id !== activeCompetitionId));
-    setActiveCompetitionId(competitions[0]?.id || 1);
-    closeDeleteModal();
-  };
-
-  const handleShowUserPoints = (participant: CompetitionParticipant) => {
-    setSelectedParticipant(participant);
-    openUserPointsModal();
-  };
-
-  const openUpdate = () => {
-    if (activeCompetition) {
-      const comp = { ...activeCompetition };
-      setUpdateCompetition(comp);
-      setUpdateDateInput(formatDateForInput(comp.dueDate));
-      setUpdateDateError(null);
-      openUpdateModal();
+  const handleDeleteBook = () => {
+    if (selectedBook) {
+      setBooks(books.filter((book) => book.id !== selectedBook.id));
+      setSelectedBook(null);
+      closeDeleteModal();
     }
+  };
+
+  const handleEditBook = (book: Book) => {
+    setSelectedBook(book);
+    openUpdateModal();
+  };
+
+  const handleViewBook = (book: Book) => {
+    setSelectedBook(book);
+    openViewModal();
+  };
+
+  const handleDeleteClick = (book: Book) => {
+    setSelectedBook(book);
+    openDeleteModal();
   };
 
   return (
     <MantineProvider>
       <Container fluid className={classes.container}>
         <Box className={classes.header}>
-          
-          <CompetitionActions
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            onEdit={openUpdate}
-            onDelete={openDeleteModal}
-            onAdd={openAddModal}
-          />
+          <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+            <Box>
+              <Title order={3} c="white" mb="xs">Book Management</Title>
+              <Text size="sm" c="dimmed" style={{ textTransform: 'uppercase' }}>
+                Total Unique Books: {filteredData.length}
+              </Text>
+            </Box>
+            <Box>
+              <BooksActions
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onAdd={openAddModal}
+                onTypeFilterChange={setTypeFilter}
+                onLanguageFilterChange={setLanguageFilter}
+                onAvailabilityFilterChange={setAvailabilityFilter}
+                typeFilter={typeFilter}
+                languageFilter={languageFilter}
+                availabilityFilter={availabilityFilter}
+                books={books}
+              />
+            </Box>
+          </Box>
         </Box>
-
-        
 
         <ScrollArea className={classes.tableScrollArea}>
           <Box className={classes.tableContainer}>
-            <CompetitionTable participants={filteredData} onShowDetails={handleShowUserPoints} />
+            <BooksTable
+              books={filteredData}
+              onShowDetails={handleViewBook}
+              onEdit={handleEditBook}
+              onDelete={handleDeleteClick}
+            />
           </Box>
         </ScrollArea>
 
-        {/* Conditionally render modals only when they are opened */}
         {addModalOpened && (
-          <AddCompetitionModal
+          <AddBooksModal
             opened={addModalOpened}
             onClose={closeAddModal}
-            newCompetition={newCompetition}
-            addDateInput={addDateInput}
-            addDateError={addDateError}
-            onAddCompetition={handleAddCompetition}
-            onNameChange={(name) => setNewCompetition({ ...newCompetition, name })}
-            onRewardChange={(reward) => setNewCompetition({ ...newCompetition, reward })}
-            onDateChange={handleAddDateChange}
-            formatDateForDisplay={formatDateForDisplay}
+            onAddBook={handleAddBook}
           />
         )}
 
-        {updateModalOpened && (
-          <UpdateCompetitionModal
+        {updateModalOpened && selectedBook && (
+          <UpdateBooksModal
             opened={updateModalOpened}
             onClose={closeUpdateModal}
-            competition={updateCompetition}
-            updateDateInput={updateDateInput}
-            updateDateError={updateDateError}
-            onUpdateCompetition={handleUpdateCompetition}
-            onNameChange={(name) => setUpdateCompetition(updateCompetition ? { ...updateCompetition, name } : null)}
-            onRewardChange={(reward) =>
-              setUpdateCompetition(updateCompetition ? { ...updateCompetition, reward } : null)
-            }
-            onDateChange={handleUpdateDateChange}
-            formatDateForDisplay={formatDateForDisplay}
+            book={selectedBook}
+            onUpdateBook={handleUpdateBook}
           />
         )}
 
-        {deleteModalOpened && (
-          <DeleteCompetitionModal
+        {deleteModalOpened && selectedBook && (
+          <DeleteBooksModal
             opened={deleteModalOpened}
             onClose={closeDeleteModal}
-            onConfirm={handleDeleteCompetition}
+            onConfirm={handleDeleteBook}
           />
         )}
 
-        {userPointsModalOpened && (
-          <UserPointsModal
-            opened={userPointsModalOpened}
-            onClose={closeUserPointsModal}
-            participant={selectedParticipant}
-            books={mockUserBooks}
+        {viewModalOpened && selectedBook && (
+          <ViewBooksModal
+            opened={viewModalOpened}
+            onClose={closeViewModal}
+            book={selectedBook}
           />
         )}
       </Container>
@@ -211,5 +150,3 @@ const AdminBooksPage = () => {
 };
 
 export default AdminBooksPage;
-
-

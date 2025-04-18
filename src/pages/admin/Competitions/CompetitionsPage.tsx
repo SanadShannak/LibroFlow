@@ -3,14 +3,14 @@ import { MantineProvider, Container, Box, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './CompetitionsPage.module.css';
 import { initialCompetitions, mockUserBooks } from './data';
-import CompetitionTabs from '../../../components/CompetitionTabs/CompetitionTabs';
-import CompetitionActions from '../../../components/CompetitionActions/CompetitionActions';
-import CompetitionTable from '../../../components/CompetitionTable/CompetitionTable';
-import AddCompetitionModal from '../../../components/AddCompetitionModal/AddCompetitionModal';
-import UpdateCompetitionModal from '../../../components/UpdateCompetitionModal/UpdateCompetitionModal';
-import DeleteCompetitionModal from '../../../components/DeleteCompetitionModal/DeleteCompetitionModal';
-import UserPointsModal from '../../../components/UserPointsModal/UserPointsModal';
-import PrizeBadge from '../../../components/PrizeBadge/PrizeBadge';
+import CompetitionTabs from './components/CompetitionTabs/CompetitionTabs';
+import CompetitionActions from './components/CompetitionActions/CompetitionActions';
+import CompetitionTable from './components/CompetitionTable/CompetitionTable';
+import AddCompetitionModal from './components/AddCompetitionModal/AddCompetitionModal';
+import UpdateCompetitionModal from './components/UpdateCompetitionModal/UpdateCompetitionModal';
+import DeleteCompetitionModal from './components/DeleteCompetitionModal/DeleteCompetitionModal';
+import UserPointsModal from './components/UserPointsModal/UserPointsModal';
+import PrizeBadge from './components/PrizeBadge/PrizeBadge';
 import { Competition, CompetitionParticipant } from './data';
 
 const CompetitionsPage = () => {
