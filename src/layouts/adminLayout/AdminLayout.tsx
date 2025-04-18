@@ -7,7 +7,7 @@ import {
 } from '@tabler/icons-react';
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import AdminBooksPage from '../../pages/admin/Books';
-import AdminCompetitionsPage from '../../pages/admin/Competitions';
+import AdminCompetitionsPage from '../../pages/admin/Competitions/Competitions';
 import AdminDashboardPage from '../../pages/admin/Dashboard';
 import AdminEmployeesPage from '../../pages/admin/Employees';
 import ShmeisaniBranch from '../../pages/admin/branches/ShmeisaniBranch';

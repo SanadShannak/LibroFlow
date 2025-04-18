@@ -1,0 +1,51 @@
+.container {
+  padding: 0;
+  background-color: #263238;
+  min-height: 100vh;
+}
+
+.button {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 8px 20px;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  filter: brightness(1.1);
+}
+
+.searchInput {
+  margin-left: 10px;
+}
+
+.searchInput input {
+  border: 1px solid white;
+  background-color: white;
+  color: #263238;
+  border-radius: 8px;
+  padding: 8px 20px;
+}
+
+.tableContainer {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.modalBox {
+  padding: 24px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.modalButton {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+}
+
+.summaryBox {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+}

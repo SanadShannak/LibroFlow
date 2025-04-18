@@ -86,6 +86,7 @@ const RegisterPage = () => {
             radius="md"
             size="md"
             className={classes.logInButton}
+            onClick={() => navigate('/login')}
           >
             Log In
           </Button>

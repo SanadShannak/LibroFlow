@@ -82,7 +82,7 @@ const normalizeKey = (str: string) =>
         root: { backgroundColor: theme.colors.darkBlue },
         navbar: {
           backgroundColor: theme.colors.darkBlueLighter,
-          borderRight: '1px solid #FFFFFF26',
+          borderRight: '0px solid #FFFFFF26',
           zIndex: 2,
         },
         header: {
