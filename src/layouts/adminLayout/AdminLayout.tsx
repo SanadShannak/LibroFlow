@@ -10,9 +10,9 @@ import AdminBooksPage from '../../pages/admin/Books/BooksPage';
 import AdminCompetitionsPage from '../../pages/admin/Competitions/CompetitionsPage';
 import AdminDashboardPage from '../../pages/admin/Dashboard';
 import AdminEmployeesPage from '../../pages/admin/Employees/EmployeesPage';
-import ShmeisaniBranch from '../../pages/admin/Branches/ShmeisaniBranch';
-import JabalAmmanBranch from '../../pages/admin/Branches/JabalAmman';
-import AlZarqaaBranch from '../../pages/admin/Branches/AlZarqaaBranch';
+import ShmeisaniBranch from '../../pages/admin/branches/ShmeisaniBranch';
+import JabalAmmanBranch from '../../pages/admin/branches/JabalAmman';
+import AlZarqaaBranch from '../../pages/admin/branches/AlZarqaaBranch';
 
 const adminSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },

@@ -15,6 +15,9 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  BarChart,
+  Bar,
+
 } from 'recharts';
 import { useTheme, useMediaQuery } from '@mui/material';
 
@@ -419,8 +422,230 @@ const AdminDashboardPage: React.FC = () => {
 </MantinePaper>
         </Stack>
       </SimpleGrid>
+      {/* New Features Section for Library Business Owner */}
+      ```tsx
+{/* New Features Section for Library Business Owner */}
+<SimpleGrid cols={{ base: 1, lg: 4 }} spacing="33" mt="2"  w={'103%'}>
+  {/* Circulation Overview Card */}
+  <Paper p="md" radius="md" bg="#37474f" style={{ gridColumn: 'span 1' }}>
+    <Text size="sm" fw={500} c="#A0AEC0" mb="sm">
+      Circulation Overview
+    </Text>
+    <Stack gap="sm">
+      <Group justify="space-between">
+        <Text size="sm" c="white">Books Borrowed</Text>
+        <Text size="sm" c="white" fw={700}>245</Text>
+      </Group>
+      <Group justify="space-between">
+        <Text size="sm" c="white">Books Returned</Text>
+        <Text size="sm" c="white" fw={700}>210</Text>
+      </Group>
+      <Group justify="space-between">
+        <Text size="sm" c="white">Overdue Books</Text>
+        <Text size="sm" c="#F44336" fw={700}>12</Text>
+      </Group>
+    </Stack>
+  </Paper>
+
+  {/* Top Borrowed Books List (Replaces Popular Genres Pie Chart) */}
+  <Paper
+    p="md"
+    radius="md"
+    bg="#37474f"
+    style={{ gridColumn: 'span 1', position: 'relative', overflow: 'hidden' }}
+  >
+    {/* Background ambient glow */}
+    <div
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        opacity: 0.2,
+        zIndex: 0,
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '30%',
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          background: '#70A5BF',
+          filter: 'blur(30px)',
+        }}
+      ></div>
+    </div>
+    <Text size="sm" fw={500} c="#A0AEC0" mb="sm" ta="center" style={{ position: 'relative', zIndex: 2 }}>
+      Top Borrowed Books
+    </Text>
+    <Stack gap="sm" style={{ position: 'relative', zIndex: 2 }}>
+      {[
+        { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', borrows: 45 },
+        { title: '1984', author: 'George Orwell', borrows: 38 },
+        { title: 'To Kill a Mockingbird', author: 'Harper Lee', borrows: 32 },
+      ].map((book, index) => (
+        <Group
+          key={index}
+          justify="space-between"
+          p="xs"
+          style={{
+            borderRadius: '8px',
+            transition: 'all 0.3s ease',
+            ':hover': {
+              background: 'rgba(71, 85, 105, 0.3)',
+              filter: 'drop-shadow(0 0 5px rgba(112, 165, 191, 0.5))',
+            },
+          }}
+        >
+          <Stack gap={0}>
+            <Text size="sm" c="white">{book.title}</Text>
+            <Text size="xs" c="#A0AEC0">{book.author}</Text>
+          </Stack>
+          <Text size="sm" c="white" fw={700}>{book.borrows} Borrows</Text>
+        </Group>
+      ))}
+    </Stack>
+  </Paper>
+
+  {/* Staff Performance Card (New, to the Left of Patron Activity) */}
+  <Paper
+    p="md"
+    radius="md"
+    bg="#37474f"
+    style={{ gridColumn: 'span 1', position: 'relative', overflow: 'hidden' }}
+  >
+    {/* Background ambient glow */}
+    <div
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        opacity: 0.2,
+        zIndex: 0,
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: '30%',
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          background: '#395B75',
+          filter: 'blur(30px)',
+        }}
+      ></div>
+    </div>
+    <Text size="sm" fw={500} c="#A0AEC0" mb="sm" style={{ position: 'relative', zIndex: 2 }}>
+      Staff Performance
+    </Text>
+    <Stack gap="sm" style={{ position: 'relative', zIndex: 2 }}>
+      <Group justify="space-between">
+        <Text size="sm" c="white">Books Processed</Text>
+        <Text size="sm" c="white" fw={700}>1,450</Text>
+      </Group>
+      <Group justify="space-between">
+        <Text size="sm" c="white">Patron Interactions</Text>
+        <Text size="sm" c="white" fw={700}>320</Text>
+      </Group>
+      <Group justify="space-between">
+        <Text size="sm" c="white">Tasks Completed</Text>
+        <Text size="sm" c="white" fw={700}>85</Text>
+      </Group>
+    </Stack>
+  </Paper>
+
+  {/* Patron Activity Card */}
+  <Paper p="md" radius="md" bg="#37474f" style={{ gridColumn: 'span 1' }}>
+    <Text size="sm" fw={500} c="#A0AEC0" mb="sm">
+      Patron Activity
+    </Text>
+    <Stack gap="sm">
+      <Group justify="space-between">
+        <Text size="sm" c="white">Active Patrons</Text>
+        <Text size="sm" c="white" fw={700}>1,230</Text>
+      </Group>
+      <Group justify="space-between">
+        <Text size="sm" c="white">New Registrations</Text>
+        <Text size="sm" c="#4CAF50" fw={700}>45</Text>
+      </Group>
+      <Group justify="space-between">
+        <Text size="sm" c="white">Avg. Visits/Month</Text>
+        <Text size="sm" c="white" fw={700}>3.2</Text>
+      </Group>
+    </Stack>
+  </Paper>
+
+  {/* Inventory Status Bar Chart */}
+  <Paper
+    p="md"
+    radius="md"
+    bg="#37474f"
+    style={{ gridColumn: 'span 4', position: 'relative', overflow: 'hidden' }}
+  >
+    <Text size="sm" fw={500} c="#A0AEC0" mb="sm">
+      Inventory Status
+    </Text>
+    <Box style={{ height: 200 }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={[
+            { category: 'Fiction', available: 500, borrowed: 120, reserved: 20 },
+            { category: 'Non-Fiction', available: 300, borrowed: 80, reserved: 10 },
+            { category: 'Mystery', available: 200, borrowed: 50, reserved: 5 },
+            { category: 'Sci-Fi', available: 150, borrowed: 30, reserved: 8 },
+            { category: 'Romance', available: 250, borrowed: 90, reserved: 15 },
+            { category: 'Biography', available: 180, borrowed: 40, reserved: 6 },
+            { category: 'Children’s', available: 400, borrowed: 150, reserved: 25 },
+            { category: 'Historical Fiction', available: 220, borrowed: 60, reserved: 12 },
+          ]}
+          margin={{ top: 10, right: 19, bottom: 0, left: -10 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" stroke="#455A64" vertical={false} opacity={0.5} />
+          <XAxis
+            dataKey="category"
+            stroke="#A0AEC0"
+            tick={{ fill: '#A0AEC0', fontSize: 12 }}
+            axisLine={{ stroke: '#455A64' }}
+            tickLine={false}
+          />
+          <YAxis
+            stroke="#A0AEC0"
+            tick={{ fill: '#A0AEC0', fontSize: 12 }}
+            axisLine={{ stroke: '#455A64' }}
+            tickLine={false}
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: '#455A64',
+              borderColor: '#546E7A',
+              borderRadius: '8px',
+              color: 'white',
+            }}
+          />
+          <Bar dataKey="available" fill="#70A5BF" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="borrowed" fill="#395B75" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="reserved" fill="#A0AEC0" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
     </Box>
+  </Paper>
+
+  
+</SimpleGrid>
+```    </Box>
+  
   );
 };
+
 
 export default AdminDashboardPage;
