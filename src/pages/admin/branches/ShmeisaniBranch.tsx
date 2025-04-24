@@ -286,7 +286,7 @@ const ShmeisaniBranch: React.FC = () => {
             bg="#37474f"
             className={styles.topEmployees}
           >
-            <Text mb="md" size="xs" fw={700} c="white" ta="center">
+            <Text mb="md" size="lg" fw={700} c="white" ta="center">
               Top Employees
             </Text>
             <Stack gap="lg">
@@ -320,19 +320,11 @@ const ShmeisaniBranch: React.FC = () => {
             bg="#37474f"
             className={styles.upcomingEvents}
           >
-            <Group justify="space-between" mb="md">
-              <Text size="xs" fw={700} c="white" ta="center">
+            <Group mb="md" justify="center" >
+              <Text size="lg" fw={700} c="white"  >
                 Upcoming Events
               </Text>
-              <ThemeIcon
-                size="sm"
-                radius="xl"
-                color="dark"
-                variant="outline"
-                style={{ borderColor: '#A0AEC0', cursor: 'pointer' }}
-              >
-                <IconCalendarEvent size="14" color="#A0AEC0" />
-              </ThemeIcon>
+              
             </Group>
             
             <Stack gap="md">
