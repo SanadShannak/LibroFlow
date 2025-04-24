@@ -162,6 +162,7 @@ const RegisterPage = () => {
       containerClass={classes.phoneInputButton}
       inputProps={{ name: 'phone', required: true }}
       excludeCountries={['il']}
+      countryCodeEditable={false}
     />
     {form.errors.phone && (
       <Text c="red" size="xs" mt={5}>

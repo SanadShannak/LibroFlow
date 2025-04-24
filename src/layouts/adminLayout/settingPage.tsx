@@ -10,10 +10,8 @@ interface SettingsModalProps {
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
-  // State for Change Password modal
   const [passwordModalOpened, setPasswordModalOpened] = useState(false);
 
-  // Form for user profile
   const profileForm = useForm({
     initialValues: {
       name: 'Motasem AlAtawneh',
@@ -26,7 +24,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
     },
   });
 
-  // Form for change password
   const passwordForm = useForm({
     initialValues: {
       oldPassword: '',
@@ -41,12 +38,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
     },
   });
 
-  // Handle profile form submission
   const handleProfileSubmit = async (values: typeof profileForm.values) => {
     try {
-      // Simulate API call to update profile
       console.log('Updating profile:', values);
-      // Example: await updateProfileAPI(values);
       notifications.show({
         title: 'Success',
         message: 'Profile updated successfully',
@@ -62,12 +56,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
     }
   };
 
-  // Handle password form submission
   const handlePasswordSubmit = async (values: typeof passwordForm.values) => {
     try {
-      // Simulate API call to change password
       console.log('Changing password:', values);
-      // Example: await changePasswordAPI(values);
       notifications.show({
         title: 'Success',
         message: 'Password changed successfully',
@@ -96,6 +87,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
         content: { backgroundColor: '#37474f' },
         header: { backgroundColor: '#37474f', color: 'white' },
         title: { color: 'white', fontWeight: 700 },
+      }}
+      closeButtonProps={{
+        c: 'white',
+        style: {
+          backgroundColor: 'transparent',
+          '&:hover': {
+            backgroundColor: 'rgba(160, 174, 192, 0.5)', // Gray with low opacity on hover
+          },
+        },
       }}
     >
       <Box p="md">
@@ -153,7 +153,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
         </form>
       </Box>
 
-      {/* Nested Change Password Modal */}
       <Modal
         opened={passwordModalOpened}
         onClose={() => setPasswordModalOpened(false)}
@@ -165,6 +164,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
           header: { backgroundColor: '#37474f', color: 'white' },
           title: { color: 'white', fontWeight: 700 },
         }}
+        closeButtonProps={{
+        c: 'white',
+        style: {
+          backgroundColor: 'transparent',
+          '&:hover': {
+            backgroundColor: 'rgba(160, 174, 192, 0.5)', // Gray with low opacity on hover
+          },
+        },
+      }}
       >
         <form onSubmit={passwordForm.onSubmit(handlePasswordSubmit)}>
           <Stack gap="md">

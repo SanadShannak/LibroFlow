@@ -8,6 +8,7 @@ interface SummaryCardProps {
   subtitle: string;
   subtitleColor: string;
   bgImage: string;
+  bgImageSize?: string;
 }
 
 const SummaryCard: React.FC<SummaryCardProps> = ({
@@ -16,6 +17,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
   subtitle,
   subtitleColor,
   bgImage,
+  bgImageSize,
 }) => {
   return (
     <Paper
@@ -62,8 +64,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
           right: 0,
           top: 20,
           left: 60,
-          bottom: 5,
+          bottom: 20,
           width: '100%',
+          
           opacity: 0.05,
           display: 'flex',
           alignItems: 'center',
@@ -74,8 +77,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
           src={bgImage}
           alt="background"
           fit="contain"
-          height="100%"
+          height= {bgImageSize? bgImageSize : "100%"}
           style={{ objectFit: 'cover' }}
+          
         />
       </Box>
     </Paper>
