@@ -186,10 +186,32 @@
 }
 
 /* Animation for LineChart line drawing */
-.lineChartAnimation .recharts-line {
-  stroke-dasharray: 1000; /* Large value to cover the entire path */
-  stroke-dashoffset: 1000; /* Start with the line fully offset */
-  animation: drawLine 1.5s ease-in-out forwards !important; /* Match Recharts animation duration */
+.lineChartAnimation .recharts-line path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 1s ease-in-out forwards;
+}
+
+/* Animation for drawing the line */
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Animation for growing the bars */
+@keyframes growBar {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 /* Define the fade-in with upward slide animation */
@@ -198,25 +220,6 @@
     opacity: 0;
   }
   to {
-    opacity: 1;
-  }
-}
-
-/* Animation for drawing the line */
-@keyframes drawLine {
-  to {
-    stroke-dashoffset: 0; /* Draw the line by reducing offset to 0 */
-  }
-}
-
-/* Animation for growing the bars */
-@keyframes growBar {
-  from {
-    transform: scaleY(0); /* Start from bottom */
-    opacity: 0;
-  }
-  to {
-    transform: scaleY(1); /* Grow to full height */
     opacity: 1;
   }
 }

@@ -181,6 +181,12 @@ const JabalAmmanBranch: React.FC = () => {
                       <CustomTooltip payload={payload} label={label} />
                     ),
                   }}
+                  className={styles.lineChartAnimation}
+                  lineProps={{
+                    isAnimationActive: true,
+                    animationDuration: 1500,
+                    animationEasing: 'ease-in-out',
+                  }}
                 />
               </Paper>
               <Paper
