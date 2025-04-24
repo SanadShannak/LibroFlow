@@ -1,5 +1,7 @@
 .container {
-  padding: 1.5rem !important;
+  padding: 50px !important;
+  /* Define the fade-in with upward slide animation */
+  animation: fadeIn 0.5s ease-in-out !important;
 }
 
 .summaryCard {
@@ -8,7 +10,6 @@
   position: relative !important;
   overflow: hidden !important;
   width: 100% !important;
-  max-width: 350px !important;
   height: 120px !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
   border: 1px solid rgba(71, 85, 105, 0.3) !important;
@@ -16,7 +17,6 @@
 }
 
 .summaryCard:hover {
-  transform: translateY(-4px) !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -27,7 +27,6 @@
 }
 
 .content {
-  /* No additional styles needed !important; handled by Stack in JSX */
 }
 
 .title {
@@ -66,7 +65,8 @@
 }
 
 .bgIcon {
-  height: 100% !important;
+  max-height: 150% !important;
+  max-width: 150% !important;
   object-fit: cover !important;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .responsibilitiesContainer {
-  min-height: 100% !important;
+  height: 100% !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
   transition: box-shadow 0.2s ease !important;
 }
@@ -99,7 +99,6 @@
 }
 
 .chartCard:hover {
-  transform: translateY(-4px) !important;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25) !important;
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
@@ -113,7 +112,6 @@
 }
 
 .cardTable:hover {
-  transform: translateY(-4px) !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
@@ -130,11 +128,17 @@
 
 .actionButton:hover {
   background-color: #1d4ed8 !important;
-  transform: translateY(-2px) !important;
 }
 
 .topEmployees {
-  min-height: 100% !important;
+  height: 45% !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: box-shadow 0.2s ease !important;
+}
+
+.upcomingEvents {
+  height: 50% !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
   border: 1px solid rgba(71, 85, 105, 0.3) !important;
   transition: box-shadow 0.2s ease !important;
@@ -142,4 +146,77 @@
 
 .topEmployees:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Target the BarChart's path elements (bars) */
+.employeePerformanceChart path {
+  fill: #ffd54f;
+  transform: scaleY(0); /* Start from bottom */
+  transform-origin: bottom; /* Scale from bottom */
+  animation: growBar 1s ease-out forwards !important; /* Match Recharts animation duration */
+}
+
+/* Stagger the bar animations */
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(1) path {
+  animation-delay: 0s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(2) path {
+  animation-delay: 0.2s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(3) path {
+  animation-delay: 0.4s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(4) path {
+  animation-delay: 0.6s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(5) path {
+  animation-delay: 0.8s !important;
+}
+
+/* Override the hover effect for the bars */
+.employeePerformanceChart path:hover {
+  fill: #ffffff !important;
+  transition: fill 0.2s ease !important;
+  opacity: 0.8;
+}
+
+/* Hide the tooltip cursor */
+.employeePerformanceChart .recharts-tooltip-cursor {
+  display: none !important;
+}
+
+/* Animation for LineChart line drawing */
+.lineChartAnimation .recharts-line {
+  stroke-dasharray: 1000; /* Large value to cover the entire path */
+  stroke-dashoffset: 1000; /* Start with the line fully offset */
+  animation: drawLine 1.5s ease-in-out forwards !important; /* Match Recharts animation duration */
+}
+
+/* Define the fade-in with upward slide animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation for drawing the line */
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0; /* Draw the line by reducing offset to 0 */
+  }
+}
+
+/* Animation for growing the bars */
+@keyframes growBar {
+  from {
+    transform: scaleY(0); /* Start from bottom */
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1); /* Grow to full height */
+    opacity: 1;
+  }
 }

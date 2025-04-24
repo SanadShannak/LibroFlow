@@ -9,109 +9,27 @@ import {
   ThemeIcon,
   Avatar,
   Table,
+  Button,
+  Progress,
 } from '@mantine/core';
 import { LineChart, BarChart } from '@mantine/charts';
 import {
-  IconChevronDown,
-  IconChevronUp,
+  IconCalendarEvent,
   IconRefresh,
 } from '@tabler/icons-react';
-import { IoIosPerson, IoMdBook } from 'react-icons/io';
-import { MdPendingActions } from 'react-icons/md';
-import styles from '../../../styles/shmeisaniBranchStyles.module.css';
+import styles from './adminBranchPageStyles.module.css';
 import theme from '../../../utils/theme';
-
-// Background icons
-import bookImage from '../../../assets/book.png';
-
-interface Responsibility {
-  title: string;
-  subItems?: string[];
-  action?: () => void;
-}
-
-const responsibilities: Responsibility[] = [
-  { 
-    title: 'Manage Employees', 
-    subItems: ['Add employees/give employee roles'],
-    action: () => console.log('Navigating to Employee Management')
-  },
-  { 
-    title: 'Monitor Department Performance',
-    action: () => console.log('Opening Performance Dashboard')
-  },
-  { 
-    title: 'Make Book Order', 
-    subItems: ['Ask approval from accountant', 'Report on order status to accountant'],
-    action: () => console.log('Initiating Book Order')
-  },
-  { 
-    title: 'Manage Book Inventory', 
-    subItems: ['Add/Remove Books'],
-    action: () => console.log('Opening Inventory Management')
-  },
-  { 
-    title: 'Department-specific dashboard', 
-    subItems: ['Top Books/Top Customers, etc.', 'View borrowed books (department-specific) and their status'],
-    action: () => console.log('Viewing Department Dashboard')
-  },
-  { 
-    title: 'Chat with supplier',
-    action: () => console.log('Opening Supplier Chat')
-  },
-  { 
-    title: 'Chatbot',
-    action: () => console.log('Opening Chatbot')
-  },
-];
-
-const miniDashboardData = [
-  {
-    title: 'Total Employees',
-    value: '15',
-    subtitle: '+2 this month',
-    subtitleColor: '#4CAF50',
-    icon: IoIosPerson,
-  },
-  {
-    title: 'Books in Inventory',
-    value: '320',
-    subtitle: '-5 this month',
-    subtitleColor: '#F44336',
-    bgImage: bookImage,
-  },
-  {
-    title: 'Pending Orders',
-    value: '3',
-    subtitle: 'Awaiting approval',
-    subtitleColor: '#FF9800',
-    icon: MdPendingActions,
-  },
-  {
-    title: 'Borrowed Books',
-    value: '45',
-    subtitle: '+3 this month',
-    subtitleColor: '#4CAF50',
-    icon: IoMdBook,
-  },
-];
-
-const topEmployees = [
-  { name: 'Kareem Abu-sharifeh', branch: 'Shmeisani', color: 'yellow' },
-  { name: 'Motasem AlAtawneh', branch: 'Yajouz', color: 'gray' },
-  { name: 'Ahmad Aljazaere', branch: 'Tabarbour', color: 'gray' },
-];
-
-const mostBorrowedBooks = [
-  { title: 'The Great Gatsby', borrows: 42 },
-  { title: '1984', borrows: 35 },
-  { title: 'To Kill a Mockingbird', borrows: 28 },
-];
-
-const ongoingCompetitions = [
-  { name: 'Summer Reading Challenge', endDate: 'Aug 15, 2025' },
-  { name: 'Book Trivia Contest', endDate: 'Jul 30, 2025' },
-];
+import {
+  responsibilities,
+  miniDashboardData,
+  topEmployees,
+  mostBorrowedBooks,
+  ongoingCompetitions,
+  inventoryData,
+  employeePerformanceData,
+  upcomingEvents,
+  MiniDashboardItem,
+} from '../../../dummyData/adminPages/shmeisaniBranchData';
 
 interface SummaryCardProps {
   title: string;
@@ -128,7 +46,6 @@ const LocalSummaryCard: React.FC<SummaryCardProps> = ({
   subtitle,
   subtitleColor,
   bgImage,
-  icon: Icon,
 }) => (
   <Paper
     p="sm"
@@ -155,8 +72,7 @@ const LocalSummaryCard: React.FC<SummaryCardProps> = ({
 
     {/* Background Image/Icon on the right */}
     <Box className={styles.bgContainer}>
-      {bgImage && <img src={bgImage} alt="background" className={styles.bgIcon} />}
-      {Icon && <Icon className={styles.reactIcon} />}
+      {bgImage && <img src={bgImage} alt="background" className={styles.bgIcon} width={'130px'}/>}
     </Box>
   </Paper>
 );
@@ -168,27 +84,40 @@ const ShmeisaniBranch: React.FC = () => {
     setExpandedSections((prev) => ({ ...prev, [title]: !prev[title] }));
   };
 
-  // Sample data for charts
-  const inventoryData = [
-    { month: 'Jan', books: 300 },
-    { month: 'Feb', books: 310 },
-    { month: 'Mar', books: 305 },
-    { month: 'Apr', books: 320 },
-    { month: 'May', books: 315 },
-    { month: 'Jun', books: 320 },
-  ];
+  // Custom Tooltip Component for both charts
+  const CustomTooltip = ({ payload, label }: { payload?: any[], label?: string }) => {
+    if (!payload || !payload.length) return null;
+    const data = payload[0].payload;
+    const value = payload[0].value;
+    const name = payload[0].name === 'books' ? 'Books' : 'Performance';
 
-  const employeePerformanceData = [
-    { name: 'Sanad', performance: 95 },
-    { name: 'Motasem', performance: 85 },
-    { name: 'Ahmad', performance: 80 },
-    { name: 'Others', performance: 70 },
-  ];
+    return (
+      <Paper
+        p="xs"
+        radius="sm"
+        style={{
+          backgroundColor: '#455A64',
+          borderColor: '#546E7A',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+          color: 'white',
+          padding: '10px',
+        }}
+      >
+        <Text style={{ color: 'white', fontWeight: 'bold', marginBottom: '5px' }}>
+          {label}
+        </Text>
+        <Text style={{ color: 'white' }}>
+          {name}: {value}
+        </Text>
+      </Paper>
+    );
+  };
 
   return (
     <Box className={styles.container}>
-      <SimpleGrid cols={{ base: 1, sm: 4 }} mb="xl" spacing="sm" mr={20}>
-        {miniDashboardData.map((data, index) => (
+      <SimpleGrid cols={{ base: 1, sm: 4 }} mb="xl" spacing={"4%"} >
+        {miniDashboardData.map((data: MiniDashboardItem, index: number) => (
           <LocalSummaryCard
             key={index}
             title={data.title}
@@ -210,7 +139,7 @@ const ShmeisaniBranch: React.FC = () => {
             className={styles.responsibilitiesContainer}
           >
             <Text size="xl" c={theme.colors.white} fw={700} mb="lg">
-              Admin Dashboard Overview
+              Branch Overview
             </Text>
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
               <Paper
@@ -224,6 +153,7 @@ const ShmeisaniBranch: React.FC = () => {
                 </Text>
                 <LineChart
                   h={250}
+                  w='100%'
                   data={inventoryData}
                   dataKey="month"
                   series={[{ name: 'books', color: 'cyan.5' }]}
@@ -234,9 +164,23 @@ const ShmeisaniBranch: React.FC = () => {
                   gridAxis="xy"
                   withDots={true}
                   dotProps={{ r: 4, strokeWidth: 2, stroke: theme.colors.lightBlue } as any}
-                  xAxisProps={{ stroke: theme.colors.blueishGrey }}
-                  yAxisProps={{ stroke: theme.colors.blueishGrey }}
-                  gridProps={{ stroke: theme.colors.blueishGrey, strokeOpacity: 0.3 }}
+                  xAxisProps={{ stroke: '#A0AEC0', color: '#A0AEC0' }}
+                  yAxisProps={{
+                    stroke: '#A0AEC0',
+                    domain: [
+                      Math.min(...inventoryData.map((data) => data.books)) - 5,
+                      Math.max(...inventoryData.map((data) => data.books)) + 5,
+                    ],
+                    tickCount: inventoryData.length,
+                    color: '#A0AEC0',
+                  }}
+                  gridProps={{ stroke: theme.colors.blueishGrey, strokeOpacity: 0.2 }}
+                  withTooltip
+                  tooltipProps={{
+                    content: ({ payload, label }) => (
+                      <CustomTooltip payload={payload} label={label} />
+                    ),
+                  }}
                 />
               </Paper>
               <Paper
@@ -257,9 +201,17 @@ const ShmeisaniBranch: React.FC = () => {
                   tickLine="none"
                   gridAxis="xy"
                   barProps={{ radius: 4 }}
-                  xAxisProps={{ stroke: theme.colors.blueishGrey }}
-                  yAxisProps={{ stroke: theme.colors.blueishGrey }}
+                  xAxisProps={{  color: '#A0AEC0' }}
+                  yAxisProps={{ stroke: 'white', color: '#A0AEC0' }}
                   gridProps={{ stroke: theme.colors.blueishGrey, strokeOpacity: 0.3 }}
+                  withTooltip
+                  tooltipProps={{
+                    content: ({ payload, label }) => (
+                      <CustomTooltip payload={payload} label={label} />
+                    ),
+                    cursor: false,
+                  }}
+                  className={styles.employeePerformanceChart}
                 />
               </Paper>
             </SimpleGrid>
@@ -320,19 +272,18 @@ const ShmeisaniBranch: React.FC = () => {
           </Paper>
         </Box>
 
-        <Stack gap="md" style={{ gridColumn: 'span 1' }}>
+        <Stack gap="md" style={{ gridColumn: 'span 1', gridRow: 'span 2' }}>
           <Paper
             p="md"
             pl={12}
-            mr={-50}
-            radius="md"
+            radius="lg"
             bg="#37474f"
             className={styles.topEmployees}
           >
             <Text mb="md" size="xs" fw={700} c="white" ta="center">
               Top Employees
             </Text>
-            <Stack gap="sm">
+            <Stack gap="lg">
               {topEmployees.map((e, i) => (
                 <Group key={i} justify="space-between" wrap="nowrap">
                   <Group wrap="nowrap">
@@ -354,6 +305,48 @@ const ShmeisaniBranch: React.FC = () => {
                     <IconRefresh size={14} color="#A0AEC0" />
                   </ThemeIcon>
                 </Group>
+              ))}
+            </Stack>
+          </Paper>
+          <Paper
+            p="md"
+            radius="lg"
+            bg="#37474f"
+            className={styles.upcomingEvents}
+          >
+            <Group justify="space-between" mb="md">
+              <Text size="xs" fw={700} c="white" ta="center">
+                Upcoming Events
+              </Text>
+              <ThemeIcon
+                size="sm"
+                radius="xl"
+                color="dark"
+                variant="outline"
+                style={{ borderColor: '#A0AEC0', cursor: 'pointer' }}
+              >
+                <IconCalendarEvent size="14" color="#A0AEC0" />
+              </ThemeIcon>
+            </Group>
+            
+            <Stack gap="md">
+              {upcomingEvents.map((event, index) => (
+                <Box key={index}>
+                  <Group justify="space-between" mb={4}>
+                    <Text size="xs" fw={600} c="white">{event.title}</Text>
+                    <Text size="xs" c="#A0AEC0">{event.date}</Text>
+                  </Group>
+                  <Group justify="space-between" mb={2} align="center">
+                    <Text size="xs" c="#A0AEC0">{event.location}</Text>
+                    <Text size="xs" c="#4CAF50">{event.progress}%</Text>
+                  </Group>
+                  <Progress
+                    value={event.progress}
+                    size="xs"
+                    radius="xs"
+                    color={event.progress > 70 ? "green" : event.progress > 40 ? "yellow" : "blue"}
+                  />
+                </Box>
               ))}
             </Stack>
           </Paper>

@@ -1,13 +1,13 @@
 .container {
-  padding: 0;
+  padding: 50px !important;
   background-color: #263238;
   min-height: 100vh;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
 }
 
 .tableContainer {
@@ -71,4 +71,14 @@
     255,
     0.2
   ); /* Slightly darker background on click */
+}
+
+/* Define the fade-in with upward slide animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

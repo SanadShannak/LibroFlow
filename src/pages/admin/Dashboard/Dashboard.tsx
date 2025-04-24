@@ -85,7 +85,7 @@ const AdminDashboardPage: React.FC = () => {
           subtitle="-6.5% from last month"
           subtitleColor="#D0342C"
           bgImage={revenueImage}
-          bgImageSize="130px"
+          bgImageSize="120px"
         />
         <SummaryCard
           title="Total Books in Inventory"
@@ -168,7 +168,7 @@ const AdminDashboardPage: React.FC = () => {
                     axisLine={{ stroke: '#455A64' }}
                     tickLine={false}
                     dy={5}
-                    ticks={xAxisTicks} // Show only every 5th day
+                    ticks={xAxisTicks}
                   />
                   <YAxis
                     stroke="#A0AEC0"
@@ -195,10 +195,12 @@ const AdminDashboardPage: React.FC = () => {
                     dataKey="sales"
                     stroke="url(#lineGradient)"
                     strokeWidth={3}
-                    dot={{ r: 0 }} // Disable dots by default to avoid clutter
+                    dot={{ r: 0 }}
                     activeDot={{ r: 7, fill: '#22D3EE', stroke: '#06B6D4', strokeWidth: 2 }}
                     style={{ filter: 'url(#glow)', pointerEvents: 'auto' }}
-                    isAnimationActive={false}
+                    isAnimationActive={true} // Enable animation
+                    animationDuration={1500} // 1.5 seconds for the line drawing
+                    className={styles.lineChartLine} // Add class for CSS animation
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -266,13 +268,6 @@ const AdminDashboardPage: React.FC = () => {
               </svg>
 
               <div>
-                <style>{`
-                  @keyframes softPulse {
-                    0% { filter: drop-shadow(0 0 3px rgba(8, 33, 45, 0.4)); }
-                    100% { filter: drop-shadow(0 0 7px rgba(112, 165, 191, 0.7)); }
-                  }
-                `}</style>
-
                 <MantinePieChart
                   data={pieChartData}
                   withTooltip
@@ -297,6 +292,10 @@ const AdminDashboardPage: React.FC = () => {
                         </Paper>
                       );
                     },
+                  }}
+                  pieProps={{
+                    isAnimationActive: true, // Enable animation
+                    animationDuration: 1000, // 1 second for each slice
                   }}
                 />
               </div>
