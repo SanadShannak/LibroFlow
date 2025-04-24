@@ -3,7 +3,7 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import AdminLayout from './layouts/adminLayout/AdminLayout';
-import AdminDashboardPage from './pages/admin/Dashboard';
+import AdminDashboardPage from './pages/admin/Dashboard/Dashboard';
 import AdminBooksPage from './pages/admin/Books/BooksPage';
 import { AnimatePresence } from 'framer-motion';
 

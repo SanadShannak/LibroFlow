@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MantineProvider, Container, Box, ScrollArea, Text, Title, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './BooksPage.module.css';
-import { initialBooks, Book } from './booksData';
+import { initialBooks, Book } from '../../../dummyData/adminPages/booksData';
 import BooksActions from './components/BooksActions/BooksActions';
 import BooksTable from './components/BooksTable/BooksTable';
 import AddBooksModal from './components/AddBooksModal/AddBooksModal';

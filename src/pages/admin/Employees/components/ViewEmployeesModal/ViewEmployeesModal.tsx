@@ -1,7 +1,7 @@
 import { Modal, Box, Button, Group, Title, ActionIcon, Text, Grid } from '@mantine/core';
 import { IconUser, IconX } from '@tabler/icons-react';
 import classes from './ViewEmployeesModal.module.css';
-import { Employee } from '../../employeesData';
+import { Employee } from '../../../../../dummyData/adminPages/employeesData';
 
 interface ViewEmployeesModalProps {
   opened: boolean;

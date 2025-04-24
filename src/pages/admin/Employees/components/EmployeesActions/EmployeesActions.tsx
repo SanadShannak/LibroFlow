@@ -1,7 +1,7 @@
 import { Button, Group, TextInput, Select, Box } from '@mantine/core';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import classes from './EmployeesActions.module.css';
-import { Employee } from '../../employeesData';
+import { Employee } from '../../../../../dummyData/adminPages/employeesData';
 
 interface EmployeesActionsProps {
   searchQuery: string;

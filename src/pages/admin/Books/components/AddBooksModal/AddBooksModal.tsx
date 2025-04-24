@@ -2,7 +2,7 @@ import { Modal, Box, Group, Title, ActionIcon, TextInput, Button, Select, Number
 import { IconBook, IconX } from '@tabler/icons-react';
 import classes from './AddBooksModal.module.css';
 import theme from '../../../../../utils/theme';
-import { Book } from '../../booksData';
+import { Book } from '../../../../../dummyData/adminPages/booksData';
 import { useState } from 'react';
 
 interface AddBooksModalProps {

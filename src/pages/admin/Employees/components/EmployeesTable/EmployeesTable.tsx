@@ -1,7 +1,7 @@
 import { Table, ActionIcon, Group, Text } from '@mantine/core';
 import { IconSearch, IconPencil, IconTrash } from '@tabler/icons-react';
 import classes from './EmployeesTable.module.css';
-import { Employee } from '../../employeesData';
+import { Employee } from '../../../../../dummyData/adminPages/employeesData';
 
 interface EmployeesTableProps {
   employees: Employee[];

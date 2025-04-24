@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MantineProvider, Container, Box, ScrollArea, Text, Title, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './EmployeesPage.module.css';
-import { initialEmployees, Employee } from './employeesData';
+import { initialEmployees, Employee } from '../../../dummyData/adminPages/employeesData';
 import EmployeesActions from './components/EmployeesActions/EmployeesActions';
 import EmployeesTable from './components/EmployeesTable/EmployeesTable';
 import AddEmployeesModal from './components/AddEmployeesModal/AddEmployeesModal';

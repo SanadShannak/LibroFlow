@@ -2,7 +2,7 @@ import { Modal, Box, Group, Title, ActionIcon, Table, ScrollArea, Flex, Text, Bu
 import { IconX } from '@tabler/icons-react';
 import classes from './UserPointsModal.module.css';
 import theme from '../../../../../utils/theme';
-import { CompetitionParticipant, BookEntry } from '../../competitionsData';
+import { CompetitionParticipant, BookEntry } from '../../../../../dummyData/competitionsData';
 
 interface UserPointsModalProps {
   opened: boolean;

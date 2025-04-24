@@ -1,7 +1,7 @@
 import { Modal, Box, Button, Group, Title, ActionIcon, Text, Grid } from '@mantine/core';
 import { IconBook, IconX } from '@tabler/icons-react';
 import classes from './ViewBooksModal.module.css';
-import { Book } from '../../booksData';
+import { Book } from '../../../../../dummyData/adminPages/booksData';
 
 interface ViewBooksModalProps {
   opened: boolean;

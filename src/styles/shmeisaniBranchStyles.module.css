@@ -1,146 +1,145 @@
 .container {
-  padding: 1.5rem;
+  padding: 1.5rem !important;
 }
 
 .summaryCard {
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: 350px;
-  height: 120px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(71, 85, 105, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 350px !important;
+  height: 120px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .summaryCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
 .circles {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
 }
 
 .content {
-  /* No additional styles needed; handled by Stack in JSX */
+  /* No additional styles needed !important; handled by Stack in JSX */
 }
 
 .title {
-  font-size: 12px;
-  color: #A0AEC0;
-  font-weight: 700;
-  padding-bottom: 18px;
-  padding-left: 2px;
+  font-size: 12px !important;
+  color: #a0aec0 !important;
+  font-weight: 700 !important;
+  padding-bottom: 18px !important;
+  padding-left: 2px !important;
 }
 
 .value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  padding-bottom: 18px;
-  margin-top: -18px;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  padding-bottom: 18px !important;
+  margin-top: -18px !important;
 }
 
 .subtitle {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding-top: 0;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  padding-top: 0 !important;
 }
 
 .bgContainer {
-  position: absolute;
-  right: 0;
-  top: 20px;
-  left: 60px;
-  bottom: 5px;
-  width: 100%;
-  opacity: 0.05;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute !important;
+  right: 0 !important;
+  top: 20px !important;
+  left: 60px !important;
+  bottom: 5px !important;
+  width: 100% !important;
+  opacity: 0.05 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .bgIcon {
-  height: 100%;
-  object-fit: cover;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
 .reactIcon {
-  height: 100%;
-  width: auto;
-  object-fit: contain;
+  height: 100% !important;
+  width: auto !important;
+  object-fit: contain !important;
 }
 
 .responsibilitiesWrapper {
-  grid-column: span 2;
+  grid-column: span 2 !important;
 }
 
 .responsibilitiesContainer {
-  min-height: 100%;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.2s ease;
+  min-height: 100% !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  transition: box-shadow 0.2s ease !important;
 }
 
 .responsibilitiesContainer:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3) !important;
 }
 
 .chartCard {
-  position: relative;
+  position: relative !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(71, 85, 105, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 1;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  z-index: 1 !important;
 }
 
 .chartCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25) !important;
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .cardTable {
-  min-height: auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(71, 85, 105, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: auto !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
   background-color: rgba(255, 255, 255, 0.1) !important;
-  
 }
 
 .cardTable:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
 .actionButton {
-  background-color: #2563EB;
-  color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-align: center;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  background-color: #2563eb !important;
+  color: white !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  transition: background-color 0.2s ease, transform 0.2s ease !important;
 }
 
 .actionButton:hover {
-  background-color: #1D4ED8;
-  transform: translateY(-2px);
+  background-color: #1d4ed8 !important;
+  transform: translateY(-2px) !important;
 }
 
 .topEmployees {
-  min-height: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(71, 85, 105, 0.3);
-  transition: box-shadow 0.2s ease;
+  min-height: 100% !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: box-shadow 0.2s ease !important;
 }
 
 .topEmployees:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
 }

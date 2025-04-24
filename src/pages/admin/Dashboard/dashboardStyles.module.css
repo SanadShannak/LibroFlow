@@ -1,0 +1,280 @@
+.containerShadow {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+}
+
+.mainContainer {
+  padding: 50px !important;
+}
+
+.spacer {
+  height: 30px !important;
+}
+
+/* Override Mantine Paper styles for the LineChart section */
+.lineChartPaper {
+  padding-top: 16px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-bottom: 0 !important;
+  border-radius: 8px !important;
+  background-color: #37474f !important;
+  grid-column: span 5 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.lineChartBackgroundOverlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  opacity: 0.1 !important;
+  z-index: 0 !important;
+}
+
+.lineChartBlurCircle1 {
+  position: absolute !important;
+  top: 25% !important;
+  left: 25% !important;
+  width: 128px !important;
+  height: 128px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  filter: blur(40px) !important;
+}
+
+.lineChartBlurCircle2 {
+  position: absolute !important;
+  bottom: 33% !important;
+  right: 25% !important;
+  width: 128px !important;
+  height: 128px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  filter: blur(40px) !important;
+}
+
+.lineChartContent {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.lineChartHeaderGroup {
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+
+.lineChartPeriodBox {
+  padding: 4px 10px !important;
+  background: #3b82f6 !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  color: white !important;
+  margin-bottom: 20px !important;
+}
+
+.lineChartChartContainer {
+  height: 400px !important;
+}
+
+.sidebarStack {
+  gap: 24px !important;
+  grid-column: span 2 !important;
+}
+
+/* Override Mantine Paper styles for Top Employees */
+.topEmployeesPaper {
+  padding: 24px !important;
+  border-radius: 8px !important;
+  background-color: #37474f !important;
+}
+
+.topEmployeesRefreshIcon {
+  border-color: #a0aec0 !important;
+  cursor: pointer !important;
+}
+
+/* Override Mantine Paper styles for Sales by Branch */
+.salesByBranchPaper {
+  border-radius: 8px !important;
+  background-color: #37474f !important;
+  width: 100% !important;
+  max-height: 280px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.salesByBranchPaperMobile {
+  height: 250px !important;
+  padding: 16px !important;
+}
+
+.salesByBranchPaperDesktop {
+  height: 300px !important;
+  padding: 24px !important;
+}
+
+.salesByBranchBackgroundOverlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  opacity: 0.2 !important;
+  z-index: 0 !important;
+}
+
+.salesByBranchBlurCircle1 {
+  position: absolute !important;
+  top: 60% !important;
+  left: 30% !important;
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  background: #70a5bf !important;
+  filter: blur(30px) !important;
+}
+
+.salesByBranchBlurCircle2 {
+  position: absolute !important;
+  bottom: 60% !important;
+  right: 30% !important;
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  background: #395b75 !important;
+  filter: blur(30px) !important;
+}
+
+.salesByBranchTitle {
+  margin-bottom: -2px !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: white !important;
+  text-align: center !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.salesByBranchChartContainer {
+  position: relative !important;
+  z-index: 2 !important;
+  filter: url(#pieGlow) !important;
+  animation: softPulse 4s infinite alternate ease-in-out !important;
+}
+
+.salesByBranchChart {
+  height: 220px !important;
+}
+
+.salesByBranchChartMobile {
+  height: 180px !important;
+}
+
+.salesByBranchTooltip {
+  background: #a0aec0 !important;
+  color: white !important;
+}
+
+.salesByBranchTooltipBox {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 4px !important;
+}
+
+/* Unified styles for the four cards at the bottom */
+.unifiedCardPaper {
+  padding: 16px !important;
+  border-radius: 8px !important;
+  background-color: #37474f !important;
+  grid-column: span 1 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Optional background overlay and blur circle for cards that need it (Top Borrowed Books, Staff Performance) */
+.cardBackgroundOverlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  opacity: 0.2 !important;
+  z-index: 0 !important;
+}
+
+.topBooksBlurCircle {
+  position: absolute !important;
+  top: 50% !important;
+  left: 30% !important;
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  background: #70a5bf !important;
+  filter: blur(30px) !important;
+}
+
+.staffPerformanceBlurCircle {
+  position: absolute !important;
+  top: 50% !important;
+  right: 30% !important;
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  background: #395b75 !important;
+  filter: blur(30px) !important;
+}
+
+.cardContent {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Styles for Top Borrowed Books items */
+.topBooksBookItem {
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  padding: 8px !important;
+}
+
+.topBooksBookItem:hover {
+  background: rgba(71, 85, 105, 0.3) !important;
+  filter: drop-shadow(0 0 5px rgba(112, 165, 191, 0.5)) !important;
+}
+
+.topBooksTitle {
+  flex: 1 !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  margin-right: 8px !important;
+}
+
+.topBooksBorrows {
+  flex-shrink: 0 !important;
+  text-align: right !important;
+}
+
+/* Override Mantine Paper styles for Inventory Status */
+.inventoryPaper {
+  padding: 16px !important;
+  border-radius: 8px !important;
+  background-color: #37474f !important;
+  grid-column: span 4 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.inventoryChartContainer {
+  height: 200px !important;
+}

@@ -2,7 +2,7 @@ import { Modal, Box, Group, Title, ActionIcon, TextInput, Button, InputWrapper, 
 import { IconPencil, IconX } from '@tabler/icons-react';
 import classes from './UpdateCompetitionModal.module.css';
 import theme from '../../../../../utils/theme';
-import { Competition } from '../../competitionsData';
+import { Competition } from '../../../../../dummyData/competitionsData';
 
 interface UpdateCompetitionModalProps {
   opened: boolean;

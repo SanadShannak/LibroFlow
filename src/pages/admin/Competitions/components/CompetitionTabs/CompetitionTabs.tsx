@@ -1,6 +1,6 @@
 import { Button, Group } from '@mantine/core';
 import classes from './CompetitionTabs.module.css';
-import { Competition } from '../../competitionsData';
+import { Competition } from '../../../../../dummyData/competitionsData';
 
 interface CompetitionTabsProps {
   competitions: Competition[];

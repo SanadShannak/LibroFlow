@@ -8,7 +8,7 @@ import {
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import AdminBooksPage from '../../pages/admin/Books/BooksPage';
 import AdminCompetitionsPage from '../../pages/admin/Competitions/CompetitionsPage';
-import AdminDashboardPage from '../../pages/admin/Dashboard';
+import AdminDashboardPage from '../../pages/admin/Dashboard/Dashboard';
 import AdminEmployeesPage from '../../pages/admin/Employees/EmployeesPage';
 import ShmeisaniBranch from '../../pages/admin/branches/ShmeisaniBranch';
 import JabalAmmanBranch from '../../pages/admin/branches/JabalAmman';

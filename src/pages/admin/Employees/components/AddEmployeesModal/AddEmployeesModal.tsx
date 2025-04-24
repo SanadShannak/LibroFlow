@@ -2,7 +2,7 @@ import { Modal, Box, Group, Title, ActionIcon, TextInput, Button, Select } from 
 import { IconUser, IconX } from '@tabler/icons-react';
 import classes from './AddEmployeesModal.module.css';
 import theme from '../../../../../utils/theme';
-import { Employee } from '../../employeesData';
+import { Employee } from '../../../../../dummyData/adminPages/employeesData';
 import { useState } from 'react';
 
 interface AddEmployeesModalProps {

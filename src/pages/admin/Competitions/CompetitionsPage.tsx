@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MantineProvider, Container, Box, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './CompetitionsPage.module.css';
-import { initialCompetitions, mockUserBooks } from './data';
+import { initialCompetitions, mockUserBooks } from '../../../dummyData/adminPages/competitionsData';
 import CompetitionTabs from './components/CompetitionTabs/CompetitionTabs';
 import CompetitionActions from './components/CompetitionActions/CompetitionActions';
 import CompetitionTable from './components/CompetitionTable/CompetitionTable';
@@ -11,7 +11,7 @@ import UpdateCompetitionModal from './components/UpdateCompetitionModal/UpdateCo
 import DeleteCompetitionModal from './components/DeleteCompetitionModal/DeleteCompetitionModal';
 import UserPointsModal from './components/UserPointsModal/UserPointsModal';
 import PrizeBadge from './components/PrizeBadge/PrizeBadge';
-import { Competition, CompetitionParticipant } from './data';
+import { Competition, CompetitionParticipant } from '../../../dummyData/adminPages/competitionsData';
 
 const CompetitionsPage = () => {
   const [competitions, setCompetitions] = useState<Competition[]>(initialCompetitions);

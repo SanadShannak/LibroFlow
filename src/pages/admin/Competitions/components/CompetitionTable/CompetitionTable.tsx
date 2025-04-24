@@ -1,7 +1,7 @@
 import { Table, ActionIcon } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import classes from './CompetitionTable.module.css';
-import { CompetitionParticipant } from '../../competitionsData';
+import { CompetitionParticipant } from '../../../../../dummyData/competitionsData';
 
 interface CompetitionTableProps {
   participants: CompetitionParticipant[];
