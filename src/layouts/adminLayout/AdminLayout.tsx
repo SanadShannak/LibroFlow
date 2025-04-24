@@ -37,7 +37,6 @@ const adminContentMap = {
   'branches.shmeisani': <ShmeisaniBranch />,
   'branches.jabalamman': <JabalAmmanBranch />,
   'branches.alzarqaa': <AlZarqaaBranch />,
-
   books: <AdminBooksPage />,
   employees: <AdminEmployeesPage />,
   competitions: <AdminCompetitionsPage />,
@@ -53,4 +52,3 @@ export default function AdminLayout() {
     />
   );
 }
-

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Text, Paper, Stack, TextInput, FileInput, Button, Modal, PasswordInput, Group } from '@mantine/core';
+import { Box, Text, Stack, TextInput, FileInput, Button, Modal, PasswordInput, Group } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconUser, IconMail, IconPhoto, IconLock } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 
-const SettingsPage: React.FC = () => {
+interface SettingsModalProps {
+  opened: boolean;
+  onClose: () => void;
+}
+
+const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
   // State for Change Password modal
   const [passwordModalOpened, setPasswordModalOpened] = useState(false);
 
@@ -47,6 +52,7 @@ const SettingsPage: React.FC = () => {
         message: 'Profile updated successfully',
         color: 'green',
       });
+      onClose();
     } catch (error) {
       notifications.show({
         title: 'Error',
@@ -79,11 +85,20 @@ const SettingsPage: React.FC = () => {
   };
 
   return (
-    <Box p="md">
-      <Paper p="md" radius="md" bg="#37474f" style={{ maxWidth: 600, margin: '0 auto' }}>
-        <Text size="lg" fw={700} c="white" mb="md">
-          Account Settings
-        </Text>
+    <Modal
+      opened={opened}
+      onClose={onClose}
+      title="Account Settings"
+      size="lg"
+      centered
+      overlayProps={{ backgroundOpacity: 0.55, blur: 3 }}
+      styles={{
+        content: { backgroundColor: '#37474f' },
+        header: { backgroundColor: '#37474f', color: 'white' },
+        title: { color: 'white', fontWeight: 700 },
+      }}
+    >
+      <Box p="md">
         <form onSubmit={profileForm.onSubmit(handleProfileSubmit)}>
           <Stack gap="md">
             <TextInput
@@ -117,28 +132,28 @@ const SettingsPage: React.FC = () => {
                 label: { color: '#A0AEC0' },
               }}
             />
-            <Button
-              type="submit"
-              color="blue"
-              style={{ backgroundColor: '#3B82F6', alignSelf: 'flex-start' }}
-            >
-              Save Profile
-            </Button>
+            <Group justify="space-between" mt="md">
+              <Button
+                color="gray"
+                leftSection={<IconLock size={16} />}
+                onClick={() => setPasswordModalOpened(true)}
+                style={{ backgroundColor: '#546E7A' }}
+              >
+                Change Password
+              </Button>
+              <Button
+                type="submit"
+                color="blue"
+                style={{ backgroundColor: '#3B82F6' }}
+              >
+                Save Profile
+              </Button>
+            </Group>
           </Stack>
         </form>
+      </Box>
 
-        <Button
-          mt="md"
-          color="gray"
-          leftSection={<IconLock size={16} />}
-          onClick={() => setPasswordModalOpened(true)}
-          style={{ backgroundColor: '#546E7A', alignSelf: 'flex-start' }}
-        >
-          Change Password
-        </Button>
-      </Paper>
-
-      {/* Change Password Modal */}
+      {/* Nested Change Password Modal */}
       <Modal
         opened={passwordModalOpened}
         onClose={() => setPasswordModalOpened(false)}
@@ -195,8 +210,8 @@ const SettingsPage: React.FC = () => {
           </Stack>
         </form>
       </Modal>
-    </Box>
+    </Modal>
   );
 };
 
-export default SettingsPage;
+export default SettingsModal;

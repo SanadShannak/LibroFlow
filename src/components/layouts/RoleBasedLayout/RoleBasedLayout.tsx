@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import theme from '../../../utils/theme';
 import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
 import classes from './RoleBasedLayout.module.css';
-
+import SettingsModal from '../../../layouts/adminLayout/settingPage';
 
 interface RoleBasedLayoutProps {
   user: {
@@ -43,6 +43,9 @@ const RoleBasedLayout: React.FC<RoleBasedLayoutProps> = ({
   const [activeSection, setActiveSection] = useState('dashboard');
   const [activeBranch, setActiveBranch] = useState('');
   const navigate = useNavigate();
+  
+  // Add state for settings modal
+  const [settingsModalOpened, setSettingsModalOpened] = useState(false);
 
   useEffect(() => {
     const originalBackgroundColor = document.body.style.backgroundColor;
@@ -53,25 +56,24 @@ const RoleBasedLayout: React.FC<RoleBasedLayoutProps> = ({
       clearInterval(interval);
     };
   }, []);
-const normalizeKey = (str: string) =>
-  str.trim().toLowerCase().replace(/\s+/g, '');
+  
+  const normalizeKey = (str: string) =>
+    str.trim().toLowerCase().replace(/\s+/g, '');
 
   const renderContent = () => {
-  const sectionKey = normalizeKey(activeSection);
-  const branchKey = normalizeKey(activeBranch);
+    const sectionKey = normalizeKey(activeSection);
+    const branchKey = normalizeKey(activeBranch);
 
-  if (branchKey && contentMap[`${sectionKey}.${branchKey}`]) {
-    return contentMap[`${sectionKey}.${branchKey}`];
-  }
+    if (branchKey && contentMap[`${sectionKey}.${branchKey}`]) {
+      return contentMap[`${sectionKey}.${branchKey}`];
+    }
 
-  if (contentMap[sectionKey]) {
-    return contentMap[sectionKey];
-  }
+    if (contentMap[sectionKey]) {
+      return contentMap[sectionKey];
+    }
 
-  return null;
-};
-
-
+    return null;
+  };
 
   return (
     <AppShell
@@ -164,14 +166,20 @@ const normalizeKey = (str: string) =>
                 })}
               </Text>
             </Stack>
-            <Box 
-              style={{ 
-                width: '1px', 
-                height: '30px', 
+            <Box
+              style={{
+                width: '1px',
+                height: '30px',
                 backgroundColor: 'rgba(255,255,255,0.3)'
-              }} 
+              }}
             />
-            <IconSettings size={24} stroke={1.5} color={theme.colors.white} style={{ cursor: 'pointer' }} />
+            <IconSettings
+              size={24}
+              stroke={1.5}
+              color={theme.colors.white}
+              style={{ cursor: 'pointer' }}
+              onClick={() => setSettingsModalOpened(true)}
+            />
           </Group>
         </Group>
       </AppShell.Header>
@@ -179,6 +187,12 @@ const normalizeKey = (str: string) =>
       <AppShell.Main>
         <Box p="md" style={{ paddingTop: '1.5rem' }}>{renderContent()}</Box>
       </AppShell.Main>
+      
+      {/* Settings Modal */}
+      <SettingsModal 
+        opened={settingsModalOpened} 
+        onClose={() => setSettingsModalOpened(false)} 
+      />
     </AppShell>
   );
 };
