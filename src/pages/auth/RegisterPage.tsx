@@ -77,7 +77,7 @@ const RegisterPage = () => {
           </Text>
 
           <Text size="lg" mb="sm" ta="center">
-            Already have an account? Sign In Now!
+            Already have an account?
           </Text>
 
           <Button

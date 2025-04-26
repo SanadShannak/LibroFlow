@@ -5,6 +5,10 @@ import ForgotPassword from './pages/auth/ForgotPassword';
 import AdminLayout from './layouts/adminLayout/AdminLayout';
 import AdminDashboardPage from './pages/admin/Dashboard/Dashboard';
 import AdminBooksPage from './pages/admin/Books/BooksPage';
+import DepartmentManagerLayout from './layouts/departmentManagerLayout/DepartmentManagerLayout';
+import FinanceManagerLayout from './layouts/financeManagerLayout/FinanceManagerLayout';
+import SupplierLayout from './layouts/supplierLayout/SupplierLayout';
+import UserLayout from './layouts/userLayout/UserLayout';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
@@ -22,6 +26,19 @@ function App() {
         <Route path="/admin/*" element={<AdminLayout />} />
         <Route path="dashboard" element={<AdminDashboardPage />} />
         <Route path="books" element={<AdminBooksPage />} />
+
+        {/* Department Manager routes */}
+        <Route path="/department-manager/*" element={<DepartmentManagerLayout />} />
+
+        {/* Finance Manager routes */}
+        <Route path="/finance-manager/*" element={<FinanceManagerLayout />} />
+
+        {/* Supplier routes */}
+        <Route path="/supplier/*" element={<SupplierLayout />} />
+
+        {/* User routes */}
+        <Route path="/user/*" element={<UserLayout />} />
+
         {/* Fallback */}
         <Route path="*" element={<LoginPage />} />
       </Routes>
