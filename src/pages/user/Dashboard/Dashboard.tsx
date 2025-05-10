@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Container, Grid, Paper, Table, Text, Stack, Group, Box, Select, Modal, Button, NumberInput, TextInput, ThemeIcon, SimpleGrid } from '@mantine/core';
+import { useState, useEffect } from 'react';
+import { Container, Grid, Paper, Text, Stack, Group, Box, Select, Modal, Button, NumberInput, TextInput, ThemeIcon, SimpleGrid, Title, Table } from '@mantine/core';
 import SummaryCards from '../../../components/SummaryCards';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import styles from './userDashboard.module.css';
@@ -7,6 +7,16 @@ import { userDashboardData } from '../../../dummyData/userPages/dashboardData';
 import membershipImage from '../../../assets/membership.png';
 import bookGenreImage from '../../../assets/book-genre.png';
 import topBorrowedBookImage from '../../../assets/topBorrowedBook.png';
+
+// Helper function to get the OpenAI API key based on the environment
+const getOpenAIApiKey = () => {
+  // For Create React App (process.env.REACT_APP_*)
+  const reactAppKey = typeof process !== 'undefined' && process.env && process.env.REACT_APP_OPENAI_API_KEY;
+  // For Vite (import.meta.env.VITE_*)
+  const viteKey = import.meta.env?.VITE_OPENAI_API_KEY;
+  // Return the first available key
+  return reactAppKey || viteKey || '';
+};
 
 export default function UserDashboard() {
   const { kpis, genreTrends, upcomingEvents, borrowedBooks, topUsers, userRank, currentUser } = userDashboardData;
@@ -17,6 +27,8 @@ export default function UserDashboard() {
   const [names, setNames] = useState<string[]>(['']);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [bookedEvents, setBookedEvents] = useState<Set<string>>(new Set());
+  const [recommendations, setRecommendations] = useState<string[]>([]);
+  const [recommendationError, setRecommendationError] = useState<string | null>(null);
 
   // Filter events by selected branch
   const filteredEvents = upcomingEvents.filter(event => event.branch === selectedBranch);
@@ -96,6 +108,75 @@ export default function UserDashboard() {
         userRank - 1 === index ? { name: 'Sanad Shannak', credits: user.credits } : user
       )
     : [...topUsers, { name: 'Sanad Shannak', credits: currentUser ? currentUser.credits : 50 }];
+
+  // Fetch recommendations from OpenAI API
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      const apiKey = getOpenAIApiKey();
+      
+      // Log the API key for debugging (remove in production)
+      console.log('API Key:', apiKey);
+
+      // Check if API key is available
+      if (!apiKey) {
+        setRecommendationError('OpenAI API key is missing. Please configure it in the environment variables.');
+        // Fallback recommendations
+        setRecommendations([
+          'To Kill a Mockingbird',
+          'Brave New World',
+          'Jane Eyre',
+          'The Catcher in the Rye',
+          'Wuthering Heights',
+        ]);
+        return;
+      }
+
+      const prompt = `Based on the following borrowed books: ${borrowedBooks.map(book => book.title).join(', ')}, suggest 5 book titles that the user might enjoy. Provide the list as numbered items (e.g., 1. Book Title).`;
+      try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [
+              { role: 'system', content: 'You are a book recommendation assistant.' },
+              { role: 'user', content: prompt },
+            ],
+            max_tokens: 150,
+            temperature: 0.7,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}: ${await response.text()}`);
+        }
+
+        const data = await response.json();
+        const recommendationsText = data.choices[0].message.content.trim();
+        const recommendedBooks = recommendationsText
+          .split('\n')
+          .filter((line: string) => line.trim() !== '')
+          .map((line: string) => line.replace(/^\d+\.\s*/, '')) // Remove numbering from the display
+          .slice(0, 5);
+        setRecommendations(recommendedBooks);
+      } catch (error) {
+        console.error('Error fetching recommendations:', error);
+        setRecommendationError('Failed to load recommendations. Please try again later.');
+        // Fallback recommendations
+        setRecommendations([
+          'To Kill a Mockingbird',
+          'Brave New World',
+          'Jane Eyre',
+          'The Catcher in the Rye',
+          'Wuthering Heights',
+        ]);
+      }
+    };
+    fetchRecommendations();
+  }, [borrowedBooks]);
 
   return (
     <Container size="xl" className={styles.container}>
@@ -189,13 +270,13 @@ export default function UserDashboard() {
       <SimpleGrid cols={{ base: 1, sm: 3 }} mb="xl" spacing="6%" >
         {cardConfigs.map((config, index) => (
           <SummaryCards
-        key={index}
-        title={config.title}
-        value={config.value}
-        subtitle={config.subtitle}
-        subtitleColor={config.subtitleColor}
-        bgImage={config.bgImage}
-        bgImageSize="120px"
+            key={index}
+            title={config.title}
+            value={config.value}
+            subtitle={config.subtitle}
+            subtitleColor={config.subtitleColor}
+            bgImage={config.bgImage}
+            bgImageSize="120px"
           />
         ))}
       </SimpleGrid>
@@ -296,7 +377,7 @@ export default function UserDashboard() {
                 color: 'white',
                 '&:hover': {
                   backgroundColor: '#A0AEC0',
-                  color: '#263238', // Dark grey-blue text on hover
+                  color: '#263238',
                 },
               },
             }}
@@ -342,43 +423,68 @@ export default function UserDashboard() {
         </Stack>
       </Paper>
 
-      {/* Current Borrowed Books Table */}
-      <Paper p="md" radius="lg" bg="#37474f" className={styles.tableContainer}>
-        <Text size="lg" fw={700} c="white" mb="md" ta="center">
-          Current Borrowed Books
-        </Text>
-        <Table>
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th c="white">Book Title</Table.Th>
-              <Table.Th c="white">Due Date</Table.Th>
-              <Table.Th c="white">Status</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {borrowedBooks.map((book, index) => (
-              <Table.Tr key={index}>
-                <Table.Td c="white">{book.title}</Table.Td>
-                <Table.Td c="white">{book.dueDate}</Table.Td>
-                <Table.Td>
-                  <Text
-                    size="sm"
-                    c={
-                      book.status === 'Overdue'
-                        ? 'red'
-                        : book.status === 'Due Soon'
-                        ? 'yellow'
-                        : 'green'
-                    }
-                  >
-                    {book.status}
-                  </Text>
-                </Table.Td>
-              </Table.Tr>
-            ))}
-          </Table.Tbody>
-        </Table>
-      </Paper>
+      {/* Current Borrowed Books and Recommended Books */}
+      <Grid gutter="md" className={styles.tableContainer}>
+        {/* Current Borrowed Books Table */}
+        <Grid.Col span={{ base: 12, md: 7 }}>
+          <Paper p="md" radius="lg" bg="#37474f">
+            <Text size="lg" fw={700} c="white" mb="md" ta="center">
+              Current Borrowed Books
+            </Text>
+            <Table>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th c="white">Book Title</Table.Th>
+                  <Table.Th c="white">Due Date</Table.Th>
+                  <Table.Th c="white">Status</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {borrowedBooks.map((book, index) => (
+                  <Table.Tr key={index}>
+                    <Table.Td c="white">{book.title}</Table.Td>
+                    <Table.Td c="white">{book.dueDate}</Table.Td>
+                    <Table.Td>
+                      <Text
+                        size="sm"
+                        c={
+                          book.status === 'Overdue'
+                            ? 'red'
+                            : book.status === 'Due Soon'
+                            ? 'yellow'
+                            : 'green'
+                        }
+                      >
+                        {book.status}
+                      </Text>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          </Paper>
+        </Grid.Col>
+
+        {/* AI Recommendations */}
+        <Grid.Col span={{ base: 12, md: 5 }}>
+          <Paper p="md" radius="lg" bg="#37474f" style={{ height: '100%' }}>
+            <Title order={3} c="white" mb="md">
+              Recommended Books for You
+            </Title>
+            <Stack gap="sm">
+              {recommendationError ? (
+                <Text size="sm" c="#FF5252">{recommendationError}</Text>
+              ) : recommendations.length > 0 ? (
+                recommendations.map((book, index) => (
+                  <Text key={index} size="sm" c="#A0AEC0">{index + 1}. {book}</Text>
+                ))
+              ) : (
+                <Text size="sm" c="#A0AEC0">Loading recommendations...</Text>
+              )}
+            </Stack>
+          </Paper>
+        </Grid.Col>
+      </Grid>
     </Container>
   );
 }
