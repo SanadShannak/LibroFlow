@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Paper, Stack, Group, Text, Image, Box, ThemeIcon } from '@mantine/core';
 
@@ -33,7 +32,6 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
         maxWidth: 350,
         height: 120,
         boxShadow: '0 10px 30px rgba(0, 0, 0, 0.25)',
-        border: '1px solid rgba(71, 85, 105, 0.3)',
       }}
     >
       <Box style={{ position: 'relative', flex: 1, zIndex: 1 }}>
@@ -66,7 +64,6 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
           left: 60,
           bottom: 20,
           width: '100%',
-          
           opacity: 0.05,
           display: 'flex',
           alignItems: 'center',
@@ -77,11 +74,12 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
           src={bgImage}
           alt="background"
           fit="contain"
-          height= {bgImageSize? bgImageSize : "100%"}
+          height={bgImageSize || "100%"}
           style={{ objectFit: 'cover' }}
-          
         />
       </Box>
+
+      
     </Paper>
   );
 };

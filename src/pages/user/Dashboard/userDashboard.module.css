@@ -1,0 +1,31 @@
+.container {
+  padding: 20px;
+}
+
+.kpiGrid {
+  margin-bottom: 20px;
+  padding: 0 12px; /* Matches Paper p="md" (16px) adjusted for alignment */
+}
+
+.chartContainer {
+  margin-bottom: 20px;
+}
+
+.eventsContainer {
+  margin-bottom: 20px;
+}
+
+.tableContainer {
+  margin-bottom: 20px;
+}
+
+.tableContainer th,
+.tableContainer td {
+  border-bottom: 1px solid #4a5961;
+}
+
+.cardImage {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
