@@ -31,7 +31,7 @@ const userContentMap = {
 export default function UserLayout() {
   return (
     <RoleBasedLayout
-      user={{ name: 'User', role: 'User' }}
+      user={{ name: 'Sanad Shannak', role: 'Customer' }}
       sidebarLinks={userSidebarLinks}
       contentMap={userContentMap}
       showBranchContent
