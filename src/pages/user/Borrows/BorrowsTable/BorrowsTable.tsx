@@ -1,7 +1,7 @@
 import { Table, ActionIcon, Group, Text, Button, Tooltip } from '@mantine/core';
-import { IconSearch, IconPencil, IconTrash, IconChevronUp, IconChevronDown, IconCalendar } from '@tabler/icons-react';
-import classes from './BooksTable.module.css';
-import { Book } from '../../../../../dummyData/userPages/booksData';
+import {IconChevronUp, IconChevronDown, IconCalendar } from '@tabler/icons-react';
+import classes from './BorrowsTable.module.css';
+import { Book } from '../../../../dummyData/userPages/booksData';
 import { useState } from 'react';
 
 interface BooksTableProps {
@@ -9,7 +9,7 @@ interface BooksTableProps {
   onReserve: (book: Book) => void;
 }
 
-const BooksTable: React.FC<BooksTableProps> = ({
+const BorrowsTable: React.FC<BooksTableProps> = ({
   books,
   onReserve,
 }) => {
@@ -169,4 +169,4 @@ const BooksTable: React.FC<BooksTableProps> = ({
   );
 };
 
-export default BooksTable;
+export default BorrowsTable;

@@ -6,6 +6,7 @@ import classes from './BooksPage.module.css';
 import { initialBooks, Book } from '../../../dummyData/userPages/booksData';
 import BooksActions from './components/BooksActions/BooksActions';
 import BooksTable from './components/BooksTable/BooksTable';
+import { useBorrowedBooks } from '../../../context/BorrowedBooksContext';
 
 const UserBooks = () => {
   const [books, setBooks] = useState<Book[]>(initialBooks);
@@ -17,6 +18,7 @@ const UserBooks = () => {
   const [reservedDates, setReservedDates] = useState<Date[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [opened, { open, close }] = useDisclosure(false);
+  const { addBorrowedBook } = useBorrowedBooks();
 
   const filteredData = books.filter((book) => {
     const matchesSearch =
@@ -56,15 +58,43 @@ const UserBooks = () => {
     return isFullyReserved || isInUnavailableDates;
   };
 
-  // Toggle date selection
-  const toggleDate = (date: Date) => {
-    if (isDateUnavailable(date)) return; // Prevent selection of unavailable dates
-
-    setReservedDates(prev => {
-      if (prev.some(d => d.toDateString() === date.toDateString())) {
-        return prev.filter(d => d.toDateString() !== date.toDateString());
+  // Validate if dates are consecutive
+  const areDatesConsecutive = (dates: Date[]) => {
+    if (dates.length <= 1) return true;
+    const sortedDates = [...dates].sort((a, b) => a.getTime() - b.getTime());
+    for (let i = 1; i < sortedDates.length; i++) {
+      const prevDate = new Date(sortedDates[i - 1]);
+      const nextDate = new Date(sortedDates[i]);
+      prevDate.setDate(prevDate.getDate() + 1);
+      if (prevDate.toDateString() !== nextDate.toDateString()) {
+        return false;
       }
-      return [...prev, date];
+    }
+    return true;
+  };
+
+  // Toggle date selection with consecutive days enforcement
+  const toggleDate = (date: Date) => {
+    if (isDateUnavailable(date)) return;
+
+    setReservedDates((prev) => {
+      let newDates: Date[];
+      if (prev.some((d) => d.toDateString() === date.toDateString())) {
+        // Remove date
+        newDates = prev.filter((d) => d.toDateString() !== date.toDateString());
+      } else {
+        // Add date
+        newDates = [...prev, date];
+      }
+
+      // Check if new selection is consecutive
+      if (!areDatesConsecutive(newDates)) {
+        setErrorMessage('Please select consecutive dates only.');
+        return prev; // Don't update if not consecutive
+      }
+
+      setErrorMessage(null); // Clear error if consecutive
+      return newDates;
     });
   };
 
@@ -85,13 +115,13 @@ const UserBooks = () => {
 
     // Find an available copy for all selected dates
     const totalCopies = selectedBook.quantity;
-    const reservedCopyIds = new Set(selectedBook.reservations.map(r => r.copyId));
+    const reservedCopyIds = new Set(selectedBook.reservations.map((r) => r.copyId));
     let availableCopyId: number | null = null;
 
     for (let i = 1; i <= totalCopies; i++) {
-      const copyReservations = selectedBook.reservations.find(r => r.copyId === i)?.reservedDates || [];
-      const isCopyAvailableForDates = reservedDates.every(date =>
-        !copyReservations.some(d => d.toDateString() === date.toDateString())
+      const copyReservations = selectedBook.reservations.find((r) => r.copyId === i)?.reservedDates || [];
+      const isCopyAvailableForDates = reservedDates.every(
+        (date) => !copyReservations.some((d) => d.toDateString() === date.toDateString())
       );
       if (isCopyAvailableForDates && (!reservedCopyIds.has(i) || copyReservations.length === 0)) {
         availableCopyId = i;
@@ -105,31 +135,37 @@ const UserBooks = () => {
     }
 
     // Update the book's reservations
-    setBooks(books.map(b => {
-      if (b.id === selectedBook.id) {
-        const existingReservation = b.reservations.find(r => r.copyId === availableCopyId);
-        if (existingReservation) {
-          return {
-            ...b,
-            reservations: b.reservations.map(r =>
-              r.copyId === availableCopyId
-                ? { ...r, reservedDates: [...new Set([...r.reservedDates, ...reservedDates])] }
-                : r
-            ),
-            reservedQuantity: Math.min(b.reservedQuantity + 1, b.quantity),
-            unavailableDates: [...new Set([...b.unavailableDates, ...reservedDates])],
-          };
-        } else {
-          return {
-            ...b,
-            reservations: [...b.reservations, { copyId: availableCopyId, reservedDates: [...reservedDates] }],
-            reservedQuantity: Math.min(b.reservedQuantity + 1, b.quantity),
-            unavailableDates: [...new Set([...b.unavailableDates, ...reservedDates])],
-          };
+    setBooks((books) =>
+      books.map((b) => {
+        if (b.id === selectedBook.id) {
+          const existingReservation = b.reservations.find((r) => r.copyId === availableCopyId);
+          if (existingReservation) {
+            return {
+              ...b,
+              reservations: b.reservations.map((r) =>
+                r.copyId === availableCopyId
+                  ? { ...r, reservedDates: [...new Set([...r.reservedDates, ...reservedDates])] }
+                  : r
+              ),
+              reservedQuantity: Math.min(b.reservedQuantity + 1, b.quantity),
+              unavailableDates: [...new Set([...b.unavailableDates, ...reservedDates])],
+            };
+          } else {
+            return {
+              ...b,
+              reservations: [...b.reservations, { copyId: availableCopyId, reservedDates: [...reservedDates] }],
+              reservedQuantity: Math.min(b.reservedQuantity + 1, b.quantity),
+              unavailableDates: [...new Set([...b.unavailableDates, ...reservedDates])],
+            };
+          }
         }
-      }
-      return b;
-    }));
+        return b;
+      })
+    );
+
+    // Add to borrowed books context (new reservations are not claimed or returned, no points)
+    addBorrowedBook(selectedBook, reservedDates, availableCopyId, false, false, 0);
+
     close();
   };
 
@@ -139,7 +175,9 @@ const UserBooks = () => {
         <Box className={classes.header}>
           <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
             <Box>
-              <Title order={3} c="white" mb="xs">Book Management</Title>
+              <Title order={3} c="white" mb="xs">
+                Book Management
+              </Title>
               <Text size="sm" c="dimmed" style={{ textTransform: 'uppercase' }}>
                 Total Unique Books: {filteredData.length}
               </Text>
@@ -162,10 +200,7 @@ const UserBooks = () => {
 
         <ScrollArea className={classes.tableScrollArea}>
           <Box className={classes.tableContainer}>
-            <BooksTable
-              books={filteredData}
-              onReserve={handleReserve}
-            />
+            <BooksTable books={filteredData} onReserve={handleReserve} />
           </Box>
         </ScrollArea>
 
@@ -187,13 +222,13 @@ const UserBooks = () => {
             </Notification>
           )}
           <Text size="sm" mb="md" c="white">
-            Select reservation dates (Available dates are clickable)
+            Select consecutive reservation dates (Available dates are clickable)
           </Text>
           <ScrollArea style={{ height: '200px', backgroundColor: '#263238', borderRadius: '8px', padding: '12px' }}>
             <SimpleGrid cols={3} spacing="sm" verticalSpacing="sm">
-              {dateList.map(date => {
+              {dateList.map((date) => {
                 const isUnavailable = isDateUnavailable(date);
-                const isSelected = reservedDates.some(d => d.toDateString() === date.toDateString());
+                const isSelected = reservedDates.some((d) => d.toDateString() === date.toDateString());
                 return (
                   <Box key={date.toISOString()} style={{ position: 'relative', width: '100%' }}>
                     <Button
@@ -245,7 +280,7 @@ const UserBooks = () => {
               })}
             </SimpleGrid>
           </ScrollArea>
-          <Group justify="center" mt="lg" >
+          <Group justify="center" mt="lg">
             <Button onClick={close} color="#A0AEC0" radius="md" variant="outline">
               Cancel
             </Button>
