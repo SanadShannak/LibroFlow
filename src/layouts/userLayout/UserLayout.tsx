@@ -2,30 +2,30 @@ import {
   IconDashboard,
   IconBook,
   IconBook2,
-  IconHistory,
-  IconUser,
+  IconTrophy,
+  IconGift,
 } from '@tabler/icons-react';
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import UserDashboard from '../../pages/user/Dashboard/Dashboard';
 import UserBooks from '../../pages/user/Books/Books';
 import UserBorrows from '../../pages/user/Borrows/Borrows';
-import UserHistory from '../../pages/user/History/History';
-import UserProfile from '../../pages/user/Profile/Profile';
+import UserCreditsRewards from '../../pages/user/CreditsRewards/CreditsRewards';
+import UserCompetitions from '../../pages/user/Competitions/Competitions';
 
 const userSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },
   { label: 'Books', icon: IconBook },
   { label: 'Borrows', icon: IconBook2 },
-  { label: 'History', icon: IconHistory },
-  { label: 'Profile', icon: IconUser },
+  { label: 'Credits & Rewards', icon: IconGift },
+  { label: 'Competitions', icon: IconTrophy },
 ];
 
 const userContentMap = {
   dashboard: <UserDashboard />,
   books: <UserBooks />,
   borrows: <UserBorrows />,
-  history: <UserHistory />,
-  profile: <UserProfile />,
+  creditsrewards: <UserCreditsRewards />,
+  competitions: <UserCompetitions />,
 };
 
 export default function UserLayout() {
