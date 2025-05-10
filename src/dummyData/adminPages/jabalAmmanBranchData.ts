@@ -15,34 +15,27 @@ export const responsibilities: Responsibility[] = [
   { 
     title: 'Manage Employees', 
     subItems: ['Add employees/give employee roles'],
-    action: () => console.log('Navigating to Employee Management')
   },
   { 
     title: 'Monitor Department Performance',
-    action: () => console.log('Opening Performance Dashboard')
   },
   { 
     title: 'Make Book Order', 
     subItems: ['Ask approval from accountant', 'Report on order status to accountant'],
-    action: () => console.log('Initiating Book Order')
   },
   { 
     title: 'Manage Book Inventory', 
     subItems: ['Add/Remove Books'],
-    action: () => console.log('Opening Inventory Management')
   },
   { 
     title: 'Department-specific dashboard', 
     subItems: ['Top Books/Top Customers, etc.', 'View borrowed books (department-specific) and their status'],
-    action: () => console.log('Viewing Department Dashboard')
   },
   { 
     title: 'Chat with supplier',
-    action: () => console.log('Opening Supplier Chat')
   },
   { 
     title: 'Chatbot',
-    action: () => console.log('Opening Chatbot')
   },
 ];
 

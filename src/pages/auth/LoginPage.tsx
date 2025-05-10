@@ -16,7 +16,6 @@ const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Handle login logic
-    console.log('Login submitted:', { email, password });
   };
 
   const handleRoleLogin = (role: string) => {

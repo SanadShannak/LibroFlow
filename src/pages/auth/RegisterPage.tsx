@@ -49,7 +49,6 @@ const RegisterPage = () => {
   });
 
   const handleSubmit = (values: typeof form.values) => {
-    console.log('Register submitted:', values);
     navigate('/login');
   };
   const variants = getPageVariants("left");

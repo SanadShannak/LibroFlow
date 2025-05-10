@@ -143,7 +143,6 @@ export default function UserDashboard() {
   useEffect(() => {
     const fetchRecommendations = async () => {
       const apiKey = getOpenAIApiKey();
-      console.log('API Key:', apiKey);
 
       if (!apiKey) {
         setRecommendationError('OpenAI API key is missing. Please configure it in the environment variables.');
@@ -180,7 +179,6 @@ export default function UserDashboard() {
         setRecommendations(result.books.slice(0, 4)); // Limit to 4 recommendations
         setRecommendationReasons(result.reasons.slice(0, 4)); // Limit to 4 reasons
       } catch (error) {
-        console.error('Error fetching recommendations:', error);
         setRecommendationError('Failed to load recommendations. Please try again later.');
         setRecommendations(['To Kill a Mockingbird', 'Brave New World', 'Jane Eyre', 'The Catcher in the Rye']);
         setRecommendationReasons(['', '', '', '']);

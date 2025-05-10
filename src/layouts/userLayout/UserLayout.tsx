@@ -24,7 +24,7 @@ const userContentMap = {
   dashboard: <UserDashboard />,
   books: <UserBooks />,
   borrows: <UserBorrows />,
-  creditsrewards: <UserCreditsRewards />,
+  'credits&rewards': <UserCreditsRewards />,
   competitions: <UserCompetitions />,
 };
 

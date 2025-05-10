@@ -66,9 +66,8 @@ const UserCompetitions = () => {
             onSelectCompetition={setActiveCompetitionId}
           />
           <CompetitionActions
-            searchQuery={searchQuery}
+            searchQuery={searchQuery} 
             onSearchChange={setSearchQuery}
-   
           />
         </Box>
 

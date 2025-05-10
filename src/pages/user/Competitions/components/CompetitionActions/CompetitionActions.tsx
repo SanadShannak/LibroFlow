@@ -5,9 +5,7 @@ import classes from './CompetitionActions.module.css';
 interface CompetitionActionsProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  onEdit: () => void;
-  onDelete: () => void;
-  onAdd: () => void;
+
 }
 
 const CompetitionActions: React.FC<CompetitionActionsProps> = ({

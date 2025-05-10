@@ -40,7 +40,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
 
   const handleProfileSubmit = async (values: typeof profileForm.values) => {
     try {
-      console.log('Updating profile:', values);
       notifications.show({
         title: 'Success',
         message: 'Profile updated successfully',
@@ -58,7 +57,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ opened, onClose }) => {
 
   const handlePasswordSubmit = async (values: typeof passwordForm.values) => {
     try {
-      console.log('Changing password:', values);
       notifications.show({
         title: 'Success',
         message: 'Password changed successfully',
