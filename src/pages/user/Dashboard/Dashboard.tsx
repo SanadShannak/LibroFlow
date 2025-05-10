@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Container, Grid, Paper, Text, Stack, Group, Box, Select, Modal, Button, NumberInput, TextInput, ThemeIcon, SimpleGrid, Title, Table } from '@mantine/core';
+import { useState, useEffect, useRef } from 'react';
+import { Container, Grid, Paper, Text, Stack, Group, Box, Select, Modal, Button, NumberInput, TextInput, ThemeIcon, SimpleGrid, Title, Table, Tooltip, ActionIcon } from '@mantine/core';
+import { IconInfoCircle } from '@tabler/icons-react';
 import SummaryCards from '../../../components/SummaryCards';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
 import styles from './userDashboard.module.css';
 import { userDashboardData } from '../../../dummyData/userPages/dashboardData';
 import membershipImage from '../../../assets/membership.png';
@@ -10,16 +11,29 @@ import topBorrowedBookImage from '../../../assets/topBorrowedBook.png';
 
 // Helper function to get the OpenAI API key based on the environment
 const getOpenAIApiKey = () => {
-  // For Create React App (process.env.REACT_APP_*)
   const reactAppKey = typeof process !== 'undefined' && process.env && process.env.REACT_APP_OPENAI_API_KEY;
-  // For Vite (import.meta.env.VITE_*)
   const viteKey = import.meta.env?.VITE_OPENAI_API_KEY;
-  // Return the first available key
   return reactAppKey || viteKey || '';
 };
 
+// Define the type for borrowed books
+interface BorrowedBook {
+  title: string;
+  dueDate: string;
+  status: string;
+  genre?: string;
+}
+
 export default function UserDashboard() {
-  const { kpis, genreTrends, upcomingEvents, borrowedBooks, topUsers, userRank, currentUser } = userDashboardData;
+  const { kpis, genreTrends, upcomingEvents, borrowedBooks, topUsers, userRank, currentUser } = userDashboardData as {
+    kpis: any[];
+    genreTrends: any[];
+    upcomingEvents: any[];
+    borrowedBooks: BorrowedBook[];
+    topUsers: any[];
+    userRank: number;
+    currentUser: any;
+  };
   const [selectedBranch, setSelectedBranch] = useState<string | null>('Al-Zarqaa');
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<{ title: string; branch: string; location: string; date: string } | null>(null);
@@ -28,7 +42,23 @@ export default function UserDashboard() {
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [bookedEvents, setBookedEvents] = useState<Set<string>>(new Set());
   const [recommendations, setRecommendations] = useState<string[]>([]);
+  const [recommendationReasons, setRecommendationReasons] = useState<string[]>([]);
   const [recommendationError, setRecommendationError] = useState<string | null>(null);
+  const [borrowedBooksHeight, setBorrowedBooksHeight] = useState<number | undefined>(undefined);
+  const borrowedBooksRef = useRef<HTMLDivElement>(null);
+
+  // Measure the height of the borrowed books card
+  useEffect(() => {
+    const updateHeight = () => {
+      if (borrowedBooksRef.current) {
+        setBorrowedBooksHeight(borrowedBooksRef.current.offsetHeight);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, [borrowedBooks]);
 
   // Filter events by selected branch
   const filteredEvents = upcomingEvents.filter(event => event.branch === selectedBranch);
@@ -109,29 +139,20 @@ export default function UserDashboard() {
       )
     : [...topUsers, { name: 'Sanad Shannak', credits: currentUser ? currentUser.credits : 50 }];
 
-  // Fetch recommendations from OpenAI API
+  // Fetch recommendations and reasons from OpenAI API
   useEffect(() => {
     const fetchRecommendations = async () => {
       const apiKey = getOpenAIApiKey();
-      
-      // Log the API key for debugging (remove in production)
       console.log('API Key:', apiKey);
 
-      // Check if API key is available
       if (!apiKey) {
         setRecommendationError('OpenAI API key is missing. Please configure it in the environment variables.');
-        // Fallback recommendations
-        setRecommendations([
-          'To Kill a Mockingbird',
-          'Brave New World',
-          'Jane Eyre',
-          'The Catcher in the Rye',
-          'Wuthering Heights',
-        ]);
+        setRecommendations(['To Kill a Mockingbird', 'Brave New World', 'Jane Eyre', 'The Catcher in the Rye']);
+        setRecommendationReasons(['', '', '', '']);
         return;
       }
 
-      const prompt = `Based on the following borrowed books: ${borrowedBooks.map(book => book.title).join(', ')}, suggest 5 book titles that the user might enjoy. Provide the list as numbered items (e.g., 1. Book Title).`;
+      const prompt = `Based on the following borrowed books: ${borrowedBooks.map(book => book.title).join(', ')}, suggest 5 book titles that the user might enjoy, and for each book, provide a brief reason (1-2 sentences) explaining why it was recommended. Format the response as a JSON object with two arrays: 'books' for the titles and 'reasons' for the corresponding explanations, e.g., { "books": ["Book1", "Book2"], "reasons": ["Reason1", "Reason2"] }.`;
       try {
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
@@ -145,7 +166,7 @@ export default function UserDashboard() {
               { role: 'system', content: 'You are a book recommendation assistant.' },
               { role: 'user', content: prompt },
             ],
-            max_tokens: 150,
+            max_tokens: 300,
             temperature: 0.7,
           }),
         });
@@ -155,24 +176,14 @@ export default function UserDashboard() {
         }
 
         const data = await response.json();
-        const recommendationsText = data.choices[0].message.content.trim();
-        const recommendedBooks = recommendationsText
-          .split('\n')
-          .filter((line: string) => line.trim() !== '')
-          .map((line: string) => line.replace(/^\d+\.\s*/, '')) // Remove numbering from the display
-          .slice(0, 5);
-        setRecommendations(recommendedBooks);
+        const result = JSON.parse(data.choices[0].message.content.trim());
+        setRecommendations(result.books.slice(0, 4)); // Limit to 4 recommendations
+        setRecommendationReasons(result.reasons.slice(0, 4)); // Limit to 4 reasons
       } catch (error) {
         console.error('Error fetching recommendations:', error);
         setRecommendationError('Failed to load recommendations. Please try again later.');
-        // Fallback recommendations
-        setRecommendations([
-          'To Kill a Mockingbird',
-          'Brave New World',
-          'Jane Eyre',
-          'The Catcher in the Rye',
-          'Wuthering Heights',
-        ]);
+        setRecommendations(['To Kill a Mockingbird', 'Brave New World', 'Jane Eyre', 'The Catcher in the Rye']);
+        setRecommendationReasons(['', '', '', '']);
       }
     };
     fetchRecommendations();
@@ -290,19 +301,32 @@ export default function UserDashboard() {
             </Text>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={genreTrends} margin={{ left: 0, right: 0 }}>
-                <XAxis dataKey="genre" stroke="#A0AEC0" />
-                <YAxis stroke="#A0AEC0" />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#263238', border: 'none', color: '#fff' }}
-                />
-                <Bar
-                  dataKey="totalBooks"
-                  fill="#4CAF50"
-                  animationDuration={1000}
-                  animationEasing="ease-in-out"
-                  radius={[12, 12, 0, 0]} // Curvier bars
-                />
-              </BarChart>
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stopColor="#d1d1d1" />
+      <stop offset="100%" stopColor="#d1d1d1" />
+    </linearGradient>
+  </defs>
+  <XAxis dataKey="genre" stroke="#A0AEC0" />
+  <YAxis stroke="#A0AEC0" />
+  <RechartsTooltip
+    contentStyle={{ backgroundColor: '#263238', border: 'none', color: '#fff' }}
+  />
+  <Bar
+    dataKey="totalBooks"
+    fill="url(#barGradient)"
+    filter="url(#glow)"
+    radius={[20, 20, 0, 0]}
+    activeBar={{ fill: "#1f2d38", radius: 20, stroke: "#00d1b2", strokeWidth: 0.2 }}
+  />
+</BarChart>
             </ResponsiveContainer>
           </Paper>
         </Grid.Col>
@@ -372,7 +396,7 @@ export default function UserDashboard() {
             size="sm"
             styles={{
               input: { backgroundColor: '#263238', color: 'white', border: 'none' },
-              dropdown: { backgroundColor: '#263238' },
+              dropdown: { backgroundColor: '#263238', border: 'none' },
               option: {
                 color: 'white',
                 '&:hover': {
@@ -407,7 +431,7 @@ export default function UserDashboard() {
                           radius="md"
                           onClick={() => handleBookPlace(event)}
                         >
-                          {isBooked ? 'Book More?' : 'Book Place'}
+                          {isBooked ? 'Book More?' : 'Book Ticket'}
                         </Button>
                       </Group>
                     ) : (
@@ -427,7 +451,7 @@ export default function UserDashboard() {
       <Grid gutter="md" className={styles.tableContainer}>
         {/* Current Borrowed Books Table */}
         <Grid.Col span={{ base: 12, md: 7 }}>
-          <Paper p="md" radius="lg" bg="#37474f">
+          <Paper p="md" radius="lg" bg="#37474f" ref={borrowedBooksRef}>
             <Text size="lg" fw={700} c="white" mb="md" ta="center">
               Current Borrowed Books
             </Text>
@@ -467,7 +491,7 @@ export default function UserDashboard() {
 
         {/* AI Recommendations */}
         <Grid.Col span={{ base: 12, md: 5 }}>
-          <Paper p="md" radius="lg" bg="#37474f" style={{ height: '100%' }}>
+          <Paper p="md" radius="lg" bg="#37474f" style={{ height: borrowedBooksHeight ? `${borrowedBooksHeight}px` : 'auto' }}>
             <Title order={3} c="white" mb="md">
               Recommended Books for You
             </Title>
@@ -476,7 +500,14 @@ export default function UserDashboard() {
                 <Text size="sm" c="#FF5252">{recommendationError}</Text>
               ) : recommendations.length > 0 ? (
                 recommendations.map((book, index) => (
-                  <Text key={index} size="sm" c="#A0AEC0">{index + 1}. {book}</Text>
+                  <Group key={index} align="center" justify="space-between">
+                    <Text size="sm" c="#A0AEC0">{index + 1}. {book}</Text>
+                    <Tooltip label={recommendationReasons[index] || 'Reason not available'} withArrow position="top" color="#263238">
+                      <ActionIcon variant="transparent" color="gray">
+                        <IconInfoCircle size={16} />
+                      </ActionIcon>
+                    </Tooltip>
+                  </Group>
                 ))
               ) : (
                 <Text size="sm" c="#A0AEC0">Loading recommendations...</Text>
