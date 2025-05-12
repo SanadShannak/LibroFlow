@@ -94,9 +94,7 @@ const UserBorrows: React.FC = () => {
         <Table.Td className={tableClasses.tableCell}>{book.name}</Table.Td>
         <Table.Td className={tableClasses.tableCell}>{book.type}</Table.Td>
         <Table.Td className={tableClasses.tableCell}>{book.language}</Table.Td>
-        <Table.Td className={`${tableClasses.tableCell} ${tableClasses.centered}`}>
-          {book.quantity}
-        </Table.Td>
+
         <Table.Td className={tableClasses.tableCell}>
           {reservedDates
             .map((date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))
@@ -139,7 +137,6 @@ const UserBorrows: React.FC = () => {
                 <Table.Th className={tableClasses.tableHeader}>Name</Table.Th>
                 <Table.Th className={tableClasses.tableHeader}>Type</Table.Th>
                 <Table.Th className={tableClasses.tableHeader}>Language</Table.Th>
-                <Table.Th className={tableClasses.tableHeader}>Quantity</Table.Th>
                 <Table.Th className={tableClasses.tableHeader}>Reserved Dates</Table.Th>
                 <Table.Th className={tableClasses.tableHeader}>Status</Table.Th>
                 <Table.Th className={tableClasses.tableHeader}>Note</Table.Th>
