@@ -491,7 +491,7 @@ export default function UserDashboard() {
         <Grid.Col span={{ base: 12, md: 5 }}>
           <Paper p="md" radius="lg" bg="#37474f" style={{ height: borrowedBooksHeight ? `${borrowedBooksHeight}px` : 'auto' }}>
             <Title order={3} c="white" mb="md">
-              Recommended Books for You
+              AI Book Recommendations
             </Title>
             <Stack gap="sm">
               {recommendationError ? (
