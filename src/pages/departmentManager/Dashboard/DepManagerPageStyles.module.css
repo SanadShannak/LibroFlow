@@ -1,0 +1,225 @@
+.container {
+  padding: 50px !important;
+  /* Define the fade-in with upward slide animation */
+  animation: fadeIn 0.5s ease-in-out !important;
+}
+
+.summaryCard {
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 120px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.summaryCard:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.circles {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+}
+
+.content {
+}
+
+.title {
+  font-size: 12px !important;
+  color: #a0aec0 !important;
+  font-weight: 700 !important;
+  padding-bottom: 18px !important;
+  padding-left: 2px !important;
+}
+
+.value {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  padding-bottom: 18px !important;
+  margin-top: -18px !important;
+}
+
+.subtitle {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  padding-top: 0 !important;
+}
+
+.bgContainer {
+  position: absolute !important;
+  right: 0 !important;
+  top: 20px !important;
+  left: 60px !important;
+  bottom: 5px !important;
+  width: 100% !important;
+  opacity: 0.05 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.bgIcon {
+  max-height: 150% !important;
+  max-width: 150% !important;
+  object-fit: cover !important;
+}
+
+.reactIcon {
+  height: 100% !important;
+  width: auto !important;
+  object-fit: contain !important;
+}
+
+.responsibilitiesWrapper {
+  grid-column: span 2 !important;
+}
+
+.responsibilitiesContainer {
+  height: 100% !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  transition: box-shadow 0.2s ease !important;
+}
+
+.responsibilitiesContainer:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+.chartCard {
+  position: relative !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  z-index: 1 !important;
+}
+
+.chartCard:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.cardTable {
+  min-height: auto !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.cardTable:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.actionButton {
+  background-color: #2563eb !important;
+  color: white !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  transition: background-color 0.2s ease, transform 0.2s ease !important;
+}
+
+.actionButton:hover {
+  background-color: #1d4ed8 !important;
+}
+
+.topEmployees {
+  height: 45% !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: box-shadow 0.2s ease !important;
+}
+
+.upcomingEvents {
+  height: 50% !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  transition: box-shadow 0.2s ease !important;
+}
+
+.topEmployees:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Target the BarChart's path elements (bars) */
+.employeePerformanceChart path {
+  fill: #ffd54f;
+  transform: scaleY(0); /* Start from bottom */
+  transform-origin: bottom; /* Scale from bottom */
+  animation: growBar 1s ease-out forwards !important; /* Match Recharts animation duration */
+}
+
+/* Stagger the bar animations */
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(1) path {
+  animation-delay: 0s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(2) path {
+  animation-delay: 0.2s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(3) path {
+  animation-delay: 0.4s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(4) path {
+  animation-delay: 0.6s !important;
+}
+.employeePerformanceChart .recharts-bar-rectangle:nth-child(5) path {
+  animation-delay: 0.8s !important;
+}
+
+/* Override the hover effect for the bars */
+.employeePerformanceChart path:hover {
+  fill: #ffffff !important;
+  transition: fill 0.2s ease !important;
+  opacity: 0.8;
+}
+
+/* Hide the tooltip cursor */
+.employeePerformanceChart .recharts-tooltip-cursor {
+  display: none !important;
+}
+
+/* Animation for LineChart line drawing */
+.lineChartAnimation .recharts-line path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 1s ease-in-out forwards;
+}
+
+/* Animation for drawing the line */
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Animation for growing the bars */
+@keyframes growBar {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Define the fade-in with upward slide animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
