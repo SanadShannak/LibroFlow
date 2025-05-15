@@ -1,0 +1,17 @@
+.container {
+  padding: 20px;
+  background-color: #2d3e45;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.tableScrollArea {
+  max-height: 400px;
+}

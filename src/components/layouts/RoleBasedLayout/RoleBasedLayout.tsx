@@ -118,6 +118,7 @@ const RoleBasedLayout: React.FC<RoleBasedLayoutProps> = ({
                   activeSection={activeSection}
                   activeBranch={activeBranch}
                   onClick={(section, branch) => {
+
                     setActiveSection(section);
                     setActiveBranch(branch || '');
                   }}

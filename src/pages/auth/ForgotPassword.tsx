@@ -60,17 +60,14 @@ const ForgotPassword = () => {
   });
 
   const handleEmailSubmit = (values: typeof formEmail.values) => {
-    console.log('Email submitted:', values);
     setStep(2); // Move to OTP step
   };
 
   const handleOTPSubmit = (values: typeof formOTP.values) => {
-    console.log('OTP submitted:', values);
     setStep(3); // Move to password reset step
   };
 
   const handlePasswordSubmit = (values: typeof formPassword.values) => {
-    console.log('Password reset submitted:', values);
     navigate('/login'); // Redirect to login after password reset
   };
 

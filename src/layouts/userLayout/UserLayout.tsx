@@ -1,40 +1,40 @@
 import {
   IconDashboard,
   IconBook,
-  IconShoppingCart,
-  IconHistory,
-  IconUser,
+  IconBook2,
+  IconTrophy,
+  IconGift,
 } from '@tabler/icons-react';
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import UserDashboard from '../../pages/user/Dashboard/Dashboard';
 import UserBooks from '../../pages/user/Books/Books';
-import UserCart from '../../pages/user/Cart/Cart';
-import UserHistory from '../../pages/user/History/History';
-import UserProfile from '../../pages/user/Profile/Profile';
+import UserBorrows from '../../pages/user/Borrows/Borrows';
+import UserCreditsRewards from '../../pages/user/CreditsRewards/CreditsRewards';
+import UserCompetitions from '../../pages/user/Competitions/Competitions';
 
 const userSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },
   { label: 'Books', icon: IconBook },
-  { label: 'Cart', icon: IconShoppingCart },
-  { label: 'History', icon: IconHistory },
-  { label: 'Profile', icon: IconUser },
+  { label: 'Borrows', icon: IconBook2 },
+  { label: 'Credits & Rewards', icon: IconGift },
+  { label: 'Competitions', icon: IconTrophy },
 ];
 
 const userContentMap = {
   dashboard: <UserDashboard />,
   books: <UserBooks />,
-  cart: <UserCart />,
-  history: <UserHistory />,
-  profile: <UserProfile />,
+  borrows: <UserBorrows />,
+  'credits&rewards': <UserCreditsRewards />,
+  competitions: <UserCompetitions />,
 };
 
 export default function UserLayout() {
   return (
     <RoleBasedLayout
-      user={{ name: 'User', role: 'User' }}
+      user={{ name: 'Sanad Shannak', role: 'Customer' }}
       sidebarLinks={userSidebarLinks}
       contentMap={userContentMap}
       showBranchContent
     />
   );
-} 
+}
