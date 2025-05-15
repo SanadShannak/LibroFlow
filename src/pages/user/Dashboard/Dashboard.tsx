@@ -276,7 +276,7 @@ export default function UserDashboard() {
       </Modal>
 
       {/* KPIs */}
-      <SimpleGrid cols={{ base: 1, sm: 3 }} mb="xl" spacing="6%" >
+      <SimpleGrid cols={{ base: 1, sm: 3 }} mb="xl" spacing="17%" >
         {cardConfigs.map((config, index) => (
           <SummaryCards
             key={index}
@@ -329,11 +329,11 @@ export default function UserDashboard() {
           </Paper>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 5 }}>
-          <Paper p="md" radius="lg" bg="#37474f" style={{ minHeight: 350, maxHeight: 350, overflowY: 'auto' }}>
+          <Paper p="md" radius="lg" bg="#37474f" style={{minHeight: 350, maxHeight: 350, overflowY: 'auto', }}>
             <Text size="lg" fw={700} c="white" mb="md">
               Top Users
             </Text>
-            <Table>
+            <Table >
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th c="white" w={60}>Rank</Table.Th>

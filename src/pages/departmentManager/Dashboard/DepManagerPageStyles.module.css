@@ -1,5 +1,6 @@
 .container {
   padding: 20px !important;
+
   /* Define the fade-in with upward slide animation */
   animation: fadeIn 0.5s ease-in-out !important;
 }
