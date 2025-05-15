@@ -1,0 +1,450 @@
+/* Dashboard.css */
+:root {
+  --primary-dark: #263238;
+  --primary: #37474F;
+  --primary-light: #546E7A;
+  --accent: #4FC3F7;
+  --success: #66BB6A;
+  --warning: #FFCA28;
+  --danger: #EF5350;
+  --text-light: #ECEFF1;
+  --text-secondary: #B0BEC5;
+  --shadow-color: rgba(38, 50, 56, 0.2);
+  --glow-color: rgba(79, 195, 247, 0.6);
+}
+
+.dashboard-container {
+  padding: 1.5rem;
+  background-color: var(--primary-dark);
+  min-height: 100vh;
+  color: var(--text-light);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--primary-light);
+}
+
+.welcome-section {
+  display: flex;
+  align-items: center;
+}
+
+.welcome-section h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.welcome-section .supplier-badge {
+  background-color: var(--accent);
+  color: var(--primary-dark);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.notification-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--danger);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  box-shadow: 0 0 10px rgba(239, 83, 80, 0.7);
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--shadow-color);
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.stat-card.books::after {
+  background-color: var(--accent);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.stat-card.orders::after {
+  background-color: var(--success);
+  box-shadow: 0 0 15px rgba(102, 187, 106, 0.6);
+}
+
+.stat-card.pending::after {
+  background-color: var(--warning);
+  box-shadow: 0 0 15px rgba(255, 202, 40, 0.6);
+}
+
+.stat-card.revenue::after {
+  background-color: var(--danger);
+  box-shadow: 0 0 15px rgba(239, 83, 80, 0.6);
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.stat-title {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.books .stat-icon {
+  background-color: rgba(79, 195, 247, 0.2);
+  color: var(--accent);
+}
+
+.orders .stat-icon {
+  background-color: rgba(102, 187, 106, 0.2);
+  color: var(--success);
+}
+
+.pending .stat-icon {
+  background-color: rgba(255, 202, 40, 0.2);
+  color: var(--warning);
+}
+
+.revenue .stat-icon {
+  background-color: rgba(239, 83, 80, 0.2);
+  color: var(--danger);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.stat-change {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.positive-change {
+  color: var(--success);
+}
+
+.negative-change {
+  color: var(--danger);
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 992px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background-color: var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  height: 100%;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.chart-title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.chart-filter select {
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  border: 1px solid var(--primary-light);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.chart-content {
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.recent-orders {
+  background-color: var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.orders-table th {
+  text-align: left;
+  padding: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--primary-light);
+}
+
+.orders-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(84, 110, 122, 0.3);
+}
+
+.orders-table tr:last-child td {
+  border-bottom: none;
+}
+
+.order-id {
+  font-weight: 600;
+}
+
+.order-date {
+  color: var(--text-secondary);
+}
+
+.status-pill {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-delivered {
+  background-color: rgba(102, 187, 106, 0.2);
+  color: var(--success);
+}
+
+.status-pending {
+  background-color: rgba(255, 202, 40, 0.2);
+  color: var(--warning);
+}
+
+.status-cancelled {
+  background-color: rgba(239, 83, 80, 0.2);
+  color: var(--danger);
+}
+
+.view-all-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.view-all-btn button {
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.view-all-btn button:hover {
+  background-color: var(--accent);
+  color: var(--primary-dark);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.book-catalog {
+  background-color: var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  margin-bottom: 2rem;
+}
+
+.book-search {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.book-search input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--primary-light);
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.book-card {
+  background-color: var(--primary-dark);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+.book-cover {
+  height: 200px;
+  overflow: hidden;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-info {
+  padding: 1rem;
+}
+
+.book-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-author {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem 0;
+}
+
+.book-stock {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Glow effect for key elements */
+.glow-effect {
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Pulse animation for important notifications */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(79, 195, 247, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 195, 247, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Dark scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}

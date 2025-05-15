@@ -1,0 +1,335 @@
+.orders-container {
+  padding: 24px;
+  background-color: #263238;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.order-details {
+  max-width: 672px;
+  background-color: #37474F;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-details h3 {
+  color: #51f238;
+}
+
+.supplier-selection {
+  text-align: center;
+}
+
+.supplier-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.supplier-button {
+  padding: 12px 24px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.supplier-button:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+
+.supplier-button:active {
+  transform: scale(0.95);
+}
+
+.book-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.book-list th,
+.book-list td {
+  padding: 8px 16px;
+  border-bottom: 1px solid #4a5568;
+  text-align: left;
+}
+
+.input-field {
+  background-color: #667B87;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.input-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input-field-disabled {
+  background-color: #4a5568;
+  opacity: 0.7;
+}
+
+.input-field::placeholder {
+  color: #a0aec0;
+}
+
+.chat-messages {
+  border: 1px solid #4a5568;
+  background-color: #667B87;
+  padding: 16px;
+  border-radius: 4px;
+  height: 160px;
+  overflow-y: auto;
+}
+
+.chat-messages div {
+  margin-bottom: 8px;
+}
+
+.chat-messages .text-gray-400 {
+  color: #a0aec0;
+  font-size: 12px;
+}
+
+.chat-messages .font-bold {
+  font-weight: bold;
+}
+
+.chat-input {
+  display: flex;
+  margin-top: 8px;
+}
+
+.chat-input input {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.chat-input input::placeholder {
+  color: #a0aec0;
+}
+
+.rejection-message {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #dc2626;
+  color: #ffffff;
+  border: 1px solid #b91c1c;
+  border-radius: 4px;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button.bg-blue-500 {
+  background-color: #3b82f6;
+}
+
+button.bg-blue-500:hover {
+  background-color: #2563eb;
+}
+
+button.bg-green-500 {
+  background-color: #10b981;
+}
+
+button.bg-green-500:hover {
+  background-color: #059669;
+}
+
+button.bg-red-500 {
+  background-color: #ef4444;
+}
+
+button.bg-red-500:hover {
+  background-color: #dc2626;
+}
+
+button.bg-orange-500 {
+  background-color: #f28c38;
+}
+
+button.bg-orange-500:hover {
+  background-color: #e07b2a;
+}
+
+button.bg-gray-500 {
+  background-color: #6b7280;
+}
+
+button.bg-gray-500:hover {
+  background-color: #4b5563;
+}
+
+.text-green-400 {
+  color: #34d399;
+}
+
+.add-book-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.add-book-button:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+
+.add-book-button:active {
+  transform: scale(0.95);
+}
+
+.plus-icon {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #37474F;
+  padding: 24px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  color: #51f238;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.modal-content {
+  margin-bottom: 24px;
+}
+
+.modal-field {
+  margin-bottom: 16px;
+}
+
+.modal-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.modal-book-list {
+  margin-top: 16px;
+}
+
+.modal-book-list h4 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.modal-book-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.modal-book-row input {
+  flex: 1;
+}
+
+.modal-add-book {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.modal-add-book:hover {
+  background-color: #2563eb;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-button-save {
+  background-color: #10b981;
+}
+
+.modal-button-save:hover {
+  background-color: #059669;
+}
+
+.modal-button-cancel {
+  background-color: #ef4444;
+}
+
+.modal-button-cancel:hover {
+  background-color: #dc2626;
+}

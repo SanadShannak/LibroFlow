@@ -1,0 +1,147 @@
+.orders-container {
+  padding: 24px;
+  background-color: #263238;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.order-details {
+  max-width: 672px;
+  background-color: #37474F;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-details h3 {
+  color: #51f238;
+}
+
+.book-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.book-list th,
+.book-list td {
+  padding: 8px 16px;
+  border-bottom: 1px solid #4a5568;
+  text-align: left;
+}
+
+.input-field {
+  background-color: #667B87;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.input-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input-field-disabled {
+  background-color: #4a5568;
+  opacity: 0.7;
+}
+
+.input-field::placeholder {
+  color: #a0aec0;
+}
+
+.chat-messages {
+  border: 1px solid #4a5568;
+  background-color: #667B87;
+  padding: 16px;
+  border-radius: 4px;
+  height: 160px;
+  overflow-y: auto;
+}
+
+.chat-messages div {
+  margin-bottom: 8px;
+}
+
+.chat-messages .text-gray-400 {
+  color: #a0aec0;
+  font-size: 12px;
+}
+
+.chat-messages .font-bold {
+  font-weight: bold;
+}
+
+.chat-input {
+  display: flex;
+  margin-top: 8px;
+}
+
+.chat-input input {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.chat-input input::placeholder {
+  color: #a0aec0;
+}
+
+.rejection-message {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #dc2626;
+  color: #ffffff;
+  border: 1px solid #b91c1c;
+  border-radius: 4px;
+}
+
+.rejection-input label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button.bg-green-500 {
+  background-color: #10b981;
+}
+
+button.bg-green-500:hover {
+  background-color: #059669;
+}
+
+button.bg-red-500 {
+  background-color: #ef4444;
+}
+
+button.bg-red-500:hover {
+  background-color: #dc2626;
+}
+
+button.bg-gray-500 {
+  background-color: #6b7280;
+}
+
+button.bg-gray-500:hover {
+  background-color: #4b5563;
+}
+
+.text-green-400 {
+  color: #34d399;
+}

@@ -3,29 +3,33 @@ import {
   IconPackage,
   IconTruck,
   IconFileInvoice,
-  IconSettings,
+  IconBook2,
+  
 } from '@tabler/icons-react';
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import SupplierDashboard from '../../pages/supplier/Dashboard/Dashboard';
-import SupplierProducts from '../../pages/supplier/Products/Products';
+import SupplierProducts from '../../pages/supplier/Books/BooksPage';
+import UserBooks from '../../pages/supplier/BooksFromUser/Books';
 import SupplierDeliveries from '../../pages/supplier/Deliveries/Deliveries';
-import SupplierInvoices from '../../pages/supplier/Invoices/Invoices';
-import SupplierSettings from '../../pages/supplier/Settings/Settings';
+import SupplierOrders from '../../pages/supplier/Orders/Orders';
+
 
 const supplierSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },
   { label: 'Products', icon: IconPackage },
+  { label: 'Library Books', icon: IconBook2 },
   { label: 'Deliveries', icon: IconTruck },
-  { label: 'Invoices', icon: IconFileInvoice },
-  { label: 'Settings', icon: IconSettings },
+  { label: 'Orders', icon: IconFileInvoice },
+ 
 ];
 
 const supplierContentMap = {
   dashboard: <SupplierDashboard />,
   products: <SupplierProducts />,
+  userBooks: <UserBooks />,
   deliveries: <SupplierDeliveries />,
-  invoices: <SupplierInvoices />,
-  settings: <SupplierSettings />,
+  orders: <SupplierOrders />,
+  
 };
 
 export default function SupplierLayout() {
