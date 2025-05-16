@@ -172,7 +172,7 @@ input:focus, select:focus, textarea:focus {
 
 .filter-select {
   border: none;
-  background: transparent;
+  background: #2c393f;
   padding: 10px 0;
   min-width: 120px;
   color: var(--text-primary);
@@ -524,6 +524,9 @@ input:focus, select:focus, textarea:focus {
   overflow-y: auto;
   flex: 1;
 }
+input::placeholder {
+  color: #ffffff; /* or any color you want */
+}
 
 .modal-actions {
   display: flex;
@@ -626,6 +629,8 @@ input:focus, select:focus, textarea:focus {
 .form-group {
   margin-bottom: 16px;
   width: 100%;
+
+  
 }
 
 .form-row {
@@ -665,15 +670,16 @@ textarea {
 
 .add-book-btn {
   display: flex;
+  background-color: #263238;
   align-items: center;
   gap: 8px;
-  color: var(--accent-blue);
+  color : #ffffff;
   font-size: 14px;
-  padding: 8px 0;
+  padding: 8px 2;
 }
 
 .add-book-btn:hover {
-  color: #64b5f6;
+  color: #eef2f6;
 }
 
 .primary-btn {

@@ -2,6 +2,11 @@
 :root {
   --primary-dark: #263238;
   --primary: #37474F;
+  --color1:#182830;
+  --color2:#37474F;
+  --color3:#546E7A; 
+  --color4:#B0BEC5;
+  --color5:#ECEFF1;
   --primary-light: #546E7A;
   --accent: #4FC3F7;
   --success: #66BB6A;
@@ -26,7 +31,6 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--primary-light);
 }
 
 .welcome-section {
@@ -73,8 +77,9 @@
 }
 
 .stats-container {
+  max-width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 4fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -204,6 +209,7 @@
   padding: 1.5rem;
   box-shadow: 0 4px 20px var(--shadow-color);
   height: 100%;
+
 }
 
 .chart-header {
@@ -219,11 +225,14 @@
 }
 
 .chart-filter select {
-  background-color: var(--primary-dark);
+  background-color: var(--primary);
   color: var(--text-light);
   border: 1px solid var(--primary-light);
   border-radius: 6px;
   padding: 0.5rem;
+  margin-left: -17px ;
+  margin-right: 16px;
+  
   font-size: 0.9rem;
   cursor: pointer;
 }

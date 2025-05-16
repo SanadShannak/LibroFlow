@@ -1,0 +1,36 @@
+.container {
+  padding: 20px !important;
+  background-color: #263238;
+  min-height: 100vh;
+}
+
+.table {
+  background: #37474f;
+  border-radius: 12px;
+  border: none;
+  width: 100%;
+}
+
+.tableHead {
+  background-color: transparent;
+  border-bottom: none !important;
+}
+
+.tableHeader {
+  padding: 16px 20px !important;
+  color: #fff;
+  font-weight: 600;
+  text-align: center !important;
+}
+
+.tableCell {
+  padding: 16px 20px !important;
+  color: #fff;
+  text-align: center;
+  height: 60px;
+  font-size: 14px;
+}
+
+:global(.mantine-Table-tr) {
+  border-bottom: none !important;
+}

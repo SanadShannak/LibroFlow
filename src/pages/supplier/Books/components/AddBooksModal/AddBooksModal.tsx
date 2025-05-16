@@ -22,15 +22,24 @@ const AddBooksModal: React.FC<AddBooksModalProps> = ({
     language: '',
     quantity: 0,
     reservedQuantity: 0,
+    pricePerOne: 0,
   });
 
   const types = ['Fiction', 'Self-Help', 'Thriller', 'Children', 'Non-Fiction', 'Classic', 'Dystopian', 'Educational'];
   const languages = ['English', 'Spanish', 'French', 'German'];
 
   const handleAdd = () => {
-    if (!newBook.name || !newBook.type || !newBook.language || newBook.quantity < 0 || newBook.reservedQuantity < 0 || newBook.reservedQuantity > newBook.quantity) return;
+    if (
+      !newBook.name ||
+      !newBook.type ||
+      !newBook.language ||
+      newBook.quantity < 0 ||
+      newBook.reservedQuantity < 0 ||
+      newBook.reservedQuantity > newBook.quantity ||
+      newBook.pricePerOne <= 0
+    ) return;
     onAddBook(newBook);
-    setNewBook({ name: '', type: '', language: '', quantity: 0, reservedQuantity: 0 });
+    setNewBook({ name: '', type: '', language: '', quantity: 0, reservedQuantity: 0, pricePerOne: 0 });
   };
 
   return (
@@ -115,6 +124,16 @@ const AddBooksModal: React.FC<AddBooksModalProps> = ({
             onChange={(value) => setNewBook({ ...newBook, reservedQuantity: Number(value) })}
             min={0}
             max={newBook.quantity}
+            required
+            className={classes.input}
+          />
+          <NumberInput
+            label="Price Per One ($)"
+            placeholder="Enter price per book"
+            value={newBook.pricePerOne}
+            onChange={(value) => setNewBook({ ...newBook, pricePerOne: Number(value) })}
+            min={0}
+            decimalScale={2}
             required
             className={classes.input}
           />

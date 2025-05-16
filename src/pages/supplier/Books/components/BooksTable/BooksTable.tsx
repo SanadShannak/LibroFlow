@@ -17,10 +17,10 @@ const BooksTable: React.FC<BooksTableProps> = ({
   onEdit,
   onDelete,
 }) => {
-  const [sortColumn, setSortColumn] = useState<'quantity' | 'availability' | null>(null);
+  const [sortColumn, setSortColumn] = useState<'quantity' | 'pricePerOne' | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
-  const handleSort = (column: 'quantity' | 'availability') => {
+  const handleSort = (column: 'quantity' | 'pricePerOne') => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -34,26 +34,11 @@ const BooksTable: React.FC<BooksTableProps> = ({
     if (sortColumn === 'quantity') {
       return sortDirection === 'asc' ? a.quantity - b.quantity : b.quantity - a.quantity;
     }
-    if (sortColumn === 'availability') {
-      return sortDirection === 'asc'
-        ? a.availability.localeCompare(b.availability)
-        : b.availability.localeCompare(a.availability);
+    if (sortColumn === 'pricePerOne') {
+      return sortDirection === 'asc' ? a.pricePerOne - b.pricePerOne : b.pricePerOne - a.pricePerOne;
     }
     return 0;
   });
-
-  const getAvailabilityColor = (availability: string) => {
-    switch (availability) {
-      case 'Available':
-        return '#28A745'; // Green
-      case 'Borrowed':
-        return '#FFC107'; // Yellow
-      case 'Not Available':
-        return '#F08080'; // Light Red
-      default:
-        return '#FFFFFF';
-    }
-  };
 
   const rows = sortedBooks.map((book) => (
     <Table.Tr
@@ -66,14 +51,13 @@ const BooksTable: React.FC<BooksTableProps> = ({
         e.currentTarget.style.backgroundColor = 'transparent';
       }}
     >
-      <Table.Td className={classes.tableCell}>{book.id}</Table.Td>
       <Table.Td className={classes.tableCell}>{book.name}</Table.Td>
       <Table.Td className={classes.tableCell}>{book.type}</Table.Td>
       <Table.Td className={classes.tableCell}>{book.language}</Table.Td>
       <Table.Td className={`${classes.tableCell} ${classes.centered}`}>{book.quantity}</Table.Td>
       <Table.Td className={`${classes.tableCell} ${classes.centered}`}>
-        <Text size="sm" color={getAvailabilityColor(book.availability)} style={{ fontWeight: 500 }}>
-          {book.availability}
+        <Text size="sm" style={{ fontWeight: 500 }}>
+          ${book.pricePerOne.toFixed(2)}
         </Text>
       </Table.Td>
       <Table.Td className={classes.tableCell}>
@@ -120,7 +104,6 @@ const BooksTable: React.FC<BooksTableProps> = ({
     <Table className={classes.table}>
       <Table.Thead className={classes.tableHead}>
         <Table.Tr>
-          <Table.Th className={classes.tableHeader}>ID</Table.Th>
           <Table.Th className={classes.tableHeader}>Name</Table.Th>
           <Table.Th className={classes.tableHeader}>Type</Table.Th>
           <Table.Th className={classes.tableHeader}>Language</Table.Th>
@@ -143,13 +126,13 @@ const BooksTable: React.FC<BooksTableProps> = ({
           </Table.Th>
           <Table.Th className={classes.tableHeader}>
             <Group gap="xs" align="center" justify="center">
-              Availability
+              Price Per One
               <Button
                 variant="subtle"
                 size="xs"
-                onClick={() => handleSort('availability')}
+                onClick={() => handleSort('pricePerOne')}
                 rightSection={
-                  sortColumn === 'availability' && sortDirection === 'asc' ? (
+                  sortColumn === 'pricePerOne' && sortDirection === 'asc' ? (
                     <IconChevronUp size={14} />
                   ) : (
                     <IconChevronDown size={14} />

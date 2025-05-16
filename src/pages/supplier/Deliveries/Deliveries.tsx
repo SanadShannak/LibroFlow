@@ -48,8 +48,7 @@ const Deliveries: React.FC = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(null);
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-
+ 
   // Mock data - in a real app, you would fetch this from an API
   useEffect(() => {
     // Simulate API call
@@ -242,13 +241,7 @@ const Deliveries: React.FC = () => {
     setShowDetailsModal(true);
   };
 
-  const refreshData = () => {
-    setRefreshing(true);
-    // In a real application, this would call your API
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1000);
-  };
+   
 
   const getTotalBooks = (delivery: Delivery) => {
     return delivery.books.reduce((sum, book) => sum + book.quantity, 0);
@@ -264,16 +257,9 @@ const Deliveries: React.FC = () => {
   return (
     <div className="deliveries-container">
       <div className="dashboard-header">
-        <h1>Manage Deliveries</h1>
+        <h2>Manage Deliveries</h2>
         <div className="header-actions">
-          <button 
-            className="refresh-btn"
-            onClick={refreshData}
-            disabled={refreshing}
-          >
-            <RefreshCw size={16} className={refreshing ? 'rotating' : ''} />
-            Refresh
-          </button>
+           
           <button className="add-delivery-btn" onClick={() => setShowAddModal(true)}>
             <Plus size={16} />
             New Delivery
@@ -396,7 +382,7 @@ const Deliveries: React.FC = () => {
                   <ArrowDownUp size={14} className="sort-icon" />
                 </th>
                 <th onClick={() => sortBy('supplier')}>
-                  Supplier
+                  Delivery company
                   <ArrowDownUp size={14} className="sort-icon" />
                 </th>
                 <th>Destination</th>

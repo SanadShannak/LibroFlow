@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, 
+   AreaChart, Area, PieChart, Pie, Cell, 
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts';
-import { 
-  Book, Package, ShoppingCart, DollarSign, 
-  TrendingUp, TrendingDown, Bell, Search,
-  Calendar, User, Filter, ChevronRight
-} from 'react-feather';
+ 
 import './Dashboard.css';
+import bookImage from '../../../assets/book.png';
+import revenueImage from '../../../assets/revenue.png';
+import ordersImage from '../../../assets/borrowedbooks.png';
+import pendingImage from '../../../assets/pendingorder.png';
 import SummaryCard from '../../../components/SummaryCards';
+import { SimpleGrid } from '@mantine/core';
 
 interface OrderData {
   id: string;
@@ -18,14 +19,7 @@ interface OrderData {
   amount: number;
   status: 'delivered' | 'pending' | 'cancelled';
 }
-
-interface BookData {
-  id: string;
-  title: string;
-  author: string;
-  coverUrl: string;
-  stock: number;
-}
+ 
 
 interface MonthlyData {
   name: string;
@@ -61,10 +55,10 @@ const Dashboard: React.FC = () => {
   ];
 
   const categoryData: CategoryData[] = [
-    { name: 'Fiction', value: 40, color: '#4FC3F7' },
-    { name: 'Science', value: 25, color: '#66BB6A' },
-    { name: 'History', value: 15, color: '#FFCA28' },
-    { name: 'Biography', value: 20, color: '#EF5350' },
+    { name: 'Fiction', value: 40, color: '#738289' },
+    { name: 'Science', value: 25, color: '#182830' },
+    { name: 'History', value: 15, color: '#546E7A' },
+    { name: 'Biography', value: 20, color: '#ECEFF1' },
   ];
 
   const recentOrders: OrderData[] = [
@@ -75,36 +69,7 @@ const Dashboard: React.FC = () => {
     { id: 'ORD-7888', bookTitle: 'Project Hail Mary', date: '2025-05-06', amount: 24.50, status: 'delivered' },
   ];
 
-  const popularBooks: BookData[] = [
-    { 
-      id: 'BK-001', 
-      title: 'The Midnight Library', 
-      author: 'Matt Haig', 
-      coverUrl: '/api/placeholder/180/200', 
-      stock: 42 
-    },
-    { 
-      id: 'BK-002', 
-      title: 'Where the Crawdads Sing', 
-      author: 'Delia Owens', 
-      coverUrl: '/api/placeholder/180/200', 
-      stock: 17 
-    },
-    { 
-      id: 'BK-003', 
-      title: 'The Four Winds', 
-      author: 'Kristin Hannah', 
-      coverUrl: '/api/placeholder/180/200', 
-      stock: 8 
-    },
-    { 
-      id: 'BK-004', 
-      title: 'A Promised Land', 
-      author: 'Barack Obama', 
-      coverUrl: '/api/placeholder/180/200', 
-      stock: 29 
-    },
-  ];
+ 
 
   // Simulated data loading effect
   const [loading, setLoading] = useState<boolean>(true);
@@ -186,22 +151,20 @@ const Dashboard: React.FC = () => {
       <div className="dashboard-header">
         <div className="welcome-section">
           <h1>Supplier Dashboard</h1>
-          <span className="supplier-badge glow-effect">Premium Supplier</span>
-        </div>
-        <div className="notification-icon">
-          <Bell size={20} />
-          <span className="notification-badge pulse">3</span>
-        </div>
+         </div>
+         
       </div>
 
       {/* Summary Cards - Replacing Stats Cards */}
-      <div className="stats-container">
+      <SimpleGrid className="stats-container" cols={{ base: 1, sm: 4 }} mb="xl" spacing="4%">
+        
         <SummaryCard
           title="TOTAL BOOKS"
           value="2,547"
           subtitle="+12.5% from last month"
           subtitleColor="#66BB6A"
-          bgImage={"assets/icons/book.png"}
+          bgImage={bookImage}
+          bgImageSize='120px'
         />
         
         <SummaryCard
@@ -209,7 +172,8 @@ const Dashboard: React.FC = () => {
           value="687"
           subtitle="+8.2% from last month"
           subtitleColor="#66BB6A"
-          bgImage="/assets/icons/package.svg"
+          bgImage={ordersImage}
+          bgImageSize='120px'
         />
         
         <SummaryCard
@@ -217,7 +181,8 @@ const Dashboard: React.FC = () => {
           value="42"
           subtitle="-3.1% from last month"
           subtitleColor="#EF5350"
-          bgImage="/assets/icons/shopping-cart.svg"
+          bgImage={pendingImage}
+          bgImageSize='120px'
         />
         
         <SummaryCard
@@ -225,9 +190,10 @@ const Dashboard: React.FC = () => {
           value="$128,547"
           subtitle="+15.8% from last month"
           subtitleColor="#66BB6A"
-          bgImage="/assets/icons/dollar-sign.svg"
+          bgImage={revenueImage}
+          bgImageSize='120px'
         />
-      </div>
+      </SimpleGrid>
 
       {/* Charts Section */}
       <div className="charts-container">
@@ -235,16 +201,17 @@ const Dashboard: React.FC = () => {
         <div className="chart-card">
           <div className="chart-header">
             <h3 className="chart-title">Sales Overview</h3>
-            <div className="chart-filter">
+             <div className="chart-filter">
               <select 
                 value={salesPeriod} 
                 onChange={(e) => setSalesPeriod(e.target.value)}
               >
-                <option value="weekly">Weekly</option>
+                
                 <option value="monthly">Monthly</option>
                 <option value="yearly">Yearly</option>
               </select>
             </div>
+             
           </div>
           <div className="chart-content">
             <ResponsiveContainer width="100%" height="100%">
@@ -263,8 +230,8 @@ const Dashboard: React.FC = () => {
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: '#263238', 
-                    borderColor: '#4FC3F7',
-                    color: '#ECEFF1' 
+                    borderColor:'transparent',
+                    color: '#ffffff' 
                   }} 
                 />
                 <Legend />
@@ -272,15 +239,16 @@ const Dashboard: React.FC = () => {
                   type="monotone" 
                   dataKey="sales" 
                   name="Sales ($)" 
-                  stroke="#4FC3F7" 
-                  fill="#4FC3F7" 
+                  stroke="#ffffff" 
+                  strokeWidth={4}
+                  fill="transparent" 
                   fillOpacity={0.2} 
                 />
                 <Area 
                   type="monotone" 
                   dataKey="orders" 
                   name="Orders" 
-                  stroke="#66BB6A" 
+                  stroke="#ffffff" 
                   fill="#66BB6A" 
                   fillOpacity={0.2} 
                 />
@@ -293,9 +261,7 @@ const Dashboard: React.FC = () => {
         <div className="chart-card">
           <div className="chart-header">
             <h3 className="chart-title">Book Categories</h3>
-            <div className="chart-filter">
-              <Filter size={18} />
-            </div>
+             
           </div>
           <div className="chart-content">
             <ResponsiveContainer width="100%" height="100%">
@@ -315,14 +281,7 @@ const Dashboard: React.FC = () => {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip 
-                  formatter={(value) => [`${value} Books`, 'Quantity']}
-                  contentStyle={{ 
-                    backgroundColor: '#263238', 
-                    borderColor: '#4FC3F7',
-                    color: '#ECEFF1' 
-                  }} 
-                />
+                
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
@@ -376,53 +335,10 @@ const Dashboard: React.FC = () => {
           </table>
         </div>
         
-        <div className="view-all-btn">
-          <button>View All Orders</button>
-        </div>
+         
       </div>
 
-      {/* Book Catalog Section */}
-      <div className="book-catalog">
-        <div className="chart-header">
-          <h3 className="chart-title">Popular Books</h3>
-          <div className="chart-filter">
-            <button style={{ 
-              backgroundColor: 'transparent', 
-              border: 'none', 
-              color: '#4FC3F7',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center'
-            }}>
-              Manage Inventory <ChevronRight size={16} />
-            </button>
-          </div>
-        </div>
-        
-        <div className="book-search">
-          <Search size={18} className="search-icon" />
-          <input type="text" placeholder="Search books..." />
-        </div>
-        
-        <div className="book-grid">
-          {popularBooks.map((book) => (
-            <div key={book.id} className="book-card">
-              <div className="book-cover">
-                <img src={book.coverUrl} alt={book.title} />
-              </div>
-              <div className="book-info">
-                <h4 className="book-title">{book.title}</h4>
-                <p className="book-author">{book.author}</p>
-                <p className="book-stock" style={{ 
-                  color: book.stock < 10 ? '#EF5350' : '#66BB6A' 
-                }}>
-                  In Stock: {book.stock}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+       
     </div>
   );
 };

@@ -1,0 +1,80 @@
+.modal {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+}
+
+.modalBox {
+  padding: 20px;
+}
+
+.closeButton {
+  padding: 8px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  transition: background-color 0.2s ease;
+  color: #666;
+}
+
+.closeButton:hover {
+  background-color: #e0e0e0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.input {
+  margin-bottom: 16px;
+}
+
+.input label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.input input {
+  border-color: #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.input :global(.mantine-TextInput-required) {
+  color: red;
+}
+
+.inputWrapper label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.inputWrapper :global(.mantine-InputWrapper-required) {
+  color: red;
+}
+
+.dateInput {
+  border-color: #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.modalButton {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+  width: 100%;
+  max-width: 120px;
+}
+
+.modalButton:first-child {
+  border-color: #ccc;
+  color: #666;
+}
+/* Override Mantine Select chevron */
+:global(.mantine-Select-rightSection svg) {
+  color: #373737 !important;
+}

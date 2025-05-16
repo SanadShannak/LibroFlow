@@ -1,37 +1,35 @@
 import { useState } from 'react';
-import { MantineProvider, Container, Box, ScrollArea, Text, Title, Group } from '@mantine/core';
+import { MantineProvider, Container, Box, ScrollArea, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { v4 as uuidv4 } from 'uuid'; // Import uuid
 import classes from './BooksPage.module.css';
-import { initialBooks, Book } from '../../../dummyData/adminPages/booksData';
+import { initialBooks, Book } from '../../../../../dummyData/adminPages/supplier2Books';
 import BooksActions from './components/BooksActions/BooksActions';
 import BooksTable from './components/BooksTable/BooksTable';
 import AddBooksModal from './components/AddBooksModal/AddBooksModal';
-import UpdateBooksModal from './components/UpdateBooksModal/UpdateBooksModal';
-import DeleteBooksModal from './components/DeleteBooksModal/DeleteBooksModal';
 import ViewBooksModal from './components/ViewBooksModal/ViewBooksModal';
+import AddToOrderModal from './components/AddToOrderModal/AddToOrderModal';
+import { useOrders } from '../../../../../OrderContext';
+import { Order } from '../../../../../types/orders';
 
-const AdminBooksPage = () => {
+const SupplierBooksPage = () => {
   const [books, setBooks] = useState<Book[]>(initialBooks);
+  const { addOrder } = useOrders();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
-  const [availabilityFilter, setAvailabilityFilter] = useState<string | null>(null);
 
   // Modals
   const [addModalOpened, { open: openAddModal, close: closeAddModal }] = useDisclosure(false);
-  const [updateModalOpened, { open: openUpdateModal, close: closeUpdateModal }] = useDisclosure(false);
-  const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
+  const [orderModalOpened, { open: openOrderModal, close: closeOrderModal }] = useDisclosure(false);
   const [viewModalOpened, { open: openViewModal, close: closeViewModal }] = useDisclosure(false);
 
   const filteredData = books.filter((book) => {
-    const matchesSearch =
-      book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      book.id.toString().includes(searchQuery);
+    const matchesSearch = book.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = typeFilter ? book.type === typeFilter : true;
     const matchesLanguage = languageFilter ? book.language === languageFilter : true;
-    const matchesAvailability = availabilityFilter ? book.availability === availabilityFilter : true;
-    return matchesSearch && matchesType && matchesLanguage && matchesAvailability;
+    return matchesSearch && matchesType && matchesLanguage;
   });
 
   const handleAddBook = (newBook: Omit<Book, 'id' | 'availability' | 'savedBy'>) => {
@@ -42,25 +40,21 @@ const AdminBooksPage = () => {
     closeAddModal();
   };
 
-  const handleUpdateBook = (updatedBook: Book) => {
-    const availableQuantity = updatedBook.quantity - updatedBook.reservedQuantity;
-    const availability = availableQuantity > 0 ? 'Available' : updatedBook.reservedQuantity > 0 ? 'Borrowed' : 'Not Available';
-    setBooks(books.map((book) => (book.id === updatedBook.id ? { ...updatedBook, availability } : book)));
-    setSelectedBook(null);
-    closeUpdateModal();
-  };
-
-  const handleDeleteBook = () => {
-    if (selectedBook) {
-      setBooks(books.filter((book) => book.id !== selectedBook.id));
-      setSelectedBook(null);
-      closeDeleteModal();
-    }
-  };
-
-  const handleEditBook = (book: Book) => {
-    setSelectedBook(book);
-    openUpdateModal();
+  const handleAddToOrder = (book: Book, quantity: number) => {
+    const totalPrice = quantity * book.pricePerOne;
+    const orderId = uuidv4(); // Use uuid instead of Date.now()
+    const orderDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const order: Order = { orderId, book, quantity, totalPrice, orderDate };
+    addOrder(order);
+    // Update book quantity
+    setBooks(
+      books.map((b) =>
+        b.id === book.id
+          ? { ...b, quantity: b.quantity - quantity, reservedQuantity: b.reservedQuantity + quantity }
+          : b
+      )
+    );
+    closeOrderModal();
   };
 
   const handleViewBook = (book: Book) => {
@@ -68,9 +62,9 @@ const AdminBooksPage = () => {
     openViewModal();
   };
 
-  const handleDeleteClick = (book: Book) => {
+  const handleAddToOrderClick = (book: Book) => {
     setSelectedBook(book);
-    openDeleteModal();
+    openOrderModal();
   };
 
   return (
@@ -79,7 +73,7 @@ const AdminBooksPage = () => {
         <Box className={classes.header}>
           <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
             <Box>
-              <Title order={3} c="white" mb="xs">Book Management</Title>
+              <Title order={3} c="white" mb="xs">Supplier 2 Books</Title>
               <Text size="sm" c="dimmed" style={{ textTransform: 'uppercase' }}>
                 Total Unique Books: {filteredData.length}
               </Text>
@@ -91,10 +85,8 @@ const AdminBooksPage = () => {
                 onAdd={openAddModal}
                 onTypeFilterChange={setTypeFilter}
                 onLanguageFilterChange={setLanguageFilter}
-                onAvailabilityFilterChange={setAvailabilityFilter}
                 typeFilter={typeFilter}
                 languageFilter={languageFilter}
-                availabilityFilter={availabilityFilter}
                 books={books}
               />
             </Box>
@@ -106,8 +98,7 @@ const AdminBooksPage = () => {
             <BooksTable
               books={filteredData}
               onShowDetails={handleViewBook}
-              onEdit={handleEditBook}
-              onDelete={handleDeleteClick}
+              onAddToOrder={handleAddToOrderClick}
             />
           </Box>
         </ScrollArea>
@@ -120,20 +111,12 @@ const AdminBooksPage = () => {
           />
         )}
 
-        {updateModalOpened && selectedBook && (
-          <UpdateBooksModal
-            opened={updateModalOpened}
-            onClose={closeUpdateModal}
+        {orderModalOpened && selectedBook && (
+          <AddToOrderModal
+            opened={orderModalOpened}
+            onClose={closeOrderModal}
             book={selectedBook}
-            onUpdateBook={handleUpdateBook}
-          />
-        )}
-
-        {deleteModalOpened && selectedBook && (
-          <DeleteBooksModal
-            opened={deleteModalOpened}
-            onClose={closeDeleteModal}
-            onConfirm={handleDeleteBook}
+            onAddToOrder={handleAddToOrder}
           />
         )}
 
@@ -149,4 +132,4 @@ const AdminBooksPage = () => {
   );
 };
 
-export default AdminBooksPage;
+export default SupplierBooksPage;

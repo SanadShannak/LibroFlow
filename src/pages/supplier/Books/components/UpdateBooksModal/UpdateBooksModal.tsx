@@ -30,7 +30,8 @@ const UpdateBooksModal: React.FC<UpdateBooksModalProps> = ({
       !updatedBook.language ||
       updatedBook.quantity < 0 ||
       updatedBook.reservedQuantity < 0 ||
-      updatedBook.reservedQuantity > updatedBook.quantity
+      updatedBook.reservedQuantity > updatedBook.quantity ||
+      updatedBook.pricePerOne <= 0
     ) return;
     onUpdateBook(updatedBook);
   };
@@ -115,6 +116,16 @@ const UpdateBooksModal: React.FC<UpdateBooksModalProps> = ({
             onChange={(value) => setUpdatedBook({ ...updatedBook, reservedQuantity: Number(value) })}
             min={0}
             max={updatedBook.quantity}
+            required
+            className={classes.input}
+          />
+          <NumberInput
+            label="Price Per One ($)"
+            placeholder="Enter price per book"
+            value={updatedBook.pricePerOne}
+            onChange={(value) => setUpdatedBook({ ...updatedBook, pricePerOne: Number(value) })}
+            min={0}
+            decimalScale={2}
             required
             className={classes.input}
           />

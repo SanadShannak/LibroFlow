@@ -32,7 +32,6 @@ const Orders: React.FC = () => {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [formLocked, setFormLocked] = useState(false);
-  const [isNewBookModalOpen, setIsNewBookModalOpen] = useState(false);
   const [newBooks, setNewBooks] = useState<NewBook[]>([]);
   const [tempNewBook, setTempNewBook] = useState<NewBook>({ title: '', quantityAvailable: 0, pricePerOne: 0, note: '' });
 
@@ -118,15 +117,6 @@ const Orders: React.FC = () => {
     }
   };
 
-  const handleOpenNewBookModal = () => {
-    setIsNewBookModalOpen(true);
-  };
-
-  const handleCloseNewBookModal = () => {
-    setIsNewBookModalOpen(false);
-    setTempNewBook({ title: '', quantityAvailable: 0, pricePerOne: 0, note: '' });
-  };
-
   const handleNewBookChange = (field: keyof NewBook, value: string | number) => {
     setTempNewBook({ ...tempNewBook, [field]: value as never });
   };
@@ -135,201 +125,220 @@ const Orders: React.FC = () => {
     if (tempNewBook.title && tempNewBook.quantityAvailable > 0 && tempNewBook.pricePerOne > 0) {
       setNewBooks([...newBooks, { ...tempNewBook }]);
       alert(`New book "${tempNewBook.title}" with price $${tempNewBook.pricePerOne} has been sent to Department Manager. Note: ${tempNewBook.note || 'None'}`);
-      handleCloseNewBookModal();
+      setTempNewBook({ title: '', quantityAvailable: 0, pricePerOne: 0, note: '' });
     } else {
       alert('Please fill in all required fields with valid values.');
     }
   };
 
+  const calculateTotalOrderValue = () => {
+    return books.reduce((total, book) => total + book.totalPrice, 0).toFixed(2);
+  };
+
   return (
     <div className="orders-container">
-      <h2 className="text-2xl font-bold mb-4">Incoming Book Orders</h2>
-      {!formLocked && (
-        <button
-          onClick={handleOpenNewBookModal}
-          className="mb-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Inform New Books
-        </button>
-      )}
-      <div className="order-details">
-        <h3 className="text-lg font-semibold mb-2">Order #1 - Computer Science</h3>
-        <p className="text-gray-400">Requester: Motasem Alatawna</p>
-        <p className="text-gray-400">Submitted: 13/05/2025, 20:17:00</p>
-
-        <div className="book-list mt-4">
-          <table className="w-full text-left">
-            <thead>
-              <tr>
-                <th>Book Title</th>
-                <th>Quantity</th>
-                <th>Price Per One</th>
-                <th>Total Price</th>
-                <th>Note</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {books.map((book, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      value={book.title}
-                      onChange={(e) => handleBookChange(index, 'title', e.target.value)}
-                      disabled={formLocked}
-                      className="input-field"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      value={book.quantity}
-                      onChange={(e) => handleBookChange(index, 'quantity', parseInt(e.target.value) || 0)}
-                      disabled={formLocked}
-                      className="input-field"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      value={book.pricePerOne.toFixed(2)}
-                      disabled={true}
-                      className="input-field input-field-disabled"
-                      step="0.01"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      value={book.totalPrice.toFixed(2)}
-                      disabled={true}
-                      className="input-field input-field-disabled"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={book.note}
-                      onChange={(e) => handleBookChange(index, 'note', e.target.value)}
-                      disabled={formLocked}
-                      className="input-field"
-                      placeholder="Enter note"
-                    />
-                  </td>
-                  <td>
-                    {!formLocked && (
-                      <button
-                        onClick={() => handleRemoveBook(index)}
-                        className="cancel-button"
-                      >
-                        X
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {!formLocked && (
-            <button onClick={handleAddBook} className="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-              Add Book
-            </button>
-          )}
-        </div>
-
-        {newBooks.length > 0 && (
-          <div className="new-books-section mt-4">
-            <h4 className="text-md font-semibold mb-2">New Books Informed to Department Manager</h4>
-            <ul>
-              {newBooks.map((book, index) => (
-                <li key={index} className="text-gray-300">
-                  {book.title} - Quantity Available: {book.quantityAvailable}, Price: ${book.pricePerOne}, Note: {book.note || 'None'}
-                </li>
-              ))}
-            </ul>
+      <h2 className="page-title">Supplier Portal</h2>
+      
+      <div className="split-layout">
+        {/* Left Side - Incoming Orders */}
+        <div className="orders-panel">
+          <div className="panel-header">
+            <h3>Incoming Book Orders</h3>
+            <span className="status-badge">
+              {orderStep === 'initial' && 'Draft'}
+              {orderStep === 'supplierReview' && 'Review Pending'}
+              {orderStep === 'requesterConfirm' && 'Awaiting Confirmation'}
+              {orderStep === 'accountantReview' && 'Awaiting Approval'}
+              {orderStep === 'final' && 'Order Complete'}
+            </span>
           </div>
-        )}
-
-        {rejectionReason && (
-          <div className="rejection-message mt-4 p-4 bg-red-600 text-white rounded">
-            {rejectionReason}
-          </div>
-        )}
-
-        <div className="chat-section mt-6">
-          <h4 className="text-md font-semibold mb-2">Chat with Requester</h4>
-          <div className="chat-messages">
-            {chatMessages.map((msg, index) => (
-              <div key={index} className="mb-2">
-                <span className="text-gray-400 text-sm">[{msg.timestamp}] </span>
-                <span className="font-bold">{msg.sender}: </span>
-                <span>{msg.message}</span>
+          
+          <div className="order-details">
+            <div className="order-meta">
+              <div className="order-number">Order #1 - Computer Science</div>
+              <div className="order-info">
+                <span>Requester: Motasem Alatawna</span>
+                <span>Submitted: 13/05/2025, 20:17:00</span>
+                <span className="order-total">Total: ${calculateTotalOrderValue()}</span>
               </div>
-            ))}
-          </div>
-          <div className="chat-input">
-            <input
-              type="text"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              className="flex-1 input-field mr-2"
-              placeholder="Type a message..."
-            />
-            <button onClick={handleSendMessage} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-              Send
-            </button>
+            </div>
+
+            <div className="book-list">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Book Title</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Note</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {books.map((book, index) => (
+                    <tr key={index}>
+                      <td>
+                        <input
+                          type="text"
+                          value={book.title}
+                          onChange={(e) => handleBookChange(index, 'title', e.target.value)}
+                          disabled={formLocked}
+                          className="input-field"
+                          placeholder="Enter title"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          value={book.quantity}
+                          onChange={(e) => handleBookChange(index, 'quantity', parseInt(e.target.value) || 0)}
+                          disabled={formLocked}
+                          className="input-field"
+                          placeholder="Qty"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          value={book.pricePerOne.toFixed(2)}
+                          disabled={true}
+                          className="input-field input-field-disabled"
+                          step="0.01"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          value={book.totalPrice.toFixed(2)}
+                          disabled={true}
+                          className="input-field input-field-disabled"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          value={book.note}
+                          onChange={(e) => handleBookChange(index, 'note', e.target.value)}
+                          disabled={formLocked}
+                          className="input-field"
+                          placeholder="Add note"
+                        />
+                      </td>
+                      <td>
+                        {!formLocked && (
+                          <button
+                            onClick={() => handleRemoveBook(index)}
+                            className="icon-button"
+                            title="Remove Book"
+                          >
+                            ✕
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              
+              {!formLocked && (
+                <button onClick={handleAddBook} className="add-book-button">
+                  + Add Another Book
+                </button>
+              )}
+            </div>
+
+            {rejectionReason && (
+              <div className="rejection-message">
+                <span>⚠️ {rejectionReason}</span>
+              </div>
+            )}
+
+            <div className="chat-section">
+              <h4>Communication</h4>
+              <div className="chat-messages">
+                {chatMessages.length === 0 ? (
+                  <div className="no-messages">No messages yet. Start a conversation with the requester.</div>
+                ) : (
+                  chatMessages.map((msg, index) => (
+                    <div key={index} className="message">
+                      <div className="message-header">
+                        <span className="message-sender">{msg.sender}</span>
+                        <span className="message-time">{msg.timestamp}</span>
+                      </div>
+                      <div className="message-content">{msg.message}</div>
+                    </div>
+                  ))
+                )}
+              </div>
+              <div className="chat-input">
+                <input
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Type a message..."
+                />
+                <button onClick={handleSendMessage} className="send-button">
+                  Send
+                </button>
+              </div>
+            </div>
+
+            <div className="actions">
+              {orderStep === 'initial' && (
+                <button onClick={handleSubmitOrder} className="action-button submit-button">
+                  Submit Order
+                </button>
+              )}
+              {orderStep === 'supplierReview' && (
+                <>
+                  <button onClick={handleSupplierAccept} className="action-button accept-button">
+                    Accept Order
+                  </button>
+                  <button onClick={handleSupplierReject} className="action-button reject-button">
+                    Reject Order
+                  </button>
+                </>
+              )}
+              {orderStep === 'requesterConfirm' && (
+                <button onClick={handleRequesterConfirm} className="action-button confirm-button">
+                  Confirm Order
+                </button>
+              )}
+              {orderStep === 'accountantReview' && (
+                <>
+                  <button onClick={handleAccountantAccept} className="action-button approve-button">
+                    Approve
+                  </button>
+                  <button onClick={handleAccountantReject} className="action-button reject-button">
+                    Reject
+                  </button>
+                </>
+              )}
+              {orderStep === 'final' && (
+                <div className="success-message">
+                  <span>✓ Order has been successfully placed!</span>
+                </div>
+              )}
+              {orderStep !== 'initial' && (
+                <button onClick={handleRestart} className="action-button restart-button">
+                  Restart Process
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="actions">
-          {orderStep === 'initial' && (
-            <button onClick={handleSubmitOrder} className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded">
-              Submit Order
-            </button>
-          )}
-          {orderStep === 'supplierReview' && (
-            <>
-              <button onClick={handleSupplierAccept} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-                Accept
-              </button>
-              <button onClick={handleSupplierReject} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-                Reject
-              </button>
-            </>
-          )}
-          {orderStep === 'requesterConfirm' && (
-            <button onClick={handleRequesterConfirm} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-              Confirm Order
-            </button>
-          )}
-          {orderStep === 'accountantReview' && (
-            <>
-              <button onClick={handleAccountantAccept} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-                Approve
-              </button>
-              <button onClick={handleAccountantReject} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-                Reject
-              </button>
-            </>
-          )}
-          {orderStep === 'final' && (
-            <p className="text-green-400">Order has been successfully placed!</p>
-          )}
-          {orderStep !== 'initial' && (
-            <button onClick={handleRestart} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
-              Restart Process
-            </button>
-          )}
-        </div>
-      </div>
-
-      {isNewBookModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h3 className="modal-title">Inform New Books to Department Manager</h3>
-            <div className="modal-content">
-              <div className="modal-field">
+        {/* Right Side - New Books Form */}
+        <div className="new-books-panel">
+          <div className="panel-header">
+            <h3>Inform New Books</h3>
+          </div>
+          
+          <div className="new-books-form">
+            <div className="form-section">
+              <h4>Book Information</h4>
+              <div className="form-group">
                 <label>Book Title</label>
                 <input
                   type="text"
@@ -339,7 +348,8 @@ const Orders: React.FC = () => {
                   placeholder="Enter book title"
                 />
               </div>
-              <div className="modal-field">
+              
+              <div className="form-group">
                 <label>Quantity Available</label>
                 <input
                   type="number"
@@ -349,7 +359,8 @@ const Orders: React.FC = () => {
                   placeholder="Enter quantity available"
                 />
               </div>
-              <div className="modal-field">
+              
+              <div className="form-group">
                 <label>Price Per One</label>
                 <input
                   type="number"
@@ -360,28 +371,42 @@ const Orders: React.FC = () => {
                   step="0.01"
                 />
               </div>
-              <div className="modal-field">
+              
+              <div className="form-group">
                 <label>Note (Optional)</label>
-                <input
-                  type="text"
+                <textarea
                   value={tempNewBook.note}
                   onChange={(e) => handleNewBookChange('note', e.target.value)}
-                  className="input-field"
-                  placeholder="Enter note"
-                />
+                  className="textarea-field"
+                  placeholder="Enter any additional information about this book"
+                ></textarea>
               </div>
-            </div>
-            <div className="modal-actions">
-              <button className="modal-button modal-button-save" onClick={handleAddNewBook}>
+              
+              <button onClick={handleAddNewBook} className="action-button submit-button full-width">
                 Send to Department Manager
               </button>
-              <button className="modal-button modal-button-cancel" onClick={handleCloseNewBookModal}>
-                Cancel
-              </button>
             </div>
+            
+            {newBooks.length > 0 && (
+              <div className="form-section">
+                <h4>Recently Informed Books</h4>
+                <div className="informed-books-list">
+                  {newBooks.map((book, index) => (
+                    <div key={index} className="informed-book">
+                      <div className="book-title">{book.title}</div>
+                      <div className="book-details">
+                        <span>Available: {book.quantityAvailable}</span>
+                        <span>Price: ${book.pricePerOne.toFixed(2)}</span>
+                      </div>
+                      {book.note && <div className="book-note">Note: {book.note}</div>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

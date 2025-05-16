@@ -1,18 +1,10 @@
-import {
-  IconDashboard,
-  IconPackage,
-  IconTruck,
-  IconFileInvoice,
-  IconBook2,
-  
-} from '@tabler/icons-react';
+import { IconDashboard, IconPackage, IconTruck, IconFileInvoice, IconBook2 } from '@tabler/icons-react';
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import SupplierDashboard from '../../pages/supplier/Dashboard/Dashboard';
-import SupplierProducts from '../../pages/supplier/Books/BooksPage';
-import UserBooks from '../../pages/supplier/BooksFromUser/Books';
+import SupplierBooksPage from '../../pages/supplier/Books/Books';
+import LibraryBooksPage from '../../pages/supplier/BooksFromUser/Books/Books';
 import SupplierDeliveries from '../../pages/supplier/Deliveries/Deliveries';
 import SupplierOrders from '../../pages/supplier/Orders/Orders';
-
 
 const supplierSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },
@@ -20,16 +12,14 @@ const supplierSidebarLinks = [
   { label: 'Library Books', icon: IconBook2 },
   { label: 'Deliveries', icon: IconTruck },
   { label: 'Orders', icon: IconFileInvoice },
- 
 ];
 
 const supplierContentMap = {
   dashboard: <SupplierDashboard />,
-  products: <SupplierProducts />,
-  userBooks: <UserBooks />,
+  products: <SupplierBooksPage />,
+  librarybooks: <LibraryBooksPage />,
   deliveries: <SupplierDeliveries />,
   orders: <SupplierOrders />,
-  
 };
 
 export default function SupplierLayout() {
@@ -41,4 +31,4 @@ export default function SupplierLayout() {
       showBranchContent
     />
   );
-} 
+}

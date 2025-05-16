@@ -9,10 +9,8 @@ interface BooksActionsProps {
   onAdd: () => void;
   onTypeFilterChange: (value: string | null) => void;
   onLanguageFilterChange: (value: string | null) => void;
-  onAvailabilityFilterChange: (value: string | null) => void;
   typeFilter: string | null;
   languageFilter: string | null;
-  availabilityFilter: string | null;
   books: Book[];
 }
 
@@ -22,18 +20,15 @@ const BooksActions: React.FC<BooksActionsProps> = ({
   onAdd,
   onTypeFilterChange,
   onLanguageFilterChange,
-  onAvailabilityFilterChange,
   typeFilter,
   languageFilter,
-  availabilityFilter,
   books,
 }) => {
   const types = Array.from(new Set(books.map((book) => book.type)));
   const languages = Array.from(new Set(books.map((book) => book.language)));
-  const availabilities = ['Available', 'Borrowed', 'Not Available'];
 
   const unselectedBackgroundColor = '#4A5E6A'; // Muted blue-grey for unselected
-  const selectedBackgroundColor = '#E0E0E0'; // Light grey for selected (previously used for text)
+  const selectedBackgroundColor = '#E0E0E0'; // Light grey for selected
   const defaultTextColor = '#E0E0E0'; // Light grey for unselected text
   const selectedTextColor = '#333333'; // Near black for selected text
   const hoverTextColor = '#333333'; // Dark grey for hover text
@@ -50,7 +45,7 @@ const BooksActions: React.FC<BooksActionsProps> = ({
           Add Book
         </Button>
         <TextInput
-          placeholder="Search by Name or ID"
+          placeholder="Search by Name"
           value={searchQuery}
           onChange={(event) => onSearchChange(event.currentTarget.value)}
           rightSection={<IconSearch size={16} />}
@@ -70,9 +65,9 @@ const BooksActions: React.FC<BooksActionsProps> = ({
               backgroundColor: typeFilter ? selectedBackgroundColor : unselectedBackgroundColor,
               color: typeFilter ? selectedTextColor : defaultTextColor,
               border: '1px solid #4A5E6A',
-              transition: 'color 0.2s ease', // Smooth transition for hover
+              transition: 'color 0.2s ease',
               '&:hover': {
-                color: typeFilter ? selectedTextColor : hoverTextColor, // Dark grey on hover when unselected
+                color: typeFilter ? selectedTextColor : hoverTextColor,
               },
             },
             dropdown: { backgroundColor: unselectedBackgroundColor, border: '1px solid #4A5E6A' },
@@ -101,28 +96,6 @@ const BooksActions: React.FC<BooksActionsProps> = ({
             option: { color: defaultTextColor },
           }}
           rightSection={<span style={{ color: languageFilter ? selectedTextColor : defaultTextColor, pointerEvents: 'none' }} />}
-        />
-        <Select
-          placeholder="Filter by Availability"
-          data={availabilities}
-          value={availabilityFilter}
-          onChange={onAvailabilityFilterChange}
-          clearable
-          className={classes.filterInput}
-          styles={{
-            input: {
-              backgroundColor: availabilityFilter ? selectedBackgroundColor : unselectedBackgroundColor,
-              color: availabilityFilter ? selectedTextColor : defaultTextColor,
-              border: '1px solid #4A5E6A',
-              transition: 'color 0.2s ease',
-              '&:hover': {
-                color: availabilityFilter ? selectedTextColor : hoverTextColor,
-              },
-            },
-            dropdown: { backgroundColor: unselectedBackgroundColor, border: '1px solid #4A5E6A' },
-            option: { color: defaultTextColor },
-          }}
-          rightSection={<span style={{ color: availabilityFilter ? selectedTextColor : defaultTextColor, pointerEvents: 'none' }} />}
         />
       </Group>
     </Box>
