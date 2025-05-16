@@ -1,8 +1,8 @@
 import { IconDashboard, IconPackage, IconTruck, IconFileInvoice, IconBook2 } from '@tabler/icons-react';
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import SupplierDashboard from '../../pages/supplier/Dashboard/Dashboard';
-import SupplierBooksPage from '../../pages/supplier/Books/Books';
-import LibraryBooksPage from '../../pages/supplier/BooksFromUser/Books/Books';
+import SupplierBooksPage from '../../pages/supplier/SupplierBooks/Books';
+import LibraryBooksPage from '../../pages/supplier/LibraryBooks/Books';
 import SupplierDeliveries from '../../pages/supplier/Deliveries/Deliveries';
 import SupplierOrders from '../../pages/supplier/Orders/Orders';
 

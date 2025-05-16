@@ -1,7 +1,7 @@
 import { Button, Group, TextInput, Select, Box } from '@mantine/core';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import classes from './BooksActions.module.css';
-import { Book } from '../../../../../../dummyData/userPages/booksData';
+import { Book } from '../../../../../dummyData/userPages/booksData';
 
 interface BooksActionsProps {
   searchQuery: string;

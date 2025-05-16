@@ -1,7 +1,7 @@
 import { Table, Group, Text, Button } from '@mantine/core';
 import { IconChevronUp, IconChevronDown } from '@tabler/icons-react';
 import classes from './BooksTable.module.css';
-import { Book } from '../../../../../../dummyData/userPages/booksData';
+import { Book } from '../../../../../dummyData/userPages/booksData';
 import { useState } from 'react';
 
 interface BooksTableProps {

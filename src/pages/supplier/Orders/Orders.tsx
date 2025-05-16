@@ -33,7 +33,7 @@ const Orders: React.FC = () => {
   const [newMessage, setNewMessage] = useState('');
   const [formLocked, setFormLocked] = useState(false);
   const [newBooks, setNewBooks] = useState<NewBook[]>([]);
-  const [tempNewBook, setTempNewBook] = useState<NewBook>({ title: '', quantityAvailable: 0, pricePerOne: 0, note: '' });
+  const [tempNewBook, setTempNewBook] = useState<NewBook>({ title: '', quantityAvailable: 0, pricePerOne: 1, note: '' });
 
   const handleAddBook = () => {
     if (formLocked) {
@@ -368,7 +368,7 @@ const Orders: React.FC = () => {
                   onChange={(e) => handleNewBookChange('pricePerOne', parseFloat(e.target.value) || 0)}
                   className="input-field"
                   placeholder="Enter price per one"
-                  step="0.01"
+                  step="1"
                 />
               </div>
               

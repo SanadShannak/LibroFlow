@@ -34,7 +34,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #37474F;
+  background-color: #37474f;
   border-radius: 10px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -45,7 +45,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  background-color: #37474F;
+  background-color: #37474f;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -58,7 +58,7 @@
 
 .status-badge {
   padding: 4px 12px;
-  background-color: #667B87;
+  background-color: #667b87;
   color: white;
   border-radius: 20px;
   font-size: 12px;
@@ -68,12 +68,11 @@
 /* Orders Panel */
 .order-details {
   flex: 1;
-  max-width: 100%; 
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
   overflow-y: auto;
-  
 }
 
 .order-meta {
@@ -83,7 +82,7 @@
 .order-number {
   font-size: 18px;
   font-weight: 500;
-  color: #FFD700;
+  color: #ffd700;
   margin-bottom: 8px;
 }
 
@@ -138,7 +137,7 @@
 }
 
 .input-field:focus {
-  border-color: #667B87;
+  border-color: #667b87;
   box-shadow: 0 0 0 2px rgba(102, 123, 135, 0.3);
 }
 
@@ -167,7 +166,7 @@
 }
 
 .textarea-field:focus {
-  border-color: #667B87;
+  border-color: #667b87;
   box-shadow: 0 0 0 2px rgba(102, 123, 135, 0.3);
 }
 
@@ -175,8 +174,8 @@
   display: inline-flex;
   align-items: center;
   background-color: transparent;
-  color: #FFD700;
-  border: 1px dashed #FFD700;
+  color: #ffd700;
+  border: 1px dashed #ffd700;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
@@ -240,7 +239,7 @@
 
 .message {
   margin-bottom: 16px;
-  background-color: #37474F;
+  background-color: #37474f;
   border-radius: 8px;
   padding: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -283,12 +282,12 @@
 }
 
 .chat-input input:focus {
-  border-color: #667B87;
+  border-color: #667b87;
   box-shadow: 0 0 0 2px rgba(102, 123, 135, 0.3);
 }
 
 .send-button {
-  background-color: #667B87;
+  background-color: #667b87;
   color: white;
   border: none;
   border-radius: 20px;
@@ -325,18 +324,22 @@
 }
 
 .submit-button {
-  background-color: #667B87;
+  background-color: #667b87;
 }
 
 .submit-button:hover {
   background-color: #536870;
 }
 
-.accept-button, .approve-button, .confirm-button {
+.accept-button,
+.approve-button,
+.confirm-button {
   background-color: #10b981;
 }
 
-.accept-button:hover, .approve-button:hover, .confirm-button:hover {
+.accept-button:hover,
+.approve-button:hover,
+.confirm-button:hover {
   background-color: #059669;
 }
 
@@ -415,7 +418,7 @@
 }
 
 .informed-book {
-  background-color: #37474F;
+  background-color: #37474f;
   border-radius: 6px;
   padding: 16px;
   border-left: 4px solid #51f238;

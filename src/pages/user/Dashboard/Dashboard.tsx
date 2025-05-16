@@ -276,7 +276,7 @@ export default function UserDashboard() {
       </Modal>
 
       {/* KPIs */}
-      <SimpleGrid cols={{ base: 1, sm: 3 }} mb="xl" spacing="6%" >
+      <SimpleGrid cols={{ base: 1, sm: 3 }} mb="xl" spacing="17%" >
         {cardConfigs.map((config, index) => (
           <SummaryCards
             key={index}

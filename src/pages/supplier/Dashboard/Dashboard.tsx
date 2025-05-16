@@ -161,7 +161,7 @@ const Dashboard: React.FC = () => {
         <SummaryCard
           title="TOTAL BOOKS"
           value="2,547"
-          subtitle="+12.5% from last month"
+          subtitle=""
           subtitleColor="#66BB6A"
           bgImage={bookImage}
           bgImageSize='120px'
@@ -169,7 +169,7 @@ const Dashboard: React.FC = () => {
         
         <SummaryCard
           title="TOTAL ORDERS"
-          value="687"
+          value="7"
           subtitle="+8.2% from last month"
           subtitleColor="#66BB6A"
           bgImage={ordersImage}
@@ -178,8 +178,8 @@ const Dashboard: React.FC = () => {
         
         <SummaryCard
           title="PENDING ORDERS"
-          value="42"
-          subtitle="-3.1% from last month"
+          value="3"
+          subtitle=""
           subtitleColor="#EF5350"
           bgImage={pendingImage}
           bgImageSize='120px'
@@ -187,7 +187,7 @@ const Dashboard: React.FC = () => {
         
         <SummaryCard
           title="TOTAL REVENUE"
-          value="$128,547"
+          value="$12,547"
           subtitle="+15.8% from last month"
           subtitleColor="#66BB6A"
           bgImage={revenueImage}
