@@ -1,0 +1,149 @@
+:root {
+  --primary-dark: #263238;
+  --primary: #37474f;
+  --primary-light: #546e7a;
+  --accent: #4fc3f7;
+  --success: #66bb6a;
+  --warning: #ffca28;
+  --danger: #ef5350;
+  --text-light: #eceff1;
+  --text-secondary: #b0bec5;
+  --shadow-color: rgba(38, 50, 56, 0.2);
+  --glow-color: rgba(79, 195, 247, 0.6);
+}
+
+.transactions-container {
+  padding: 1.5rem;
+  background-color: var(--primary-dark) !important;
+  min-height: 100vh;
+  color: var(--text-light);
+}
+
+.filter-section {
+  background-color: var(--primary) !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.status-filter select {
+  background-color: var(--primary) !important;
+  color: var(--text-light);
+  border: 1px solid var(--primary-light);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.table-container {
+  background-color: var(--primary) !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  overflow-x: auto;
+}
+
+table {
+  background-color: #37474f !important;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th {
+  text-align: left;
+  padding: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--primary-light);
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(84, 110, 122, 0.3);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.transaction-id {
+  font-weight: 600;
+}
+
+.transaction-date {
+  color: var(--text-secondary);
+}
+
+.status-pill {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-completed {
+  background-color: rgba(102, 187, 106, 0.2) !important;
+  color: var(--success);
+}
+
+.status-pending {
+  background-color: rgba(255, 202, 40, 0.2) !important;
+  color: var(--warning);
+}
+
+.status-cancelled {
+  background-color: rgba(239, 83, 80, 0.2) !important;
+  color: var(--danger);
+}
+
+.view-button {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: transparent;
+}
+
+.view-button:hover {
+  background-color: var(--accent) !important;
+  color: var(--primary-dark);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.transaction-modal {
+  background-color: var(--primary) !important;
+  color: #546e7a;
+}
+
+.transaction-modal .mantine-Modal-title {
+  color: #263238;
+  font-size: 1.2rem;
+}
+
+.close-button {
+  background-color: var(--accent) !important;
+  color: var(--primary-dark);
+  margin-top: 1rem;
+}
+
+.close-button:hover {
+  background-color: #3da8d6 !important;
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Dark scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
