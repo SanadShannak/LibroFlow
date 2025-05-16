@@ -1,0 +1,91 @@
+:root {
+  --primary-dark: #263238;
+  --primary: #37474F;
+  --primary-light: #546E7A;
+  --accent: #4FC3F7;
+  --success: #66BB6A;
+  --warning: #FFCA28;
+  --danger: #EF5350;
+  --text-light: #ECEFF1;
+  --text-secondary: #B0BEC5;
+  --shadow-color: rgba(38, 50, 56, 0.2);
+  --glow-color: rgba(79, 195, 247, 0.6);
+}
+
+.reports-container {
+  padding: 1.5rem;
+  background-color: var(--primary-dark);
+  min-height: 100vh;
+  color: var(--text-light);
+}
+
+.filter-section {
+  background-color: var(--primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.report-filter select {
+  background-color: var(--primary);
+  color: var(--text-light);
+  border: 1px solid var(--primary-light);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.report-card {
+  background-color: var(--primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.report-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--shadow-color);
+}
+
+.report-title {
+  font-size: 1.1rem;
+  color: var(--text-light);
+}
+
+.report-period {
+  color: var(--text-secondary);
+}
+
+.report-summary {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.download-button {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.download-button:hover {
+  background-color: var(--accent);
+  color: var(--primary-dark);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Dark scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
