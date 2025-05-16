@@ -19,9 +19,8 @@ const EmployeesActions: React.FC<EmployeesActionsProps> = ({
   onSearchChange,
   onAdd,
   onRoleFilterChange,
-  onBranchFilterChange,
   roleFilter,
-  branchFilter,
+  
   employees,
 }) => {
   const roles = Array.from(new Set(employees.map((employee) => employee.role)));
@@ -75,28 +74,7 @@ const EmployeesActions: React.FC<EmployeesActionsProps> = ({
           }}
           rightSection={<span style={{ color: roleFilter ? selectedTextColor : defaultTextColor, pointerEvents: 'none' }} />}
         />
-        <Select
-          placeholder="Filter by Branch"
-          data={branches}
-          value={branchFilter}
-          onChange={onBranchFilterChange}
-          clearable
-          className={classes.filterInput}
-          styles={{
-            input: {
-              backgroundColor: branchFilter ? selectedBackgroundColor : unselectedBackgroundColor,
-              color: branchFilter ? selectedTextColor : defaultTextColor,
-              border: '1px solid #4A5E6A',
-              transition: 'color 0.2s ease',
-              '&:hover': {
-                color: branchFilter ? selectedTextColor : hoverTextColor,
-              },
-            },
-            dropdown: { backgroundColor: unselectedBackgroundColor, border: '1px solid #4A5E6A' },
-            option: { color: defaultTextColor },
-          }}
-          rightSection={<span style={{ color: branchFilter ? selectedTextColor : defaultTextColor, pointerEvents: 'none' }} />}
-        />
+        
       </Group>
     </Box>
   );

@@ -92,8 +92,7 @@ const DepartmentManagerEmployees = () => {
                 onRoleFilterChange={setRoleFilter}
                 roleFilter={roleFilter}
                 employees={employees}
-                onBranchFilterChange={() => {}}
-                branchFilter={managerBranch}
+                onBranchFilterChange={() => { } } branchFilter={null}
               />
             </Box>
           </Box>
