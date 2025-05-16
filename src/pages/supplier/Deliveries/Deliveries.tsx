@@ -257,7 +257,7 @@ const Deliveries: React.FC = () => {
   return (
     <div className="deliveries-container">
       <div className="dashboard-header">
-        <h2>Manage Deliveries</h2>
+        <h2>Deliveries</h2>
         <div className="header-actions">
            
           <button className="add-delivery-btn" onClick={() => setShowAddModal(true)}>

@@ -75,7 +75,7 @@ const SupplierBooksPage = () => {
         <Box className={classes.header}>
           <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
             <Box>
-              <Title order={3} c="white" mb="xs">Book Management</Title>
+              <Title order={3} c="white" mb="xs">Supplier Products</Title>
               <Text size="sm" c="dimmed" style={{ textTransform: 'uppercase' }}>
                 Total Unique Books: {filteredData.length}
               </Text>
