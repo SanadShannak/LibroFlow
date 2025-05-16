@@ -10,14 +10,14 @@ import FinanceManagerDashboard from '../../pages/financeManager/Dashboard/Dashbo
 import FinanceManagerTransactions from '../../pages/financeManager/Transactions/Transactions';
 import FinanceManagerReports from '../../pages/financeManager/Reports/Reports';
 import FinanceManagerBudget from '../../pages/financeManager/Budget/Budget';
-import FinanceManagerInvoices from '../../pages/financeManager/Invoices/Invoices';
+import FinanceManagerInvoices from '../../pages/financeManager/Orders/Orders';
 
 const financeManagerSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },
   { label: 'Transactions', icon: IconCash },
   { label: 'Reports', icon: IconReportMoney },
   { label: 'Budget', icon: IconChartBar },
-  { label: 'Invoices', icon: IconReceipt },
+  { label: 'Orders', icon: IconReceipt },
 ];
 
 const financeManagerContentMap = {
@@ -25,7 +25,7 @@ const financeManagerContentMap = {
   transactions: <FinanceManagerTransactions />,
   reports: <FinanceManagerReports />,
   budget: <FinanceManagerBudget />,
-  invoices: <FinanceManagerInvoices />,
+  orders: <FinanceManagerInvoices />,
 };
 
 export default function FinanceManagerLayout() {

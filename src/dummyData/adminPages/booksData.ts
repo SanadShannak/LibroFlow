@@ -6,6 +6,7 @@ export interface Book {
   availability: 'Available' | 'Borrowed' | 'Not Available';
   quantity: number;
   reservedQuantity: number;
+  pricePerOne: number; // Added price per book
   savedBy?: string; // Optional field for "Saved by"
 }
 
@@ -18,6 +19,7 @@ export const initialBooks: Book[] = [
     availability: 'Available',
     quantity: 5,
     reservedQuantity: 2,
+    pricePerOne: 12.99,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
   {
@@ -28,6 +30,7 @@ export const initialBooks: Book[] = [
     availability: 'Borrowed',
     quantity: 3,
     reservedQuantity: 3,
+    pricePerOne: 15.49,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
   {
@@ -38,6 +41,7 @@ export const initialBooks: Book[] = [
     availability: 'Not Available',
     quantity: 2,
     reservedQuantity: 2,
+    pricePerOne: 10.99,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
   {
@@ -48,6 +52,7 @@ export const initialBooks: Book[] = [
     availability: 'Available',
     quantity: 4,
     reservedQuantity: 1,
+    pricePerOne: 8.99,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
   {
@@ -58,6 +63,7 @@ export const initialBooks: Book[] = [
     availability: 'Available',
     quantity: 6,
     reservedQuantity: 2,
+    pricePerOne: 18.99,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
   {
@@ -68,6 +74,7 @@ export const initialBooks: Book[] = [
     availability: 'Borrowed',
     quantity: 3,
     reservedQuantity: 3,
+    pricePerOne: 9.49,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
   {
@@ -78,6 +85,7 @@ export const initialBooks: Book[] = [
     availability: 'Available',
     quantity: 5,
     reservedQuantity: 0,
+    pricePerOne: 11.99,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
   {
@@ -88,6 +96,7 @@ export const initialBooks: Book[] = [
     availability: 'Not Available',
     quantity: 1,
     reservedQuantity: 1,
+    pricePerOne: 7.99,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
 ];

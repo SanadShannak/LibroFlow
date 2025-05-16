@@ -1,0 +1,30 @@
+/* Remove from BooksPage.module.css */
+:global(.mantine-Modal-overlay) {
+  animation: fadeIn 300ms ease-in-out forwards;
+}
+
+:global(.mantine-Modal-overlay[data-exiting]) {
+  animation: fadeOut 300ms ease-in-out forwards;
+}
+
+:global(.mantine-Modal-content) {
+  animation: fadeIn 300ms ease-in-out forwards;
+}
+
+:global(.mantine-Modal-content[data-exiting]) {
+  animation: fadeOut 300ms ease-in-out forwards;
+}
+
+:global(.mantine-Modal-close) {
+  transition: all 200ms ease-in-out;
+}
+
+:global(.mantine-Modal-close:hover) {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.mantine-Modal-close:active) {
+  transform: scale(0.9);
+  background-color: rgba(255, 255, 255, 0.2);
+}
