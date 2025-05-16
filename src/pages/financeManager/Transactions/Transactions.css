@@ -1,32 +1,32 @@
 :root {
   --primary-dark: #263238;
-  --primary: #37474F;
-  --primary-light: #546E7A;
-  --accent: #4FC3F7;
-  --success: #66BB6A;
-  --warning: #FFCA28;
-  --danger: #EF5350;
-  --text-light: #ECEFF1;
-  --text-secondary: #B0BEC5;
+  --primary: #37474f;
+  --primary-light: #546e7a;
+  --accent: #4fc3f7;
+  --success: #66bb6a;
+  --warning: #ffca28;
+  --danger: #ef5350;
+  --text-light: #eceff1;
+  --text-secondary: #b0bec5;
   --shadow-color: rgba(38, 50, 56, 0.2);
   --glow-color: rgba(79, 195, 247, 0.6);
 }
 
 .transactions-container {
   padding: 1.5rem;
-  background-color: var(--primary-dark);
+  background-color: var(--primary-dark) !important;
   min-height: 100vh;
   color: var(--text-light);
 }
 
 .filter-section {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow-color);
 }
 
 .status-filter select {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   color: var(--text-light);
   border: 1px solid var(--primary-light);
   border-radius: 6px;
@@ -35,14 +35,14 @@
 }
 
 .table-container {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow-color);
   overflow-x: auto;
 }
 
 table {
-background-color: #37474F;
+  background-color: #37474f !important;
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
@@ -82,48 +82,50 @@ tr:last-child td {
 }
 
 .status-completed {
-  background-color: rgba(102, 187, 106, 0.2);
+  background-color: rgba(102, 187, 106, 0.2) !important;
   color: var(--success);
 }
 
 .status-pending {
-  background-color: rgba(255, 202, 40, 0.2);
+  background-color: rgba(255, 202, 40, 0.2) !important;
   color: var(--warning);
 }
 
 .status-cancelled {
-  background-color: rgba(239, 83, 80, 0.2);
+  background-color: rgba(239, 83, 80, 0.2) !important;
   color: var(--danger);
 }
 
 .view-button {
   border-color: var(--accent);
   color: var(--accent);
+  background-color: transparent;
 }
 
 .view-button:hover {
-  background-color: var(--accent);
+  background-color: var(--accent) !important;
   color: var(--primary-dark);
   box-shadow: 0 0 15px var(--glow-color);
 }
 
 .transaction-modal {
-  background-color: var(--primary);
-  color: var(--text-light);
+  background-color: var(--primary) !important;
+  color: #546e7a;
 }
 
 .transaction-modal .mantine-Modal-title {
-  color: var(--text-light);
+  color: #263238;
   font-size: 1.2rem;
 }
 
 .close-button {
-  background-color: var(--accent);
+  background-color: var(--accent) !important;
   color: var(--primary-dark);
+  margin-top: 1rem;
 }
 
 .close-button:hover {
-  background-color: #3da8d6;
+  background-color: #3da8d6 !important;
   box-shadow: 0 0 15px var(--glow-color);
 }
 

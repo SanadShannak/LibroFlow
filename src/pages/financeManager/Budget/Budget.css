@@ -1,32 +1,32 @@
 :root {
   --primary-dark: #263238;
-  --primary: #37474F;
-  --primary-light: #546E7A;
-  --accent: #4FC3F7;
-  --success: #66BB6A;
-  --warning: #FFCA28;
-  --danger: #EF5350;
-  --text-light: #ECEFF1;
-  --text-secondary: #B0BEC5;
+  --primary: #37474f;
+  --primary-light: #546e7a;
+  --accent: #4fc3f7;
+  --success: #66bb6a;
+  --warning: #ffca28;
+  --danger: #ef5350;
+  --text-light: #eceff1;
+  --text-secondary: #b0bec5;
   --shadow-color: rgba(38, 50, 56, 0.2);
   --glow-color: rgba(79, 195, 247, 0.6);
 }
 
 .budget-container {
   padding: 1.5rem;
-  background-color: var(--primary-dark);
+  background-color: var(--primary-dark) !important;
   min-height: 100vh;
   color: var(--text-light);
 }
 
 .filter-section {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow-color);
 }
 
 .period-filter select {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   color: var(--text-light);
   border: 1px solid var(--primary-light);
   border-radius: 6px;
@@ -35,7 +35,7 @@
 }
 
 .budget-card {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -72,7 +72,7 @@
 }
 
 .budget-progress {
-  background-color: rgba(84, 110, 122, 0.3);
+  background-color: rgba(84, 110, 122, 0.3) !important;
 }
 
 .details-button {
@@ -81,7 +81,7 @@
 }
 
 .details-button:hover {
-  background-color: var(--accent);
+  background-color: var(--accent) !important;
   color: var(--primary-dark);
   box-shadow: 0 0 15px var(--glow-color);
 }
