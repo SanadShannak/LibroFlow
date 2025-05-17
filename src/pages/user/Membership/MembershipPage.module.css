@@ -1,0 +1,93 @@
+.container {
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.membershipCard {
+  width: 100%;
+  max-width: 100%;
+  min-height: 520px;
+
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  background: linear-gradient(135deg, #263238 60%, #37474F 100%);
+  border-radius: 24px;
+  box-shadow: 0 12px 48px 0 rgba(41,182,246,0.10), 0 2px 8px 0 rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+}
+
+.iconWrapper {
+  background: linear-gradient(135deg, #29B6F6 60%, #0288D1 100%);
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px 0 rgba(41,182,246,0.18);
+  margin-bottom: 1rem;
+  margin-top: -3.5rem;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.25em 1em;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #29B6F6;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.statusInactive {
+  background: #e57373;
+}
+
+.benefits {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  padding: 1.5rem 1rem 1.5rem 2.5rem;
+  margin: 1.5rem 0 0.5rem 0;
+  color: #fff;
+  font-size: 1.08rem;
+  box-shadow: 0 2px 8px 0 rgba(41,182,246,0.04);
+}
+
+.benefits ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.benefits li {
+  margin-bottom: 0.5em;
+  line-height: 1.6;
+}
+
+.buttonGroup {
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .membershipCard {
+    max-width: 98vw;
+    padding: 2rem 0.5rem;
+  }
+  .benefits {
+    padding: 1rem 0.5rem 1rem 1.5rem;
+  }
+} 

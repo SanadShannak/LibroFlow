@@ -11,6 +11,8 @@ import SupplierLayout from './layouts/supplierLayout/SupplierLayout';
 import UserLayout from './layouts/userLayout/UserLayout';
 import { AnimatePresence } from 'framer-motion';
 import { BorrowedBooksProvider } from './context/BorrowedBooksContext';
+import Dashboard from './pages/user/Dashboard';
+import MembershipPage from './pages/user/Membership';
 
 function App() {
   const location = useLocation();
@@ -40,6 +42,9 @@ function App() {
 
           {/* User routes */}
           <Route path="/user/*" element={<UserLayout />} />
+
+          <Route path="/user/dashboard" element={<Dashboard />} />
+          <Route path="/user/membership" element={<MembershipPage />} />
 
           {/* Fallback */}
           <Route path="*" element={<LoginPage />} />
