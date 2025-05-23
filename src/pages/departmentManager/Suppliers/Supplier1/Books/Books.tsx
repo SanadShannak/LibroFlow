@@ -19,6 +19,7 @@ const SupplierBooksPage = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
+  const [availabilityFilter, setAvailabilityFilter] = useState<string | null>(null);
 
   // Modals
   const [addModalOpened, { open: openAddModal, close: closeAddModal }] = useDisclosure(false);
@@ -29,7 +30,8 @@ const SupplierBooksPage = () => {
     const matchesSearch = book.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = typeFilter ? book.type === typeFilter : true;
     const matchesLanguage = languageFilter ? book.language === languageFilter : true;
-    return matchesSearch && matchesType && matchesLanguage;
+    const matchesAvailability = availabilityFilter ? book.availability === availabilityFilter : true;
+    return matchesSearch && matchesType && matchesLanguage && matchesAvailability;
   });
 
   const handleAddBook = (newBook: Omit<Book, 'id' | 'availability' | 'savedBy'>) => {
@@ -85,8 +87,10 @@ const SupplierBooksPage = () => {
                 onAdd={openAddModal}
                 onTypeFilterChange={setTypeFilter}
                 onLanguageFilterChange={setLanguageFilter}
+                onAvailabilityFilterChange={setAvailabilityFilter}
                 typeFilter={typeFilter}
                 languageFilter={languageFilter}
+                availabilityFilter={availabilityFilter}
                 books={books}
               />
             </Box>

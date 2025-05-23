@@ -1,5 +1,5 @@
 import { Table, ActionIcon, Group, Text, Button } from '@mantine/core';
-import { IconSearch, IconPencil, IconTrash, IconChevronUp, IconChevronDown } from '@tabler/icons-react';
+import { IconSearch, IconPencil, IconTrash, IconChevronUp, IconChevronDown, IconArchive } from '@tabler/icons-react';
 import classes from './BooksTable.module.css';
 import { Book } from '../../../../../dummyData/adminPages/booksData';
 import { useState } from 'react';
@@ -9,6 +9,7 @@ interface BooksTableProps {
   onShowDetails: (book: Book) => void;
   onEdit: (book: Book) => void;
   onDelete: (book: Book) => void;
+  onArchive: (book: Book) => void;
 }
 
 const BooksTable: React.FC<BooksTableProps> = ({
@@ -16,6 +17,7 @@ const BooksTable: React.FC<BooksTableProps> = ({
   onShowDetails,
   onEdit,
   onDelete,
+  onArchive,
 }) => {
   const [sortColumn, setSortColumn] = useState<'quantity' | 'availability' | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
@@ -110,6 +112,17 @@ const BooksTable: React.FC<BooksTableProps> = ({
               <IconTrash size={16} />
             </ActionIcon>
             <Text size="xs" c="dimmed">Delete</Text>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <ActionIcon
+              variant="transparent"
+              color="white"
+              onClick={() => onArchive(book)}
+              aria-label="Archive book"
+            >
+              <IconArchive size={16} />
+            </ActionIcon>
+            <Text size="xs" c="dimmed">Archive</Text>
           </div>
         </Group>
       </Table.Td>

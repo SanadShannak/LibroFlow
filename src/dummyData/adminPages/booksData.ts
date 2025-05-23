@@ -3,11 +3,11 @@ export interface Book {
   name: string;
   type: string;
   language: string;
-  availability: 'Available' | 'Borrowed' | 'Not Available';
   quantity: number;
   reservedQuantity: number;
-  pricePerOne: number; // Added price per book
-  savedBy?: string; // Optional field for "Saved by"
+  availability: "Available" | "Borrowed" | "Not Available";
+  savedBy: string | undefined;
+  pricePerOne: number;
 }
 
 export const initialBooks: Book[] = [
@@ -99,4 +99,40 @@ export const initialBooks: Book[] = [
     pricePerOne: 7.99,
     savedBy: 'Nisal Gunasekara (Admin)',
   },
+];
+
+export const initialArchivedBooks: Book[] = [
+  {
+    id: 1,
+    name: "The Great Gatsby",
+    type: "Fiction",
+    language: "English",
+    quantity: 5,
+    reservedQuantity: 2,
+    availability: "Available",
+    savedBy: "John Doe",
+    pricePerOne: 29.99
+  },
+  {
+    id: 2,
+    name: "1984",
+    type: "Fiction",
+    language: "English",
+    quantity: 3,
+    reservedQuantity: 1,
+    availability: "Borrowed",
+    savedBy: "Jane Smith",
+    pricePerOne: 24.99
+  },
+  {
+    id: 3,
+    name: "Don Quixote",
+    type: "Classic",
+    language: "Spanish",
+    quantity: 2,
+    reservedQuantity: 0,
+    availability: "Available",
+    savedBy: "Mike Johnson",
+    pricePerOne: 34.99
+  }
 ];

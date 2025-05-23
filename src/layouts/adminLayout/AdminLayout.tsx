@@ -4,15 +4,19 @@ import {
   IconUsers,
   IconTrophy,
   IconDashboard,
+  IconArchive,
 } from '@tabler/icons-react';
 import RoleBasedLayout from '../../components/layouts/RoleBasedLayout/RoleBasedLayout';
 import AdminBooksPage from '../../pages/admin/Books/BooksPage';
 import AdminCompetitionsPage from '../../pages/admin/Competitions/CompetitionsPage';
 import AdminDashboardPage from '../../pages/admin/Dashboard/Dashboard';
 import AdminEmployeesPage from '../../pages/admin/Employees/EmployeesPage';
-import ShmeisaniBranch from '../../pages/admin/branches/ShmeisaniBranch';
-import JabalAmmanBranch from '../../pages/admin/branches/JabalAmman';
-import AlZarqaaBranch from '../../pages/admin/branches/AlZarqaaBranch';
+import ShmeisaniBranch from '../../pages/admin/Branches/ShmeisaniBranch';
+import JabalAmmanBranch from '../../pages/admin/Branches/JabalAmman';
+import AlZarqaaBranch from '../../pages/admin/Branches/AlZarqaaBranch';
+import ArchivePage, { ArchiveContext } from '../../pages/admin/Archive';
+import React, { useState } from 'react';
+import { Book } from '../../dummyData/adminPages/booksData';
 
 const adminSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },
@@ -29,6 +33,7 @@ const adminSidebarLinks = [
   { label: 'Books', icon: IconBook },
   { label: 'Employees', icon: IconUsers },
   { label: 'Competitions', icon: IconTrophy },
+  { label: 'Archive', icon: IconArchive },
 ];
 
 const adminContentMap = {
@@ -40,15 +45,26 @@ const adminContentMap = {
   books: <AdminBooksPage />,
   employees: <AdminEmployeesPage />,
   competitions: <AdminCompetitionsPage />,
+  archive: <ArchivePage />,
 };
 
 export default function AdminLayout() {
+  const [archivedBooks, setArchivedBooks] = useState<Book[]>([]);
+  const handleArchiveBook = (book: Book) => {
+    setArchivedBooks((prev) => [...prev, book]);
+  };
   return (
-    <RoleBasedLayout
-      user={{ name: 'Motasem AlAtawneh', role: 'Admin' }}
-      sidebarLinks={adminSidebarLinks}
-      contentMap={adminContentMap}
-      showBranchContent
-    />
+    <ArchiveContext.Provider value={{ archivedBooks }}>
+      <RoleBasedLayout
+        user={{ name: 'Motasem AlAtawneh', role: 'Admin' }}
+        sidebarLinks={adminSidebarLinks}
+        contentMap={{
+          ...adminContentMap,
+          books: <AdminBooksPage onArchiveBook={handleArchiveBook} />, // Pass handler
+          archive: <ArchivePage />,
+        }}
+        showBranchContent
+      />
+    </ArchiveContext.Provider>
   );
 }

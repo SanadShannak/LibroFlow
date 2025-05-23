@@ -157,7 +157,7 @@ const RegisterPage = () => {
       country={'jo'}
       value={form.values.phone}
       onChange={(phone) => form.setFieldValue('phone', phone)}
-      inputStyle={{ width: '100%', borderColor: '#ccc', borderRadius: '4px' }}
+      inputStyle={{ width: '100%', color: 'black', borderColor: '#ccc', borderRadius: '4px' }}
       containerClass={classes.phoneInputButton}
       inputProps={{ name: 'phone', required: true }}
       excludeCountries={['il']}

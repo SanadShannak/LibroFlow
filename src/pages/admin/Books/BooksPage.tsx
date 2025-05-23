@@ -9,9 +9,15 @@ import AddBooksModal from './components/AddBooksModal/AddBooksModal';
 import UpdateBooksModal from './components/UpdateBooksModal/UpdateBooksModal';
 import DeleteBooksModal from './components/DeleteBooksModal/DeleteBooksModal';
 import ViewBooksModal from './components/ViewBooksModal/ViewBooksModal';
+import { IconArchive } from '@tabler/icons-react';
 
-const AdminBooksPage = () => {
+interface AdminBooksPageProps {
+  onArchiveBook?: (book: Book) => void;
+}
+
+const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ onArchiveBook }) => {
   const [books, setBooks] = useState<Book[]>(initialBooks);
+  const [archivedBooks, setArchivedBooks] = useState<Book[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
@@ -73,6 +79,15 @@ const AdminBooksPage = () => {
     openDeleteModal();
   };
 
+  const handleArchiveBook = (book: Book) => {
+    setBooks(books.filter((b) => b.id !== book.id));
+    if (onArchiveBook) {
+      onArchiveBook(book);
+    } else {
+      setArchivedBooks([...archivedBooks, book]);
+    }
+  };
+
   return (
     <MantineProvider>
       <Container fluid className={classes.container}>
@@ -108,6 +123,7 @@ const AdminBooksPage = () => {
               onShowDetails={handleViewBook}
               onEdit={handleEditBook}
               onDelete={handleDeleteClick}
+              onArchive={handleArchiveBook}
             />
           </Box>
         </ScrollArea>
