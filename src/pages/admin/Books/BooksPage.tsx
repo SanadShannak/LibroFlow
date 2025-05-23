@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MantineProvider, Container, Box, ScrollArea, Text, Title, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './BooksPage.module.css';
-import { initialBooks, Book } from '../../../dummyData/adminPages/booksData';
+import { Book } from '../../../dummyData/adminPages/booksData';
 import BooksActions from './components/BooksActions/BooksActions';
 import BooksTable from './components/BooksTable/BooksTable';
 import AddBooksModal from './components/AddBooksModal/AddBooksModal';
@@ -12,12 +12,11 @@ import ViewBooksModal from './components/ViewBooksModal/ViewBooksModal';
 import { IconArchive } from '@tabler/icons-react';
 
 interface AdminBooksPageProps {
+  books: Book[];
   onArchiveBook?: (book: Book) => void;
 }
 
-const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ onArchiveBook }) => {
-  const [books, setBooks] = useState<Book[]>(initialBooks);
-  const [archivedBooks, setArchivedBooks] = useState<Book[]>([]);
+const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ books, onArchiveBook }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
@@ -40,28 +39,22 @@ const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ onArchiveBook }) => {
     return matchesSearch && matchesType && matchesLanguage && matchesAvailability;
   });
 
+  // The following handlers only affect UI state, not the books list itself
   const handleAddBook = (newBook: Omit<Book, 'id' | 'availability' | 'savedBy'>) => {
-    const newId = books.length > 0 ? Math.max(...books.map((b) => b.id)) + 1 : 1;
-    const availableQuantity = newBook.quantity - newBook.reservedQuantity;
-    const availability = availableQuantity > 0 ? 'Available' : newBook.reservedQuantity > 0 ? 'Borrowed' : 'Not Available';
-    setBooks([...books, { id: newId, ...newBook, availability, savedBy: 'Nisal Gunasekara (Admin)' }]);
+    // This should be handled in the parent if you want to add books globally
     closeAddModal();
   };
 
   const handleUpdateBook = (updatedBook: Book) => {
-    const availableQuantity = updatedBook.quantity - updatedBook.reservedQuantity;
-    const availability = availableQuantity > 0 ? 'Available' : updatedBook.reservedQuantity > 0 ? 'Borrowed' : 'Not Available';
-    setBooks(books.map((book) => (book.id === updatedBook.id ? { ...updatedBook, availability } : book)));
+    // This should be handled in the parent if you want to update books globally
     setSelectedBook(null);
     closeUpdateModal();
   };
 
   const handleDeleteBook = () => {
-    if (selectedBook) {
-      setBooks(books.filter((book) => book.id !== selectedBook.id));
-      setSelectedBook(null);
-      closeDeleteModal();
-    }
+    // This should be handled in the parent if you want to delete books globally
+    setSelectedBook(null);
+    closeDeleteModal();
   };
 
   const handleEditBook = (book: Book) => {
@@ -80,11 +73,8 @@ const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ onArchiveBook }) => {
   };
 
   const handleArchiveBook = (book: Book) => {
-    setBooks(books.filter((b) => b.id !== book.id));
     if (onArchiveBook) {
       onArchiveBook(book);
-    } else {
-      setArchivedBooks([...archivedBooks, book]);
     }
   };
 

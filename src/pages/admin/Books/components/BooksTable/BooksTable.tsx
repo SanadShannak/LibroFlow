@@ -1,4 +1,4 @@
-import { Table, ActionIcon, Group, Text, Button } from '@mantine/core';
+import { Table, ActionIcon, Group, Text, Button, Tooltip } from '@mantine/core';
 import { IconSearch, IconPencil, IconTrash, IconChevronUp, IconChevronDown, IconArchive } from '@tabler/icons-react';
 import classes from './BooksTable.module.css';
 import { Book } from '../../../../../dummyData/adminPages/booksData';
@@ -79,49 +79,60 @@ const BooksTable: React.FC<BooksTableProps> = ({
         </Text>
       </Table.Td>
       <Table.Td className={classes.tableCell}>
-        <Group gap="md" justify="center">
+        <Group gap="xs" justify="center">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ActionIcon
-              variant="transparent"
-              color="white"
-              onClick={() => onShowDetails(book)}
-              aria-label="View book"
-            >
-              <IconSearch size={16} />
-            </ActionIcon>
+            <Tooltip label="View Details" withArrow>
+              <ActionIcon
+                variant="transparent"
+                color="white"
+                onClick={() => onShowDetails(book)}
+                aria-label="View Details"
+              >
+                <IconSearch size={16} />
+              </ActionIcon>
+            </Tooltip>
             <Text size="xs" c="dimmed">View</Text>
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ActionIcon
-              variant="transparent"
-              color="white"
-              onClick={() => onEdit(book)}
-              aria-label="Edit book"
-            >
-              <IconPencil size={16} />
-            </ActionIcon>
-            <Text size="xs" c="dimmed">Update</Text>
+            <Tooltip label="Edit Book" withArrow>
+              <ActionIcon
+                variant="transparent"
+                color="white"
+                onClick={() => onEdit(book)}
+                aria-label="Edit Book"
+              >
+                <IconPencil size={16} />
+              </ActionIcon>
+            </Tooltip>
+            <Text size="xs" c="dimmed">Edit</Text>
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ActionIcon
-              variant="transparent"
-              color="white"
-              onClick={() => onDelete(book)}
-              aria-label="Delete book"
-            >
-              <IconTrash size={16} />
-            </ActionIcon>
+            <Tooltip label="Delete Book" withArrow>
+              <ActionIcon
+                variant="transparent"
+                color="white"
+                onClick={() => onDelete(book)}
+                aria-label="Delete Book"
+              >
+                <IconTrash size={16} />
+              </ActionIcon>
+            </Tooltip>
             <Text size="xs" c="dimmed">Delete</Text>
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ActionIcon
-              variant="transparent"
-              color="white"
-              onClick={() => onArchive(book)}
-              aria-label="Archive book"
-            >
-              <IconArchive size={16} />
-            </ActionIcon>
+            <Tooltip label="Archive Book" withArrow>
+              <ActionIcon
+                variant="transparent"
+                color="white"
+                onClick={() => onArchive(book)}
+                aria-label="Archive Book"
+              >
+                <IconArchive size={16} />
+              </ActionIcon>
+            </Tooltip>
             <Text size="xs" c="dimmed">Archive</Text>
           </div>
         </Group>
@@ -137,40 +148,8 @@ const BooksTable: React.FC<BooksTableProps> = ({
           <Table.Th className={classes.tableHeader}>Name</Table.Th>
           <Table.Th className={classes.tableHeader}>Type</Table.Th>
           <Table.Th className={classes.tableHeader}>Language</Table.Th>
-          <Table.Th className={classes.tableHeader}>
-            <Group gap="xs" align="center" justify="center">
-              Quantity
-              <Button
-                variant="subtle"
-                size="xs"
-                onClick={() => handleSort('quantity')}
-                rightSection={
-                  sortColumn === 'quantity' && sortDirection === 'asc' ? (
-                    <IconChevronUp size={14} />
-                  ) : (
-                    <IconChevronDown size={14} />
-                  )
-                }
-              />
-            </Group>
-          </Table.Th>
-          <Table.Th className={classes.tableHeader}>
-            <Group gap="xs" align="center" justify="center">
-              Availability
-              <Button
-                variant="subtle"
-                size="xs"
-                onClick={() => handleSort('availability')}
-                rightSection={
-                  sortColumn === 'availability' && sortDirection === 'asc' ? (
-                    <IconChevronUp size={14} />
-                  ) : (
-                    <IconChevronDown size={14} />
-                  )
-                }
-              />
-            </Group>
-          </Table.Th>
+          <Table.Th className={classes.tableHeader}>Quantity</Table.Th>
+          <Table.Th className={classes.tableHeader}>Availability</Table.Th>
           <Table.Th className={classes.tableHeader}>Actions</Table.Th>
         </Table.Tr>
       </Table.Thead>

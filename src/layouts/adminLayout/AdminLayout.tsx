@@ -14,9 +14,9 @@ import AdminEmployeesPage from '../../pages/admin/Employees/EmployeesPage';
 import ShmeisaniBranch from '../../pages/admin/Branches/ShmeisaniBranch';
 import JabalAmmanBranch from '../../pages/admin/Branches/JabalAmman';
 import AlZarqaaBranch from '../../pages/admin/Branches/AlZarqaaBranch';
-import ArchivePage, { ArchiveContext } from '../../pages/admin/Archive';
+import ArchivePage from '../../pages/admin/Archive';
 import React, { useState } from 'react';
-import { Book } from '../../dummyData/adminPages/booksData';
+import { Book, initialBooks } from '../../dummyData/adminPages/booksData';
 
 const adminSidebarLinks = [
   { label: 'Dashboard', icon: IconDashboard },
@@ -36,35 +36,52 @@ const adminSidebarLinks = [
   { label: 'Archive', icon: IconArchive },
 ];
 
-const adminContentMap = {
-  dashboard: <AdminDashboardPage />,
-  branches: null,
-  'branches.shmeisani': <ShmeisaniBranch />,
-  'branches.jabalamman': <JabalAmmanBranch />,
-  'branches.alzarqaa': <AlZarqaaBranch />,
-  books: <AdminBooksPage />,
-  employees: <AdminEmployeesPage />,
-  competitions: <AdminCompetitionsPage />,
-  archive: <ArchivePage />,
-};
+const initialArchivedBooks: Book[] = [
+  {
+    id: 100,
+    name: 'The Secret Library',
+    type: 'Mystery',
+    language: 'English',
+    quantity: 2,
+    reservedQuantity: 0,
+    availability: 'Available',
+    savedBy: 'System',
+    pricePerOne: 22.5,
+  },
+];
 
 export default function AdminLayout() {
-  const [archivedBooks, setArchivedBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>(initialBooks);
+  const [archivedBooks, setArchivedBooks] = useState<Book[]>(initialArchivedBooks);
+
   const handleArchiveBook = (book: Book) => {
+    setBooks((prev) => prev.filter((b) => b.id !== book.id));
     setArchivedBooks((prev) => [...prev, book]);
   };
+
+  const handleRestoreBook = (book: Book) => {
+    setArchivedBooks((prev) => prev.filter((b) => b.id !== book.id));
+    setBooks((prev) => [...prev, book]);
+  };
+
+  const adminContentMap = {
+    dashboard: <AdminDashboardPage />,
+    branches: null,
+    'branches.shmeisani': <ShmeisaniBranch />,
+    'branches.jabalamman': <JabalAmmanBranch />,
+    'branches.alzarqaa': <AlZarqaaBranch />,
+    books: <AdminBooksPage books={books} onArchiveBook={handleArchiveBook} />,
+    employees: <AdminEmployeesPage />,
+    competitions: <AdminCompetitionsPage />,
+    archive: <ArchivePage archivedBooks={archivedBooks} onRestoreBook={handleRestoreBook} />,
+  };
+
   return (
-    <ArchiveContext.Provider value={{ archivedBooks }}>
-      <RoleBasedLayout
-        user={{ name: 'Motasem AlAtawneh', role: 'Admin' }}
-        sidebarLinks={adminSidebarLinks}
-        contentMap={{
-          ...adminContentMap,
-          books: <AdminBooksPage onArchiveBook={handleArchiveBook} />, // Pass handler
-          archive: <ArchivePage />,
-        }}
-        showBranchContent
-      />
-    </ArchiveContext.Provider>
+    <RoleBasedLayout
+      user={{ name: 'Motasem AlAtawneh', role: 'Admin' }}
+      sidebarLinks={adminSidebarLinks}
+      contentMap={adminContentMap}
+      showBranchContent
+    />
   );
 }

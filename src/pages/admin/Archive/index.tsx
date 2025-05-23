@@ -1,23 +1,24 @@
 /**
  * ArchivePage with search and filters, styled like Book Management table
  */
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Box, Title, Text, ScrollArea, Container } from '@mantine/core';
-import { Book, initialArchivedBooks } from '../../../dummyData/adminPages/booksData';
+import { Book } from '../../../dummyData/adminPages/booksData';
 import ArchiveActions from './ArchiveActions';
 import ArchiveTable from './ArchiveTable';
 import classes from '../Books/BooksPage.module.css';
 
-export const ArchiveContext = React.createContext<{ archivedBooks: Book[] }>({ archivedBooks: initialArchivedBooks });
+interface ArchivePageProps {
+  archivedBooks: Book[];
+  onRestoreBook: (book: Book) => void;
+}
 
-const ArchivePage: React.FC = () => {
-  const { archivedBooks } = useContext(ArchiveContext);
+const ArchivePage: React.FC<ArchivePageProps> = ({ archivedBooks, onRestoreBook }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
   const [availabilityFilter, setAvailabilityFilter] = useState<string | null>(null);
 
-  // Filtering logic
   const filteredBooks = useMemo(() =>
     archivedBooks.filter((book) => {
       const matchesSearch =
@@ -58,7 +59,7 @@ const ArchivePage: React.FC = () => {
       </Box>
       <ScrollArea className={classes.tableScrollArea}>
         <Box className={classes.tableContainer}>
-          <ArchiveTable books={filteredBooks} />
+          <ArchiveTable books={filteredBooks} onRemove={onRestoreBook} />
         </Box>
       </ScrollArea>
     </Container>
