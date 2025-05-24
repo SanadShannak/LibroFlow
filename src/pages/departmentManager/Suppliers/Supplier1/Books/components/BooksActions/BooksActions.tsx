@@ -9,6 +9,7 @@ interface BooksActionsProps {
   onAdd: () => void;
   onTypeFilterChange: (value: string | null) => void;
   onLanguageFilterChange: (value: string | null) => void;
+
   typeFilter: string | null;
   languageFilter: string | null;
   books: Book[];
@@ -18,6 +19,7 @@ const BooksActions: React.FC<BooksActionsProps> = ({
   searchQuery,
   onSearchChange,
   onAdd,
+  
   onTypeFilterChange,
   onLanguageFilterChange,
   typeFilter,

@@ -6,7 +6,7 @@ export interface Book {
   quantity: number;
   reservedQuantity: number;
   availability: "Available" | "Borrowed" | "Not Available";
-  savedBy: string | undefined;
+  savedBy?: string;
   pricePerOne: number;
 }
 

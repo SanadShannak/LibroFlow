@@ -29,7 +29,7 @@ function App() {
           {/* Admin Layout for /admin routes */}
           <Route path="/admin/*" element={<AdminLayout />} />
           <Route path="dashboard" element={<AdminDashboardPage />} />
-          <Route path="books" element={<AdminBooksPage />} />
+          <Route path="books" element={<AdminBooksPage books={[]} />} />
 
           {/* Department Manager routes */}
           <Route path="/department-manager/*" element={<DepartmentManagerLayout />} />

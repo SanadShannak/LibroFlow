@@ -87,10 +87,8 @@ const SupplierBooksPage = () => {
                 onAdd={openAddModal}
                 onTypeFilterChange={setTypeFilter}
                 onLanguageFilterChange={setLanguageFilter}
-                onAvailabilityFilterChange={setAvailabilityFilter}
                 typeFilter={typeFilter}
                 languageFilter={languageFilter}
-                availabilityFilter={availabilityFilter}
                 books={books}
               />
             </Box>
