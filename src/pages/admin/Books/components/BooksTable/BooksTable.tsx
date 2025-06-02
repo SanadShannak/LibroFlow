@@ -73,6 +73,7 @@ const BooksTable: React.FC<BooksTableProps> = ({
       <Table.Td className={classes.tableCell}>{book.type}</Table.Td>
       <Table.Td className={classes.tableCell}>{book.language}</Table.Td>
       <Table.Td className={`${classes.tableCell} ${classes.centered}`}>{book.quantity}</Table.Td>
+      <Table.Td className={`${classes.tableCell} ${classes.centered}`}>{book.reservedQuantity}</Table.Td>
       <Table.Td className={`${classes.tableCell} ${classes.centered}`}>
         <Text size="sm" color={getAvailabilityColor(book.availability)} style={{ fontWeight: 500 }}>
           {book.availability}
@@ -149,6 +150,7 @@ const BooksTable: React.FC<BooksTableProps> = ({
           <Table.Th className={classes.tableHeader}>Type</Table.Th>
           <Table.Th className={classes.tableHeader}>Language</Table.Th>
           <Table.Th className={classes.tableHeader}>Quantity</Table.Th>
+          <Table.Th className={classes.tableHeader}>Reserved</Table.Th>
           <Table.Th className={classes.tableHeader}>Availability</Table.Th>
           <Table.Th className={classes.tableHeader}>Actions</Table.Th>
         </Table.Tr>

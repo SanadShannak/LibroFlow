@@ -13,10 +13,13 @@ import { IconArchive } from '@tabler/icons-react';
 
 interface AdminBooksPageProps {
   books: Book[];
+  onAddBook: (newBook: Omit<Book, 'id' | 'availability' | 'savedBy'>) => void;
+  onUpdateBook: (updatedBook: Book) => void;
+  onDeleteBook: (book: Book) => void;
   onArchiveBook?: (book: Book) => void;
 }
 
-const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ books, onArchiveBook }) => {
+const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ books, onAddBook, onUpdateBook, onDeleteBook, onArchiveBook }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
@@ -39,22 +42,23 @@ const AdminBooksPage: React.FC<AdminBooksPageProps> = ({ books, onArchiveBook })
     return matchesSearch && matchesType && matchesLanguage && matchesAvailability;
   });
 
-  // The following handlers only affect UI state, not the books list itself
   const handleAddBook = (newBook: Omit<Book, 'id' | 'availability' | 'savedBy'>) => {
-    // This should be handled in the parent if you want to add books globally
+    onAddBook(newBook);
     closeAddModal();
   };
 
   const handleUpdateBook = (updatedBook: Book) => {
-    // This should be handled in the parent if you want to update books globally
+    onUpdateBook(updatedBook);
     setSelectedBook(null);
     closeUpdateModal();
   };
 
   const handleDeleteBook = () => {
-    // This should be handled in the parent if you want to delete books globally
-    setSelectedBook(null);
-    closeDeleteModal();
+    if (selectedBook) {
+      onDeleteBook(selectedBook);
+      setSelectedBook(null);
+      closeDeleteModal();
+    }
   };
 
   const handleEditBook = (book: Book) => {

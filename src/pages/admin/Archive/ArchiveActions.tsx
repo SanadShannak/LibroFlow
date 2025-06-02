@@ -8,10 +8,8 @@ interface ArchiveActionsProps {
   onSearchChange: (query: string) => void;
   onTypeFilterChange: (value: string | null) => void;
   onLanguageFilterChange: (value: string | null) => void;
-  onAvailabilityFilterChange: (value: string | null) => void;
   typeFilter: string | null;
   languageFilter: string | null;
-  availabilityFilter: string | null;
   books: Book[];
 }
 
@@ -20,15 +18,12 @@ const ArchiveActions: React.FC<ArchiveActionsProps> = ({
   onSearchChange,
   onTypeFilterChange,
   onLanguageFilterChange,
-  onAvailabilityFilterChange,
   typeFilter,
   languageFilter,
-  availabilityFilter,
   books,
 }) => {
   const types = Array.from(new Set(books.map((book) => book.type)));
   const languages = Array.from(new Set(books.map((book) => book.language)));
-  const availabilities = ['Available', 'Borrowed', 'Not Available'];
   const unselectedBackgroundColor = '#4A5E6A';
   const selectedBackgroundColor = '#E0E0E0';
   const defaultTextColor = '#E0E0E0';
@@ -91,31 +86,9 @@ const ArchiveActions: React.FC<ArchiveActionsProps> = ({
           }}
           rightSection={<span style={{ color: languageFilter ? selectedTextColor : defaultTextColor, pointerEvents: 'none' }} />}
         />
-        <Select
-          placeholder="Filter by Availability"
-          data={availabilities}
-          value={availabilityFilter}
-          onChange={onAvailabilityFilterChange}
-          clearable
-          className={classes.filterInput}
-          styles={{
-            input: {
-              backgroundColor: availabilityFilter ? selectedBackgroundColor : unselectedBackgroundColor,
-              color: availabilityFilter ? selectedTextColor : defaultTextColor,
-              border: '1px solid #4A5E6A',
-              transition: 'color 0.2s ease',
-              '&:hover': {
-                color: availabilityFilter ? selectedTextColor : hoverTextColor,
-              },
-            },
-            dropdown: { backgroundColor: unselectedBackgroundColor, border: '1px solid #4A5E6A' },
-            option: { color: defaultTextColor },
-          }}
-          rightSection={<span style={{ color: availabilityFilter ? selectedTextColor : defaultTextColor, pointerEvents: 'none' }} />}
-        />
       </Group>
     </Box>
   );
 };
 
-export default ArchiveActions; 
+export default ArchiveActions;

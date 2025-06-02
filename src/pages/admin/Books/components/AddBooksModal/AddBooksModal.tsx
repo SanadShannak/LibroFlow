@@ -22,6 +22,7 @@ const AddBooksModal: React.FC<AddBooksModalProps> = ({
     language: '',
     quantity: 0,
     reservedQuantity: 0,
+    pricePerOne: 0, // Keep this for the Book interface but don't show in UI
   });
 
   const types = ['Fiction', 'Self-Help', 'Thriller', 'Children', 'Non-Fiction', 'Classic', 'Dystopian', 'Educational'];
@@ -30,7 +31,7 @@ const AddBooksModal: React.FC<AddBooksModalProps> = ({
   const handleAdd = () => {
     if (!newBook.name || !newBook.type || !newBook.language || newBook.quantity < 0 || newBook.reservedQuantity < 0 || newBook.reservedQuantity > newBook.quantity) return;
     onAddBook(newBook);
-    setNewBook({ name: '', type: '', language: '', quantity: 0, reservedQuantity: 0 });
+    setNewBook({ name: '', type: '', language: '', quantity: 0, reservedQuantity: 0, pricePerOne: 0 });
   };
 
   return (

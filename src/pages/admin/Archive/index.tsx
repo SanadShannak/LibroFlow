@@ -17,7 +17,6 @@ const ArchivePage: React.FC<ArchivePageProps> = ({ archivedBooks, onRestoreBook 
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
-  const [availabilityFilter, setAvailabilityFilter] = useState<string | null>(null);
 
   const filteredBooks = useMemo(() =>
     archivedBooks.filter((book) => {
@@ -26,10 +25,9 @@ const ArchivePage: React.FC<ArchivePageProps> = ({ archivedBooks, onRestoreBook 
         book.id.toString().includes(searchQuery);
       const matchesType = typeFilter ? book.type === typeFilter : true;
       const matchesLanguage = languageFilter ? book.language === languageFilter : true;
-      const matchesAvailability = availabilityFilter ? book.availability === availabilityFilter : true;
-      return matchesSearch && matchesType && matchesLanguage && matchesAvailability;
+      return matchesSearch && matchesType && matchesLanguage;
     }),
-    [archivedBooks, searchQuery, typeFilter, languageFilter, availabilityFilter]
+    [archivedBooks, searchQuery, typeFilter, languageFilter]
   );
 
   return (
@@ -48,10 +46,8 @@ const ArchivePage: React.FC<ArchivePageProps> = ({ archivedBooks, onRestoreBook 
               onSearchChange={setSearchQuery}
               onTypeFilterChange={setTypeFilter}
               onLanguageFilterChange={setLanguageFilter}
-              onAvailabilityFilterChange={setAvailabilityFilter}
               typeFilter={typeFilter}
               languageFilter={languageFilter}
-              availabilityFilter={availabilityFilter}
               books={archivedBooks}
             />
           </Box>
@@ -66,4 +62,4 @@ const ArchivePage: React.FC<ArchivePageProps> = ({ archivedBooks, onRestoreBook 
   );
 };
 
-export default ArchivePage; 
+export default ArchivePage;
