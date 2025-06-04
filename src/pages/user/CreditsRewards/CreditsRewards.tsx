@@ -115,47 +115,65 @@ const UserCreditsRewards: React.FC = () => {
                   height: '400px', // Increased height for larger cards
                   width: '100%', 
                   border: '1px solid #4A5568',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
                 withBorder
               >
-                {/* Placeholder for Image */}
-                <div style={{ height: '200px', backgroundColor: '#e0e7ff', borderRadius: '4px', marginBottom: '15px' }} > <Image></Image></div>
-                <Badge
-                  color="red"
-                  variant="filled"
-                  style={{ position: 'absolute', top: '8px', right: '8px' }}
-                >
-                  ❤️
-                </Badge>
-                <Text mt="xs" fw={500} c="white" size="lg">
-                  {reward.name}
-                </Text>
-                <Text size="md" c="gray.4" mt="xs">
-                  {reward.description}
-                </Text>
-                <Progress
-                  value={(totalPoints / reward.pointsCost) * 100}
-                  color="green"
-                  size="lg"
-                  mt="md"
-                  radius="xl"
-                  style={{ backgroundColor: '#e0e7ff' }}
+                {/* Background Image */}
+                <div 
+                  style={{ 
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundImage: `url(${reward.imageUrl})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: 0.2,
+                    zIndex: 0
+                  }} 
                 />
-                <Group justify="space-between" mt="md">
-                  <Text fz="xl" fw={700} c="yellow.6">
-                    ⭐ {reward.pointsCost}
-                  </Text>
-                  <Button
-                    variant="subtle"
-                    color={reward.redeemed ? 'gray' : 'blue'}
-                    radius="md"
-                    size="md"
-                    disabled={reward.redeemed || totalPoints < reward.pointsCost}
-                    onClick={() => handleRedeemReward(reward)}
+                {/* Content */}
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <Badge
+                    color="red"
+                    variant="filled"
+                    style={{ position: 'absolute', top: '8px', right: '8px' }}
                   >
-                    {reward.redeemed ? 'Redeemed' : 'Redeem Now'}
-                  </Button>
-                </Group>
+                    ❤️
+                  </Badge>
+                  <Text mt="xs" fw={500} c="white" size="lg">
+                    {reward.name}
+                  </Text>
+                  <Text size="md" c="gray.4" mt="xs">
+                    {reward.description}
+                  </Text>
+                  <Progress
+                    value={(totalPoints / reward.pointsCost) * 100}
+                    color="green"
+                    size="lg"
+                    mt="md"
+                    radius="xl"
+                    style={{ backgroundColor: '#e0e7ff' }}
+                  />
+                  <Group justify="space-between" mt="md">
+                    <Text fz="xl" fw={700} c="yellow.6">
+                      ⭐ {reward.pointsCost}
+                    </Text>
+                    <Button
+                      variant="subtle"
+                      color={reward.redeemed ? 'gray' : 'blue'}
+                      radius="md"
+                      size="md"
+                      disabled={reward.redeemed || totalPoints < reward.pointsCost}
+                      onClick={() => handleRedeemReward(reward)}
+                    >
+                      {reward.redeemed ? 'Redeemed' : 'Redeem Now'}
+                    </Button>
+                  </Group>
+                </div>
               </Card>
             ))}
           </SimpleGrid>
